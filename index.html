@@ -116,7 +116,7 @@
     font-size: 20px;
   }
   
-      .hamburger-menu {
+    .hamburger-menu {
       position: absolute;
       top: 20px;
       left: 20px;
@@ -170,6 +170,9 @@
     }
 
     .menu-item {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
       padding: 10px;
       cursor: pointer;
       display: flex;
@@ -183,12 +186,15 @@
     }
 
     .dropdown-menu {
-      display: none;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
       margin-left: 20px; /* Indent the dropdown menu */
     }
 
     .dropdown-menu.open {
-      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .dropdown-item {
@@ -196,7 +202,7 @@
       cursor: pointer;
       font-family: Arial, sans-serif; /* Set the font to Arial */
     }
-    
+
     .menu-item.active {
       background-color: #f2f2f2;
     }
@@ -236,7 +242,6 @@
           <div class="dropdown-item">Option 3</div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -255,50 +260,83 @@
 
   <script>
   
-  const hamburgerMenu = document.querySelector('.hamburger-menu');
-const verticalMenu = document.querySelector('.vertical-menu');
-const menuItems = document.querySelectorAll('.menu-item');
-let activeMenuItem = null;
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const verticalMenu = document.querySelector('.vertical-menu');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+    let activeMenuItem = null;
+    let activeDropdownMenu = null;
 
-hamburgerMenu.addEventListener('click', () => {
-  verticalMenu.classList.toggle('open');
-});
-
-menuItems.forEach((menuItem) => {
-  const dropdownMenu = menuItem.querySelector('.dropdown-menu');
-  menuItem.addEventListener('click', () => {
-    if (activeMenuItem) {
-      activeMenuItem.classList.remove('active');
-      activeMenuItem = null;
-    }
-
-    // Close other open dropdown menus
-    const openDropdownMenus = document.querySelectorAll('.dropdown-menu.open');
-    openDropdownMenus.forEach((menu) => {
-      if (menu !== dropdownMenu) {
-        menu.classList.remove('open');
+    hamburgerMenu.addEventListener('click', () => {
+      if (verticalMenu.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
       }
     });
 
-    dropdownMenu.classList.toggle('open');
-    menuItem.classList.add('active');
-    activeMenuItem = menuItem;
-  });
-});
-
-document.addEventListener('click', (event) => {
-  const targetElement = event.target;
-  if (
-    !targetElement.closest('.vertical-menu') &&
-    !targetElement.closest('.hamburger-menu')
-  ) {
-    verticalMenu.classList.remove('open');
-    if (activeMenuItem) {
-      activeMenuItem.classList.remove('active');
-      activeMenuItem = null;
+    function openMenu() {
+      verticalMenu.classList.add('open');
+      menuItems.forEach((menuItem, index) => {
+        setTimeout(() => {
+          menuItem.style.opacity = '1';
+          menuItem.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
     }
-  }
-});
+
+    function closeMenu() {
+      verticalMenu.classList.remove('open');
+      menuItems.forEach((menuItem, index) => {
+        setTimeout(() => {
+          menuItem.style.opacity = '0';
+          menuItem.style.transform = 'translateY(-20px)';
+        }, index * 100);
+      });
+    }
+
+    menuItems.forEach((menuItem) => {
+      menuItem.addEventListener('click', () => {
+        if (menuItem.classList.contains('active')) {
+          menuItem.classList.remove('active');
+          activeMenuItem = null;
+        } else {
+          if (activeMenuItem) {
+            activeMenuItem.classList.remove('active');
+          }
+          menuItem.classList.add('active');
+          activeMenuItem = menuItem;
+        }
+      });
+    });
+
+    dropdownMenus.forEach((dropdownMenu) => {
+      const parentMenuItem = dropdownMenu.parentElement;
+
+      parentMenuItem.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
+
+        if (dropdownMenu.classList.contains('open')) {
+          dropdownMenu.classList.remove('open');
+        } else {
+          if (activeDropdownMenu) {
+            activeDropdownMenu.classList.remove('open');
+          }
+          dropdownMenu.classList.add('open');
+          activeDropdownMenu = dropdownMenu;
+        }
+      });
+    });
+
+    // Close the dropdown menu when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.menu-item')) {
+        if (activeDropdownMenu) {
+          activeDropdownMenu.classList.remove('open');
+          activeDropdownMenu = null;
+        }
+      }
+    });
 
 // JavaScript to handle click events on about-options and service-options
 const aboutOptions = document.querySelectorAll('.about-options');
@@ -995,3 +1033,6 @@ function redoQuiz() {
 
 </body>
 </html>
+
+
+
