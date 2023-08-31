@@ -350,22 +350,8 @@ aboutOptions.forEach((option) => {
   });
 });
 
-aboutOptions.forEach((option) => {
-  option.addEventListener('touchend', () => {
-    const optionText = option.querySelector('p').textContent;
-    console.log(`About Option Selected: ${optionText}`);
-  });
-});
-
 serviceOptions.forEach((option) => {
   option.addEventListener('click', () => {
-    const optionText = option.querySelector('p').textContent;
-    console.log(`Service Option Selected: ${optionText}`);
-  });
-});
-
-serviceOptions.forEach((option) => {
-  option.addEventListener('touchend', () => {
     const optionText = option.querySelector('p').textContent;
     console.log(`Service Option Selected: ${optionText}`);
   });
@@ -927,7 +913,7 @@ serviceOptions.forEach((option) => {
         optionElement.dataset.value = option.value;
         optionElement.addEventListener('click', handleOptionClick);
         
-  optionElement.addEventListener('touchend', handleOptionClick);       
+ optionElement.addEventListener('touchstart', handleOptionClick);
 
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
