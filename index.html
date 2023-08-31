@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>拯溺筆試練習(水上急救)</title>
-     <meta name="viewport" content="width=device-width, initial-scale=1">o   
+     <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -901,6 +901,7 @@ serviceOptions.forEach((option) => {
     let currentQuestionIndex = 0;
     let score = 0;
     let userAnswered = false;
+    let touchend = false;
 
     function showQuestion() {
       const question = questions[currentQuestionIndex];
@@ -912,6 +913,7 @@ serviceOptions.forEach((option) => {
         optionElement.classList.add('option');
         optionElement.dataset.value = option.value;
         optionElement.addEventListener('click', handleOptionClick);
+        optionElement.addEventListener('touchend', handleOptionClick);
 
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
