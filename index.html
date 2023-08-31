@@ -944,7 +944,7 @@ serviceOptions.forEach((option) => {
       }
 
       userAnswered = true;
-      const selectedOption = event.currentTarget;
+      const selectedOption = event.target.cloest('.option-label');
       const selectedValue = selectedOption.dataset.value;
 
       const question = questions[currentQuestionIndex];
