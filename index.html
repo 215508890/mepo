@@ -901,6 +901,7 @@ serviceOptions.forEach((option) => {
     let currentQuestionIndex = 0;
     let score = 0;
     let userAnswered = false;
+    let touchStarted = false;
 
     function showQuestion() {
       const question = questions[currentQuestionIndex];
@@ -913,7 +914,7 @@ serviceOptions.forEach((option) => {
         optionElement.dataset.value = option.value;
         optionElement.addEventListener('click', handleOptionClick);
         
- optionElement.addEventListener('touchend', handleOptionClick);
+ optionElement.addEventListener('touchstart', handleOptionClick);
 
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
@@ -938,22 +939,32 @@ serviceOptions.forEach((option) => {
       nextButton.style.display = 'none';
     }
 
-    function handleOptionClick(event) {
-      if (userAnswered) {
+function handleOptionClick(event) {
+    if(event.type === 'touchstart') {
+        touchStarted = true;
+    }
+    if(event.type === 'click' && touchStarted) {
+        touchStarted = false;
         return;
-      }
+    }
+    touchStarted = false;
 
-      userAnswered = true;
-      const selectedOption = event.target.cloest('option.label');
-      const selectedValue = selectedOption.dataset.value;
+    if (userAnswered) {
+        return;
+    }
 
-      const question = questions[currentQuestionIndex];
-      question.userAnswer = selectedValue;
+    userAnswered = true;
+    const selectedOption = event.target.closest('.option');
+    const selectedValue = selectedOption.dataset.value;
 
-      if (selectedValue === question.correctAnswer) {
+    const question = questions[currentQuestionIndex];
+    question.userAnswer = selectedValue;
+
+    if (selectedValue === question.correctAnswer) {
         selectedOption.classList.add('correct-option');
         score++;
-      } else {
+    } else {
+
         selectedOption.classList.add('wrong-option');
         const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
         correctOption.classList.add('correct-option');
