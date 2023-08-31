@@ -912,6 +912,8 @@ serviceOptions.forEach((option) => {
         optionElement.classList.add('option');
         optionElement.dataset.value = option.value;
         optionElement.addEventListener('click', handleOptionClick);
+        
+  optionElement.addEventListener('touchend', handleOptionClick);       
 
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
@@ -1034,6 +1036,3 @@ function redoQuiz() {
 
 </body>
 </html>
-
-
-
