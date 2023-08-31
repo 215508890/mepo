@@ -901,7 +901,6 @@ serviceOptions.forEach((option) => {
     let currentQuestionIndex = 0;
     let score = 0;
     let userAnswered = false;
-    let touchend = false;
 
     function showQuestion() {
       const question = questions[currentQuestionIndex];
@@ -912,8 +911,9 @@ serviceOptions.forEach((option) => {
         const optionElement = document.createElement('div');
         optionElement.classList.add('option');
         optionElement.dataset.value = option.value;
-        optionElement.addEventListener('click', handleOptionClick);
         optionElement.addEventListener('touchend', handleOptionClick);
+        optionElement.addEventListener('click', handleOptionClick);
+
 
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
