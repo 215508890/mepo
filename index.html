@@ -211,7 +211,7 @@
 </style>
 </head>
 <body>
-
+<div onclick="void(0);">
   <div class="hamburger-menu">
     <div class="line"></div>
     <div class="line"></div>
@@ -911,7 +911,6 @@ serviceOptions.forEach((option) => {
         const optionElement = document.createElement('div');
         optionElement.classList.add('option');
         optionElement.dataset.value = option.value;
-        optionElement.addEventListener('touchend', handleOptionClick);
         optionElement.addEventListener('click', handleOptionClick);
 
 
