@@ -913,7 +913,7 @@ serviceOptions.forEach((option) => {
         optionElement.dataset.value = option.value;
         optionElement.addEventListener('click', handleOptionClick);
         
- optionElement.addEventListener('touchstart', handleOptionClick);
+ optionElement.addEventListener('touch', handleOptionClick);
 
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
