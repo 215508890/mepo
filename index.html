@@ -207,7 +207,51 @@
     .menu-item.active {
       background-color: #f2f2f2;
     }
-    
+
+   // browser-warning //
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+  }
+
+  .modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-ok {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 15px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  }
+
+  .btn-ok:hover {
+  background-color: #0056b3;
+  }
+  
 </style>
 </head>
 <body>
@@ -1032,17 +1076,28 @@ function redoQuiz() {
 
 
     // browser-warning //
-  </script>
-<div id="browser-warning" style="display: none;">
-  <p>For the best experience, please use Google Chrome to open this site.</p>
-</div>
+  <body onload="detectBrowser()">
 
-<script>
-  const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
-  if (!isChrome) {
-    document.getElementById('browser-warning').style.display = 'block';
+  <div id="myModal" class="modal">
+  <div class="modal-content">
+    <p>為了提供最佳體驗，請使用Google Chrome打開本網站。</p>
+    <button class="btn-ok" onclick="closeModal()">好</button>
+  </div>
+  </div>
+
+  <script>
+  function detectBrowser() {
+  if(!(window.navigator.userAgent.indexOf("Chrome") > -1)) {
+    var modal = document.getElementById('myModal');
+    modal.style.display = "block";
   }
-</script>
+  }
+
+  function closeModal() {
+  var modal = document.getElementById('myModal');
+  modal.style.display = "none";
+  }
+  </script>
 </body>
 </html>
 
