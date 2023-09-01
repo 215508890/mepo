@@ -344,8 +344,8 @@ const aboutOptions = document.querySelectorAll('.about-options');
 const serviceOptions = document.querySelectorAll('.service-options');
 
 aboutOptions.forEach((option) => {
-  option.addEventListener('click', handleOptionSelection);
-  option.addEventListener('touchend', handleOptionSelection);
+  option.addEventListener.on('click', handleOptionSelection);
+  option.addEventListener.on('touchend', handleOptionSelection);
 });
 
 function handleOptionSelection(event) {
@@ -355,8 +355,8 @@ function handleOptionSelection(event) {
 };
 
 serviceOptions.forEach((option) => {
-  option.addEventListener('click', handleOptionSelection);
-  option.addEventListener('touchend', handleOptionSelection);
+  option.addEventListener.on('click', handleOptionSelection);
+  option.addEventListener.on('touchend', handleOptionSelection);
 });
 
 function handleOptionSelection(event) {
@@ -919,8 +919,8 @@ function handleOptionSelection(event) {
         const optionElement = document.createElement('div');
         optionElement.classList.add('option');
         optionElement.dataset.value = option.value;
-        optionElement.addEventListener('click', handleOptionClick);
-        optionElement.addEventListener('touchend', handleOptionClick);
+        optionElement.addEventListener.on('click', handleOptionClick);
+        optionElement.addEventListener.on('touchend', handleOptionClick);
 
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
