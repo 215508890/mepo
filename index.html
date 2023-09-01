@@ -212,18 +212,16 @@
   .modal {
   display: none;
   position: fixed;
-  z-index: 1;
-  padding-top: 100px;
-  height: 100%;
-  width: 100%;
-  overflow: auto;
+  z-index: 9999; 
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: rgba(0,0,0,0.4);
   }
 
   .modal-content {
   position: relative;
   background-color: #fefefe;
-  margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
@@ -1078,28 +1076,29 @@ function redoQuiz() {
 
 
     // browser-warning 
-  <body onload="detectBrowser()">
+<body onload="detectBrowser()">
 
-  <div id="myModal" class="modal">
+<div id="myModal" class="modal">
   <div class="modal-content">
-    <p>為了提供最佳體驗，請使用Google Chrome打開本網站。</p>
+    <p>Our website works best on Google Chrome. Please consider switching for the best experience.</p>
     <button class="btn-ok" onclick="closeModal()">好</button>
   </div>
-  </div>
+</div>
 
-  <script>
-  function detectBrowser() {
+<script>
+function detectBrowser() {
   if(!(window.navigator.userAgent.indexOf("Chrome") > -1)) {
     var modal = document.getElementById('myModal');
     modal.style.display = "block";
   }
   }
 
-  function closeModal() {
+function closeModal() {
   var modal = document.getElementById('myModal');
   modal.style.display = "none";
   }
-  </script>
+</script>
+  
 </body>
 </html>
 
