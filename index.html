@@ -2,12 +2,14 @@
 <html>
 <head>
   <title>拯溺筆試練習(水上急救)</title>
-     <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   body {
     font-family: Arial, sans-serif;
     text-align: center;
   }
+  
+  cursor: pointer;
 
   .container {
     display: flex;
@@ -911,8 +913,7 @@ serviceOptions.forEach((option) => {
         const optionElement = document.createElement('div');
         optionElement.classList.add('option');
         optionElement.dataset.value = option.value;
-        optionElement.addEventListener('touchstart click', handleOptionClick);
-
+        optionElement.addEventListener('click', handleOptionClick);
 
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
