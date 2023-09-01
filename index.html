@@ -268,13 +268,16 @@
     let activeMenuItem = null;
     let activeDropdownMenu = null;
 
-    hamburgerMenu.addEventListener('click', () => {
-      if (verticalMenu.classList.contains('open')) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
+hamburgerMenu.addEventListener('click', toggleMenu);
+hamburgerMenu.addEventListener('touchend', toggleMenu);
+
+function toggleMenu() {
+  if (verticalMenu.classList.contains('open')) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
+}
 
     function openMenu() {
       verticalMenu.classList.add('open');
@@ -296,66 +299,88 @@
       });
     }
 
-    menuItems.forEach((menuItem) => {
-      menuItem.addEventListener('click', () => {
-        if (menuItem.classList.contains('active')) {
-          menuItem.classList.remove('active');
-          activeMenuItem = null;
-        } else {
-          if (activeMenuItem) {
-            activeMenuItem.classList.remove('active');
-          }
-          menuItem.classList.add('active');
-          activeMenuItem = menuItem;
-        }
-      });
-    });
+  menuItems.forEach((menuItem) => {
+  menuItem.addEventListener('click', toggleMenuItem);
+  menuItem.addEventListener('touchend', toggleMenuItem);
+});
 
-    dropdownMenus.forEach((dropdownMenu) => {
-      const parentMenuItem = dropdownMenu.parentElement;
+let activeMenuItem = null;
 
-      parentMenuItem.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
+function toggleMenuItem() {
+  if (this.classList.contains('active')) {
+    this.classList.remove('active');
+    activeMenuItem = null;
+  } else {
+    if (activeMenuItem) {
+      activeMenuItem.classList.remove('active');
+    }
+    this.classList.add('active');
+    activeMenuItem = this;
+  }
+}
 
-        if (dropdownMenu.classList.contains('open')) {
-          dropdownMenu.classList.remove('open');
-        } else {
-          if (activeDropdownMenu) {
-            activeDropdownMenu.classList.remove('open');
-          }
-          dropdownMenu.classList.add('open');
-          activeDropdownMenu = dropdownMenu;
-        }
-      });
-    });
+  dropdownMenus.forEach((dropdownMenu) => {
+  const parentMenuItem = dropdownMenu.parentElement;
 
- document.addEventListener('click', (event) => {
+  parentMenuItem.addEventListener('click', toggleDropdownMenu);
+  parentMenuItem.addEventListener('touchend', toggleDropdownMenu);
+  });
+
+  let activeDropdownMenu = null;
+  
+  function toggleDropdownMenu(event) {
+  event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
+
+  const dropdownMenu = this.querySelector('.dropdown-menu');
+  if (dropdownMenu.classList.contains('open')) {
+    dropdownMenu.classList.remove('open');
+  } else {
+    if (activeDropdownMenu) {
+      activeDropdownMenu.classList.remove('open');
+    }
+    dropdownMenu.classList.add('open');
+    activeDropdownMenu = dropdownMenu;
+  }
+  };
+
+  document.addEventListener('click', closeDropdownMenu);
+  document.addEventListener('touchend', closeDropdownMenu);
+
+  function closeDropdownMenu(event) {
   if (!event.target.closest('.vertical-menu')) {
     if (activeDropdownMenu) {
       activeDropdownMenu.classList.remove('open');
-      activeDropdownMenu = null;closeMenu()
+      activeDropdownMenu = null;
+      closeMenu();
     }
-
   }
-});
+  };
 
 // JavaScript to handle click events on about-options and service-options
 const aboutOptions = document.querySelectorAll('.about-options');
 const serviceOptions = document.querySelectorAll('.service-options');
 
 aboutOptions.forEach((option) => {
-  option.addEventListener('click', () => {
-    const optionText = option.querySelector('p').textContent;
-    console.log(`About Option Selected: ${optionText}`);
-  });
+  option.addEventListener('click', handleOptionSelection);
+  option.addEventListener('touchend', handleOptionSelection);
 });
 
+function handleOptionSelection(event) {
+  const option = event.currentTarget;
+  const optionText = option.querySelector('p').textContent;
+  console.log(`About Option Selected: ${optionText}`);
+}
+
 serviceOptions.forEach((option) => {
-  option.addEventListener('click', () => {
-    const optionText = option.querySelector('p').textContent;
-    console.log(`Service Option Selected: ${optionText}`);
-  });
+  option.addEventListener('click', handleOptionSelection);
+  option.addEventListener('touchend', handleOptionSelection);
 });
+
+function handleOptionSelection(event) {
+  const option = event.currentTarget;
+  const optionText = option.querySelector('p').textContent;
+  console.log(`Service Option Selected: ${optionText}`);
+}
   
     const stopwatchElement = document.getElementById('stopwatch');
   let timeInSeconds = 30 * 60; // 30 minutes in seconds
@@ -912,6 +937,7 @@ serviceOptions.forEach((option) => {
         optionElement.classList.add('option');
         optionElement.dataset.value = option.value;
         optionElement.addEventListener('click', handleOptionClick);
+        optionElement.addEventListener('touchend', handleOptionClick);
 
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
@@ -1024,8 +1050,11 @@ function redoQuiz() {
   timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
 }    
 
-    nextButton.addEventListener('click', showNextQuestion);
-    redoButton.addEventListener('click', redoQuiz);
+  nextButton.addEventListener('click', showNextQuestion);
+  nextButton.addEventListener('touchend', showNextQuestion);
+
+  redoButton.addEventListener('click', redoQuiz);
+  redoButton.addEventListener('touchend', redoQuiz);
 
     // Show the first question
     showQuestion();
