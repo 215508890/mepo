@@ -1030,8 +1030,19 @@ function redoQuiz() {
     // Show the first question
     showQuestion();
 
-  </script>
 
+    // browser-warning //
+  </script>
+<div id="browser-warning" style="display: none;">
+  <p>For the best experience, please use Google Chrome to open this site.</p>
+</div>
+
+<script>
+  const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+  if (!isChrome) {
+    document.getElementById('browser-warning').style.display = 'block';
+  }
+</script>
 </body>
 </html>
 
