@@ -442,19 +442,7 @@ serviceOptions.forEach((option) => {
   </div>
 </div>
 
-<script>
-function detectBrowser() {
-  if(!(window.navigator.userAgent.indexOf("Chrome") > -1)) {
-    var modal = document.getElementById('myModal');
-    modal.style.display = "block";
-  }
-  }
 
-function closeModal() {
-  var modal = document.getElementById('myModal');
-  modal.style.display = "none";
-  }
-</script>
 
     
   const allQuestions = [
@@ -1098,8 +1086,21 @@ function redoQuiz() {
     showQuestion();
 
     </script>
+  
+<!--/ browser-warning -->
+<script>
+function detectBrowser() {
+  if(!(window.navigator.userAgent.indexOf("Chrome") > -1)) {
+    var modal = document.getElementById('myModal');
+    modal.style.display = "block";
+  }
+  }
 
-
+function closeModal() {
+  var modal = document.getElementById('myModal');
+  modal.style.display = "none";
+  }
+</script>
   
   
 </body>
