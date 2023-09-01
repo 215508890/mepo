@@ -221,10 +221,10 @@
     }
 
    // browser-warning 
-  .modal {
+ .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 1000; 
   padding-top: 100px;
   height: 100%;
   width: 100%;
@@ -262,7 +262,7 @@
 
   .btn-ok:hover {
   background-color: #0056b3;
-  }
+  } 
   
 </style>
 </head>
@@ -310,7 +310,7 @@
     </div>
   
     <!--/ browser-warning -->
-    <body onload="detectBrowser()">
+  <body onload="detectBrowser()">
 
     <div id="myModal" class="modal">
     <div class="modal-content">
@@ -318,6 +318,7 @@
     <button class="btn-ok" onclick="closeModal()">好</button>
     </div>
     </div>
+
   
     <h1 class="question" id="question-text"></h1>
     <div id="options-container"></div>
