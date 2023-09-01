@@ -1120,7 +1120,8 @@ function redoQuiz() {
 <!--/ browser-warning -->
 <script>
 function detectBrowser() {
-  if(!(window.navigator.userAgent.indexOf("Chrome") > -1)) {
+  var userAgent = window.navigator.userAgent;
+  if(!(userAgent.indexOf("Chrome") > -1 || userAgent.indexOf("CriOS") > -1)) {
     var overlay = document.getElementById('overlay');
     overlay.style.display = "block";
     var modal = document.getElementById('myModal');
