@@ -8,7 +8,6 @@
     font-family: Arial, sans-serif;
     text-align: center;
   }
-  
 
   .container {
     display: flex;
@@ -262,82 +261,84 @@
 
   <script>
   
-  const hamburgerMenu = document.querySelector('.hamburger-menu');
-const verticalMenu = document.querySelector('.vertical-menu');
-const menuItems = document.querySelectorAll('.menu-item');
-const dropdownMenus = document.querySelectorAll('.dropdown-menu');
-let activeMenuItem = null;
-let activeDropdownMenu = null;
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const verticalMenu = document.querySelector('.vertical-menu');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+    let activeMenuItem = null;
+    let activeDropdownMenu = null;
 
-hamburgerMenu.onclick = function () {
-  if (verticalMenu.classList.contains('open')) {
-    closeMenu();
-  } else {
-    openMenu();
-  }
-};
-
-function openMenu() {
-  verticalMenu.classList.add('open');
-  menuItems.forEach((menuItem, index) => {
-    setTimeout(() => {
-      menuItem.style.opacity = '1';
-      menuItem.style.transform = 'translateY(0)';
-    }, index * 100);
-  });
-}
-
-function closeMenu() {
-  verticalMenu.classList.remove('open');
-  menuItems.forEach((menuItem, index) => {
-    setTimeout(() => {
-      menuItem.style.opacity = '0';
-      menuItem.style.transform = 'translateY(-20px)';
-    }, index * 100);
-  });
-}
-
-document.onclick = function () {
-  if (activeDropdownMenu) {
-    activeDropdownMenu.classList.remove('open');
-    activeDropdownMenu = null;
-  }
-  closeMenu();
-};
-
-menuItems.forEach((menuItem) => {
-  menuItem.onclick = function () {
-    if (menuItem.classList.contains('active')) {
-      menuItem.classList.remove('active');
-      activeMenuItem = null;
-    } else {
-      if (activeMenuItem) {
-        activeMenuItem.classList.remove('active');
+    hamburgerMenu.addEventListener('click', () => {
+      if (verticalMenu.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
       }
-      menuItem.classList.add('active');
-      activeMenuItem = menuItem;
+    });
+
+    function openMenu() {
+      verticalMenu.classList.add('open');
+      menuItems.forEach((menuItem, index) => {
+        setTimeout(() => {
+          menuItem.style.opacity = '1';
+          menuItem.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
     }
-  };
+
+    function closeMenu() {
+      verticalMenu.classList.remove('open');
+      menuItems.forEach((menuItem, index) => {
+        setTimeout(() => {
+          menuItem.style.opacity = '0';
+          menuItem.style.transform = 'translateY(-20px)';
+        }, index * 100);
+      });
+    }
+
+    menuItems.forEach((menuItem) => {
+      menuItem.addEventListener('click', () => {
+        if (menuItem.classList.contains('active')) {
+          menuItem.classList.remove('active');
+          activeMenuItem = null;
+        } else {
+          if (activeMenuItem) {
+            activeMenuItem.classList.remove('active');
+          }
+          menuItem.classList.add('active');
+          activeMenuItem = menuItem;
+        }
+      });
+    });
+
+    dropdownMenus.forEach((dropdownMenu) => {
+      const parentMenuItem = dropdownMenu.parentElement;
+
+      parentMenuItem.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
+
+        if (dropdownMenu.classList.contains('open')) {
+          dropdownMenu.classList.remove('open');
+        } else {
+          if (activeDropdownMenu) {
+            activeDropdownMenu.classList.remove('open');
+          }
+          dropdownMenu.classList.add('open');
+          activeDropdownMenu = dropdownMenu;
+        }
+      });
+    });
+
+ document.addEventListener('click', (event) => {
+  if (!event.target.closest('.vertical-menu')) {
+    if (activeDropdownMenu) {
+      activeDropdownMenu.classList.remove('open');
+      activeDropdownMenu = null;closeMenu()
+    }
+
+  }
 });
 
-dropdownMenus.forEach((dropdownMenu) => {
-  const parentMenuItem = dropdownMenu.parentElement;
-
-  parentMenuItem.onclick = function (event) {
-    event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
-
-    if (dropdownMenu.classList.contains('open')) {
-      dropdownMenu.classList.remove('open');
-    } else {
-      if (activeDropdownMenu) {
-        activeDropdownMenu.classList.remove('open');
-      }
-      dropdownMenu.classList.add('open');
-      activeDropdownMenu = dropdownMenu;
-    }
-  };
-});
-    
 // JavaScript to handle click events on about-options and service-options
 const aboutOptions = document.querySelectorAll('.about-options');
 const serviceOptions = document.querySelectorAll('.service-options');
@@ -892,82 +893,84 @@ serviceOptions.forEach((option) => {
     }
 
   ];
-const numRandomQuestions = 50;
-const questions = getRandomQuestions(numRandomQuestions);
 
-let currentQuestionIndex = 0;
-let score = 0;
-let userAnswered = false;
+  const numRandomQuestions = 50;
+  const questions = getRandomQuestions(numRandomQuestions);
 
-function showQuestion() {
-  const question = questions[currentQuestionIndex];
-  questionText.textContent = question.question;
-  optionsContainer.innerHTML = '';
 
-  question.options.forEach(option => {
-    const optionElement = document.createElement('div');
-    optionElement.classList.add('option');
-    optionElement.dataset.value = option.value;
-    optionElement.onclick = handleOptionClick;
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let userAnswered = false;
 
-    const optionLabel = document.createElement('span');
-    optionLabel.classList.add('option-label');
-    optionLabel.textContent = option.label;
+    function showQuestion() {
+      const question = questions[currentQuestionIndex];
+      questionText.textContent = question.question;
+      optionsContainer.innerHTML = '';
 
-    optionElement.appendChild(optionLabel);
-    optionsContainer.appendChild(optionElement);
-  });
+      question.options.forEach(option => {
+        const optionElement = document.createElement('div');
+        optionElement.classList.add('option');
+        optionElement.dataset.value = option.value;
+        optionElement.addEventListener('click', handleOptionClick);
 
-  if (userAnswered) {
-    const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
-    if (selectedOption) {
-      selectedOption.classList.add('wrong-option');
+        const optionLabel = document.createElement('span');
+        optionLabel.classList.add('option-label');
+        optionLabel.textContent = option.label;
+
+        optionElement.appendChild(optionLabel);
+        optionsContainer.appendChild(optionElement);
+      });
+
+      if (userAnswered) {
+        const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
+        if (selectedOption) {
+          selectedOption.classList.add('wrong-option');
+        }
+        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+        if (correctOption) {
+          correctOption.classList.add('correct-option');
+        }
+      }
+
+      feedbackContainer.textContent = '';
+      nextButton.style.display = 'none';
     }
-    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-    if (correctOption) {
-      correctOption.classList.add('correct-option');
+
+    function handleOptionClick(event) {
+      if (userAnswered) {
+        return;
+      }
+
+      userAnswered = true;
+      const selectedOption = event.target.closest('.option');
+      const selectedValue = selectedOption.dataset.value;
+
+      const question = questions[currentQuestionIndex];
+      question.userAnswer = selectedValue;
+
+      if (selectedValue === question.correctAnswer) {
+        selectedOption.classList.add('correct-option');
+        score++;
+      } else {
+        selectedOption.classList.add('wrong-option');
+        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+        correctOption.classList.add('correct-option');
+      }
+
+      feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
+      nextButton.style.display = 'block';
     }
-  }
 
-  feedbackContainer.textContent = '';
-  nextButton.style.display = 'none';
-}
+    function showNextQuestion() {
+      currentQuestionIndex++;
+      userAnswered = false;
 
-function handleOptionClick(event) {
-  if (userAnswered) {
-    return;
-  }
-
-  userAnswered = true;
-  const selectedOption = event.target.closest('.option');
-  const selectedValue = selectedOption.dataset.value;
-
-  const question = questions[currentQuestionIndex];
-  question.userAnswer = selectedValue;
-
-  if (selectedValue === question.correctAnswer) {
-    selectedOption.classList.add('correct-option');
-    score++;
-  } else {
-    selectedOption.classList.add('wrong-option');
-    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-    correctOption.classList.add('correct-option');
-  }
-
-  feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
-  nextButton.style.display = 'block';
-}
-
-function showNextQuestion() {
-  currentQuestionIndex++;
-  userAnswered = false;
-
-  if (currentQuestionIndex >= questions.length) {
-    showResult();
-  } else {
-    showQuestion();
-  }
-}
+      if (currentQuestionIndex >= questions.length) {
+        showResult();
+      } else {
+        showQuestion();
+      }
+    }
 
 function saveQuizState() {
   const quizState = {
@@ -977,6 +980,7 @@ function saveQuizState() {
   };
   localStorage.setItem('quizState', JSON.stringify(quizState));
 }
+
 
 function showResult() {
   saveQuizState();
@@ -1001,10 +1005,10 @@ function loadQuizState() {
   }
 }
 
-function getRandomQuestions(numQuestions) {
-  const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
-  return shuffledQuestions.slice(0, numQuestions);
-}
+  function getRandomQuestions(numQuestions) {
+    const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
+    return shuffledQuestions.slice(0, numQuestions);
+  }
 
 function redoQuiz() {
   localStorage.removeItem('quizState');
@@ -1018,14 +1022,14 @@ function redoQuiz() {
   clearInterval(timerInterval); // Clear the previous timer interval
   timeInSeconds = 30 * 60; // Reset the timer to 30 minutes
   timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
-}
+}    
 
-nextButton.onclick = showNextQuestion;
-redoButton.onclick = redoQuiz;
+    nextButton.addEventListener('click', showNextQuestion);
+    redoButton.addEventListener('click', redoQuiz);
 
-// Show the first question
-showQuestion();
-    
+    // Show the first question
+    showQuestion();
+
   </script>
 
 </body>
