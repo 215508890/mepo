@@ -432,6 +432,31 @@ serviceOptions.forEach((option) => {
     const nextButton = document.getElementById('next-button');
     const redoButton = document.getElementById('redo-button');
 
+      <!--/ browser-warning -->
+<body onload="detectBrowser()">
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <p>Our website works best on Google Chrome. Please consider switching for the best experience.</p>
+    <button class="btn-ok" onclick="closeModal()">好</button>
+  </div>
+</div>
+
+<script>
+function detectBrowser() {
+  if(!(window.navigator.userAgent.indexOf("Chrome") > -1)) {
+    var modal = document.getElementById('myModal');
+    modal.style.display = "block";
+  }
+  }
+
+function closeModal() {
+  var modal = document.getElementById('myModal');
+  modal.style.display = "none";
+  }
+</script>
+
+    
   const allQuestions = [
     {
         "question": "脊髓神經共有多少對",
@@ -1075,29 +1100,7 @@ function redoQuiz() {
     </script>
 
 
-    // browser-warning 
-<body onload="detectBrowser()">
-
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <p>Our website works best on Google Chrome. Please consider switching for the best experience.</p>
-    <button class="btn-ok" onclick="closeModal()">好</button>
-  </div>
-</div>
-
-<script>
-function detectBrowser() {
-  if(!(window.navigator.userAgent.indexOf("Chrome") > -1)) {
-    var modal = document.getElementById('myModal');
-    modal.style.display = "block";
-  }
-  }
-
-function closeModal() {
-  var modal = document.getElementById('myModal');
-  modal.style.display = "none";
-  }
-</script>
+  
   
 </body>
 </html>
