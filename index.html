@@ -1002,12 +1002,17 @@ serviceOptions.forEach((option) => {
       questionText.textContent = question.question;
       optionsContainer.innerHTML = '';
 
-      question.options.forEach(option => {
-        const optionElement = document.createElement('div');
-        optionElement.classList.add('option');
-        optionElement.dataset.value = option.value;
-        optionElement.addEventListener('click', handleOptionClick);
-        optionElement.addEventListener('touchend', handleOptionClick);
+question.options.forEach(option => {
+  const optionElement = document.createElement('div');
+  optionElement.classList.add('option');
+  optionElement.dataset.value = option.value;
+  optionElement.addEventListener('click', handleOptionClick);
+  optionElement.addEventListener('touchend', handleOptionClick);
+
+  // Reset the background color
+  optionElement.style.backgroundColor = '';
+
+      
 
         // Add hover effect and cursor change
   optionElement.style.cursor = 'pointer';
@@ -1042,16 +1047,19 @@ serviceOptions.forEach((option) => {
     }
 
     function handleOptionClick(event) {
-      if (userAnswered) {
-        return;
-      }
+  if (userAnswered) {
+    return;
+  }
 
-      userAnswered = true;
-      const selectedOption = event.target.closest('.option');
-      const selectedValue = selectedOption.dataset.value;
+  userAnswered = true;
+  const selectedOption = event.target.closest('.option');
+  const selectedValue = selectedOption.dataset.value;
 
-      const question = questions[currentQuestionIndex];
-      question.userAnswer = selectedValue;
+  // Change the background color of the selected option
+  selectedOption.style.backgroundColor = '#f0f0f0'; 
+
+  const question = questions[currentQuestionIndex];
+  question.userAnswer = selectedValue;
 
       if (selectedValue === question.correctAnswer) {
         selectedOption.classList.add('correct-option');
