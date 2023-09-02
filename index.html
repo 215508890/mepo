@@ -433,18 +433,10 @@ aboutOptions.forEach((option) => {
     const optionText = option.querySelector('p').textContent;
     console.log(`About Option Selected: ${optionText}`);
   });
-  option.addEventListener('touchend', () => {
-    const optionText = option.querySelector('p').textContent;
-    console.log(`About Option Selected: ${optionText}`);
-  });
 });
 
 serviceOptions.forEach((option) => {
   option.addEventListener('click', () => {
-    const optionText = option.querySelector('p').textContent;
-    console.log(`Service Option Selected: ${optionText}`);
-  });
-  option.addEventListener('touchend', () => {
     const optionText = option.querySelector('p').textContent;
     console.log(`Service Option Selected: ${optionText}`);
   });
@@ -998,34 +990,16 @@ serviceOptions.forEach((option) => {
     let userAnswered = false;
 
     function showQuestion() {
-  const question = questions[currentQuestionIndex];
-  questionText.textContent = question.question;
+      const question = questions[currentQuestionIndex];
+      questionText.textContent = question.question;
+      optionsContainer.innerHTML = '';
 
-  // Reset the background color of the existing options
-  const optionElements = document.querySelectorAll('.option');
-  optionElements.forEach(option => {
-    option.style.backgroundColor = '';
-  });
+      question.options.forEach(option => {
+        const optionElement = document.createElement('div');
+        optionElement.classList.add('option');
+        optionElement.dataset.value = option.value;
+        optionElement.addEventListener('click', handleOptionClick);
 
-  // Remove the existing options
-  optionsContainer.innerHTML = '';
-
-  question.options.forEach(option => {
-    const optionElement = document.createElement('div');
-    optionElement.classList.add('option');
-    optionElement.dataset.value = option.value;
-    optionElement.addEventListener('click', () => {
-      optionElement.style.backgroundColor = '#f0f0f0';
-    });
-    optionElement.addEventListener('touchend', () => {
-      optionElement.style.backgroundColor = '#f0f0f0';
-    });
-
-
-
-      
-
-   
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
         optionLabel.textContent = option.label;
@@ -1050,38 +1024,30 @@ serviceOptions.forEach((option) => {
     }
 
     function handleOptionClick(event) {
-  // If the user has already answered this question, do nothing
-  if (userAnswered) {
-    return;
-  }
+      if (userAnswered) {
+        return;
+      }
 
-  userAnswered = true;
-  const selectedOption = event.target.closest('.option');
+      userAnswered = true;
+      const selectedOption = event.target.closest('.option');
+      const selectedValue = selectedOption.dataset.value;
 
-  // Change the background color of the selected option
-  selectedOption.style.backgroundColor = '#f0f0f0'; 
+      const question = questions[currentQuestionIndex];
+      question.userAnswer = selectedValue;
 
-  const question = questions[currentQuestionIndex];
+      if (selectedValue === question.correctAnswer) {
+        selectedOption.classList.add('correct-option');
+        score++;
+      } else {
+        selectedOption.classList.add('wrong-option');
+        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+        correctOption.classList.add('correct-option');
+      }
 
-  // Determine if the selected option is correct based on its value
-  const isCorrect = selectedOption.dataset.value === question.correctAnswer;
+      feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
+      nextButton.style.display = 'block';
+    }
 
-  setTimeout(() => {
-    if (isCorrect) {
-      selectedOption.classList.add('correct-option');
-      score++;
-      feedbackContainer.textContent = 'Correct Answer';
-    } else {
-      selectedOption.classList.add('wrong-option');
-      const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-      correctOption.classList.add('correct-option');
-      feedbackContainer.textContent = 'Wrong Answer';
-    }  
-  }, 100); // delay of 100ms to allow the grey color to be briefly visible
-  
-  nextButton.style.display = 'block';
-}
-    
     function showNextQuestion() {
       currentQuestionIndex++;
       userAnswered = false;
