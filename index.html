@@ -998,31 +998,34 @@ serviceOptions.forEach((option) => {
     let userAnswered = false;
 
     function showQuestion() {
-      const question = questions[currentQuestionIndex];
-      questionText.textContent = question.question;
-      optionsContainer.innerHTML = '';
+  const question = questions[currentQuestionIndex];
+  questionText.textContent = question.question;
 
-question.options.forEach(option => {
-  const optionElement = document.createElement('div');
-  optionElement.classList.add('option');
-  optionElement.dataset.value = option.value;
-  optionElement.addEventListener('click', handleOptionClick);
-  optionElement.addEventListener('touchend', handleOptionClick);
+  // Reset the background color of the existing options
+  const optionElements = document.querySelectorAll('.option');
+  optionElements.forEach(option => {
+    option.style.backgroundColor = '';
+  });
 
-  // Reset the background color
-  optionElement.style.backgroundColor = '';
+  // Remove the existing options
+  optionsContainer.innerHTML = '';
+
+  question.options.forEach(option => {
+    const optionElement = document.createElement('div');
+    optionElement.classList.add('option');
+    optionElement.dataset.value = option.value;
+    optionElement.addEventListener('click', () => {
+      optionElement.style.backgroundColor = '#f0f0f0';
+    });
+    optionElement.addEventListener('touchend', () => {
+      optionElement.style.backgroundColor = '#f0f0f0';
+    });
+
+
 
       
 
-        // Add hover effect and cursor change
-  optionElement.style.cursor = 'pointer';
-  optionElement.onmouseover = function() {
-    this.style.backgroundColor = '#f0f0f0'; // Change to the color you prefer
-  };
-  optionElement.onmouseout = function() {
-    this.style.backgroundColor = ''; // Reset background color when not hovering
-  };
-
+   
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
         optionLabel.textContent = option.label;
