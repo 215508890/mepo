@@ -1059,8 +1059,8 @@ question.options.forEach(option => {
 
   const question = questions[currentQuestionIndex];
 
-  // Determine if the selected option is correct based on its background color
-  const isCorrect = selectedOption.style.backgroundColor === '#f0f0f0' && selectedOption.dataset.value === question.correctAnswer;
+  // Determine if the selected option is correct based on its value
+  const isCorrect = selectedOption.dataset.value === question.correctAnswer;
 
   if (isCorrect) {
     selectedOption.classList.add('correct-option');
