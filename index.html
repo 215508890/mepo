@@ -1053,24 +1053,26 @@ question.options.forEach(option => {
 
   userAnswered = true;
   const selectedOption = event.target.closest('.option');
-  const selectedValue = selectedOption.dataset.value;
 
   // Change the background color of the selected option
   selectedOption.style.backgroundColor = '#f0f0f0'; 
 
   const question = questions[currentQuestionIndex];
-  question.userAnswer = selectedValue;
 
-  if (selectedValue === question.correctAnswer) {
+  // Determine if the selected option is correct based on its background color
+  const isCorrect = selectedOption.style.backgroundColor === '#f0f0f0' && selectedOption.dataset.value === question.correctAnswer;
+
+  if (isCorrect) {
     selectedOption.classList.add('correct-option');
     score++;
+    feedbackContainer.textContent = '正確答案';
   } else {
     selectedOption.classList.add('wrong-option');
     const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
     correctOption.classList.add('correct-option');
+    feedbackContainer.textContent = '錯誤答案';
   }
-
-  feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
+  
   nextButton.style.display = 'block';
 }
     
