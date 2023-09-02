@@ -995,19 +995,28 @@ serviceOptions.forEach((option) => {
       optionsContainer.innerHTML = '';
 
       question.options.forEach(option => {
-        const optionElement = document.createElement('div');
-        optionElement.classList.add('option');
-        optionElement.dataset.value = option.value;
-        optionElement.addEventListener('click', handleOptionClick);
-        optionElement.addEventListener('touchend', handleOptionClick);
+      const optionElement = document.createElement('div');
+    optionElement.classList.add('option');
+    optionElement.dataset.value = option.value;
+    optionElement.addEventListener('click', handleOptionClick);
+    optionElement.addEventListener('touchend', handleOptionClick);
 
-        const optionLabel = document.createElement('span');
-        optionLabel.classList.add('option-label');
-        optionLabel.textContent = option.label;
+          // Add hover effect and cursor change
+    optionElement.style.cursor = 'pointer';
+    optionElement.onmouseover = function() {
+    this.style.backgroundColor = '#f0f0f0'; // Change to the color you prefer
+    };
+    optionElement.onmouseout = function() {
+    this.style.backgroundColor = ''; // Reset background color when not hovering
+    };
+  
+       const optionLabel = document.createElement('span');
+    optionLabel.classList.add('option-label');
+    optionLabel.textContent = option.label;
 
-        optionElement.appendChild(optionLabel);
-        optionsContainer.appendChild(optionElement);
-      });
+     optionElement.appendChild(optionLabel);
+    optionsContainer.appendChild(optionElement);
+    });
 
       if (userAnswered) {
         const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
