@@ -989,30 +989,24 @@ serviceOptions.forEach((option) => {
     let score = 0;
     let userAnswered = false;
 
-  function showQuestion() {
-  const question = questions[currentQuestionIndex];
-  questionText.textContent = question.question;
+    function showQuestion() {
+      const question = questions[currentQuestionIndex];
+      questionText.textContent = question.question;
+      optionsContainer.innerHTML = '';
 
-  // Remove the existing options
-  optionsContainer.innerHTML = '';
+      question.options.forEach(option => {
+        const optionElement = document.createElement('div');
+        optionElement.classList.add('option');
+        optionElement.dataset.value = option.value;
+        optionElement.addEventListener('click', handleOptionClick);
 
-  question.options.forEach(option => {
-    const optionElement = document.createElement('div');
-    optionElement.classList.add('option');
-    optionElement.dataset.value = option.value;
+        const optionLabel = document.createElement('span');
+        optionLabel.classList.add('option-label');
+        optionLabel.textContent = option.label;
 
-    const optionLabelElement = document.createElement('span');
-    optionLabelElement.textContent = option.label;
-    optionElement.appendChild(optionLabelElement);
-
-    optionElement.addEventListener('click', handleOptionClick);
-
-    optionsContainer.appendChild(optionElement);
-  });
-
-  // Reset the userAnswered flag
-  userAnswered = false;
-}
+        optionElement.appendChild(optionLabel);
+        optionsContainer.appendChild(optionElement);
+      });
 
       if (userAnswered) {
         const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
