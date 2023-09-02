@@ -1000,6 +1000,15 @@ serviceOptions.forEach((option) => {
         optionElement.dataset.value = option.value;
         optionElement.addEventListener('click', handleOptionClick);
 
+        // Add hover effect and cursor change
+  optionElement.style.cursor = 'pointer';
+  optionElement.onmouseover = function() {
+    this.style.backgroundColor = '#f0f0f0'; // Change to the color you prefer
+  };
+  optionElement.onmouseout = function() {
+    this.style.backgroundColor = ''; // Reset background color when not hovering
+  };
+
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
         optionLabel.textContent = option.label;
