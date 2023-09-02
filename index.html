@@ -1045,7 +1045,20 @@ function handleOptionClick(event) {
   // Log the selectedValue to the console.
   console.log('selectedValue', selectedValue);
 
+  // Debugging logs
+  console.log('questions', questions);
+  console.log('currentQuestionIndex', currentQuestionIndex);
+
   const question = questions[currentQuestionIndex];
+
+  console.log('question', question);  // Add this line
+
+  // If question is undefined, log an error and return.
+  if (!question) {
+    console.error('No current question');
+    return;
+  }
+
   question.userAnswer = selectedValue;
 
   if (selectedValue === question.correctAnswer) {
@@ -1060,7 +1073,6 @@ function handleOptionClick(event) {
   feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
   nextButton.style.display = 'block';
 }
-
     function showNextQuestion() {
       currentQuestionIndex++;
       userAnswered = false;
