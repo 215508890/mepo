@@ -1050,6 +1050,7 @@ serviceOptions.forEach((option) => {
     }
 
     function handleOptionClick(event) {
+  // If the user has already answered this question, do nothing
   if (userAnswered) {
     return;
   }
@@ -1065,16 +1066,18 @@ serviceOptions.forEach((option) => {
   // Determine if the selected option is correct based on its value
   const isCorrect = selectedOption.dataset.value === question.correctAnswer;
 
-  if (isCorrect) {
-    selectedOption.classList.add('correct-option');
-    score++;
-    feedbackContainer.textContent = '正確答案';
-  } else {
-    selectedOption.classList.add('wrong-option');
-    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-    correctOption.classList.add('correct-option');
-    feedbackContainer.textContent = '錯誤答案';
-  }
+  setTimeout(() => {
+    if (isCorrect) {
+      selectedOption.classList.add('correct-option');
+      score++;
+      feedbackContainer.textContent = 'Correct Answer';
+    } else {
+      selectedOption.classList.add('wrong-option');
+      const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+      correctOption.classList.add('correct-option');
+      feedbackContainer.textContent = 'Wrong Answer';
+    }  
+  }, 100); // delay of 100ms to allow the grey color to be briefly visible
   
   nextButton.style.display = 'block';
 }
