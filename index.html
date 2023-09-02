@@ -1061,19 +1061,19 @@ question.options.forEach(option => {
   const question = questions[currentQuestionIndex];
   question.userAnswer = selectedValue;
 
-      if (selectedValue === question.correctAnswer) {
-        selectedOption.classList.add('correct-option');
-        score++;
-      } else {
-        selectedOption.classList.add('wrong-option');
-        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-        correctOption.classList.add('correct-option');
-      }
+  if (selectedValue === question.correctAnswer) {
+    selectedOption.classList.add('correct-option');
+    score++;
+  } else {
+    selectedOption.classList.add('wrong-option');
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    correctOption.classList.add('correct-option');
+  }
 
-      feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
-      nextButton.style.display = 'block';
-    }
-
+  feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
+  nextButton.style.display = 'block';
+}
+    
     function showNextQuestion() {
       currentQuestionIndex++;
       userAnswered = false;
