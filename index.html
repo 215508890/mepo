@@ -990,38 +990,38 @@ serviceOptions.forEach((option) => {
     let userAnswered = false;
 
     function showQuestion() {
-      const question = questions[currentQuestionIndex];
-      questionText.textContent = question.question;
-      optionsContainer.innerHTML = '';
+  const question = questions[currentQuestionIndex];
+  questionText.textContent = question.question;
+  optionsContainer.innerHTML = '';
 
-      question.options.forEach(option => {
-        const optionElement = document.createElement('div');
-        optionElement.classList.add('option');
-        optionElement.dataset.value = option.value;
-        optionElement.addEventListener('click', handleOptionClick);
+  question.options.forEach(option => {
+    const optionElement = document.createElement('div');
+    optionElement.classList.add('option');
+    optionElement.dataset.value = option.value;
+    optionElement.addEventListener('click', handleOptionClick);
 
-        const optionLabel = document.createElement('span');
-        optionLabel.classList.add('option-label');
-        optionLabel.textContent = option.label;
+    const optionLabel = document.createElement('span');
+    optionLabel.classList.add('option-label');
+    optionLabel.textContent = option.label;
 
-        optionElement.appendChild(optionLabel);
-        optionsContainer.appendChild(optionElement);
-      });
+    optionElement.appendChild(optionLabel);
+    optionsContainer.appendChild(optionElement);
+  });
 
-      if (userAnswered) {
-        const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
-        if (selectedOption) {
-          selectedOption.classList.add('wrong-option');
-        }
-        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-        if (correctOption) {
-          correctOption.classList.add('correct-option');
-        }
-      }
-
-      feedbackContainer.textContent = '';
-      nextButton.style.display = 'none';
+  if (question.userAnswered) {
+    const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
+    if (selectedOption) {
+      selectedOption.classList.add('wrong-option');
     }
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    if (correctOption) {
+      correctOption.classList.add('correct-option');
+    }
+  }
+
+  feedbackContainer.textContent = '';
+  nextButton.style.display = 'none';
+}
 
     function handleOptionClick(event) {
       if (userAnswered) {
