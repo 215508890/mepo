@@ -1023,30 +1023,43 @@ serviceOptions.forEach((option) => {
       nextButton.style.display = 'none';
     }
 
-    function handleOptionClick(event) {
-      if (userAnswered) {
-        return;
-      }
+function handleOptionClick(event) {
+  if (userAnswered) {
+    return;
+  }
 
-      userAnswered = true;
-      const selectedOption = event.target.closest('.option');
-      const selectedValue = selectedOption.dataset.value;
+  userAnswered = true;
+  const selectedOption = event.target.closest('.option');
 
-      const question = questions[currentQuestionIndex];
-      question.userAnswer = selectedValue;
+  // Log the selectedOption object to the console.
+  console.log('selectedOption', selectedOption);
 
-      if (selectedValue === question.correctAnswer) {
-        selectedOption.classList.add('correct-option');
-        score++;
-      } else {
-        selectedOption.classList.add('wrong-option');
-        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-        correctOption.classList.add('correct-option');
-      }
+  // If no element was found with the class 'option', log an error and return.
+  if (!selectedOption) {
+    console.error('No option selected');
+    return;
+  }
 
-      feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
-      nextButton.style.display = 'block';
-    }
+  const selectedValue = selectedOption.dataset.value;
+
+  // Log the selectedValue to the console.
+  console.log('selectedValue', selectedValue);
+
+  const question = questions[currentQuestionIndex];
+  question.userAnswer = selectedValue;
+
+  if (selectedValue === question.correctAnswer) {
+    selectedOption.classList.add('correct-option');
+    score++;
+  } else {
+    selectedOption.classList.add('wrong-option');
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    correctOption.classList.add('correct-option');
+  }
+
+  feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
+  nextButton.style.display = 'block';
+}
 
     function showNextQuestion() {
       currentQuestionIndex++;
