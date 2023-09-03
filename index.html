@@ -1125,6 +1125,12 @@ function loadQuizState() {
     }
 }
 
+    function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+}
+
   function getRandomQuestions(numQuestions) {
     const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
     return shuffledQuestions.slice(0, numQuestions);
