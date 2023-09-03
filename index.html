@@ -278,7 +278,12 @@ body {
 .btn-ok:hover {
   background-color: #0056b3;
 }
-  
+  .reminder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+}
 </style>
 </head>
 <body>
@@ -320,21 +325,12 @@ body {
 
 <div class="container">
     <h1 class="scoreboard-heading">水上急救</h1>
+    <h4 class="reminder">(合格分數 45 | 時限 30分鐘)</h4>
     <div class="timer-container">
       <span class="timer" id="stopwatch">30:00</span>
     </div>
   
-    <!--/ browser-warning -->
-<body onload="detectBrowser()">
 
-    <div id="overlay" class="overlay"></div>
-
-    <div id="myModal" class="modal">
-    <div class="modal-content">
-    <p>為了提供最佳體驗，請使用Google Chrome打開本網站。</p>
-    <button class="btn-ok" onclick="closeModal()">好</button>
-    </div>
-    </div>
 
   
     <h1 class="question" id="question-text"></h1>
