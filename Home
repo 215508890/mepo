@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f1f1f1;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .sections-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
+    }
+
+    .section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border: none;
+      background: none;
+      outline: none;
+      font-size: 20px;
+      color: #fff;
+      background-color: #c3b091;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .section:hover {
+      background-color: #555;
+    }
+
+    .section.active {
+      background-color: #666;
+    }
+
+    .section h2 {
+      margin: 0;
+    }
+
+    .options {
+      position: relative;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .section.active .options {
+      max-height: 200px;
+      transition: max-height 0.5s ease;
+    }
+
+    .section button {
+      display: inline-block;
+      margin-top: 10px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      padding: 5px 10px;
+      font-size: 16px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .section.active button {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    /* Revised section background colors */
+    #section1.active {
+      background-color: #00008B;
+    }
+
+    #section2.active {
+      background-color: #006400;
+    }
+
+    #section3.active {
+      background-color: #FF8C00;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>網上模擬試題練習</h1>
+  </div>
+  <br><br><br><br><br><br><br><br><br><br><br>
+
+  <div class="sections-container">
+    <div class="section" id="section1">
+      <h2>拯溺系列</h2>
+      <div class="options">
+        <button>銅章</button>
+        <button>水上急救</button>
+        <button>O泳池救生</button>
+      </div>
+    </div>
+
+    <div class="section" id="section2">
+      <h2>急救系列</h2>
+      <div class="options">
+        <button>AMS 急救</button>
+        <button>SJ 急救</button>
+      </div>
+    </div>
+
+    <div class="section" id="section3">
+      <h2>遊樂船系列</h2>
+      <div class="options">
+        <button>二級操作員</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+
+    sections.forEach(section => {
+      section.addEventListener('click', function() {
+        sections.forEach(s => {
+          if (s !== section) {
+            s.classList.remove('active');
+            const options = s.querySelector('.options');
+            options.style.maxHeight = '0';
+            s.querySelector('h2').style.transform = 'translateY(0)';
+          }
+        });
+        section.classList.toggle('active');
+        const options = section.querySelector('.options');
+        options.style.maxHeight = options.style.maxHeight ? null : `${options.scrollHeight}px`;
+        section.querySelector('h2').style.transform = options.style.maxHeight ? 'translateY(-20px)' : 'translateY(0)';
+      });
+
+      section.addEventListener('transitionend', function() {
+        if (!section.classList.contains('active')) {
+          section.querySelector('.options').style.maxHeight = null;
+          section.querySelector('h2').style.transform = 'translateY(0)';
+        }
+      });
+    });
+
+    document.addEventListener('click', function(event) {
+      const target = event.target;
+      if (!target.closest('.section')) {
+        sections.forEach(section => {
+          section.classList.remove('active');
+          section.querySelector('.options').style.maxHeight = null;
+          section.querySelector('h2').style.transform = 'translateY(0)';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
