@@ -3,6 +3,99 @@
 <head>
   <title>Home Page</title>
   <style>
+  
+  /* CSS for the hamburger menu */
+    .hamburger-menu {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .hamburger-menu .line {
+      width: 25px;
+      height: 3px;
+      background-color: #000;
+      margin-bottom: 5px;
+    }
+
+    /* CSS for the vertical menu */
+    .vertical-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #fff;
+      z-index: -1; /* Initially hide the menu bar */
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      box-shadow: none; /* Hide the box shadow by default */
+    }
+
+    .vertical-menu.open {
+      transform: translateX(0);
+      z-index: 998; /* Show the menu bar when open */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Show the box shadow when open */
+    }
+
+    .vertical-menu-header {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: none; /* Remove the bottom border */
+    }
+
+    .vertical-menu-header h1 {
+      font-size: 16px;
+      margin: 0;
+      font-family: Arial, sans-serif; /* Set the font to Arial */
+    }
+
+    .vertical-menu-items {
+      padding: 10px;
+      margin-top: 20px; /* Adjust the top margin to align with the burger button */
+    }
+
+    .menu-item {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-family: Arial, sans-serif; /* Set the font to Arial */
+    }
+
+    .menu-item-text {
+      margin: 0;
+      margin-left: 10px; /* Add some left margin */
+    }
+
+    .dropdown-menu {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      margin-left: 20px; /* Indent the dropdown menu */
+    }
+
+    .dropdown-menu.open {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      padding: 5px;
+      cursor: pointer;
+      font-family: Arial, sans-serif; /* Set the font to Arial */
+    }
+
+    .menu-item.active {
+      background-color: #f2f2f2;
+    }
+  
     body {
       margin: 0;
       padding: 0;
@@ -109,6 +202,125 @@
   </style>
 </head>
 <body>
+
+<div class="hamburger-menu">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+
+  <div class="vertical-menu">
+    <div class="vertical-menu-header">
+      <h1></h1> <!-- Leave the heading blank -->
+    </div>
+
+    <div class="vertical-menu-items">
+      <div class="menu-item">
+        <p class="menu-item-text">首頁</p>
+      </div>
+      <div class="menu-item">
+        <p class="menu-item-text">拯溺系列</p>
+        <div class="dropdown-menu">
+          <div class="dropdown-item">銅章</div>
+          <div class="dropdown-item">水上急救</div>
+          <div class="dropdown-item">泳池救生</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        <p class="menu-item-text">急救系列</p>
+        <div class="dropdown-menu">
+          <div class="dropdown-item">Option 1</div>
+          <div class="dropdown-item">Option 2</div>
+          <div class="dropdown-item">Option 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rest of your HTML code -->
+
+  <script>
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const verticalMenu = document.querySelector('.vertical-menu');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+    let activeMenuItem = null;
+    let activeDropdownMenu = null;
+
+    hamburgerMenu.addEventListener('click', () => {
+      if (verticalMenu.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    function openMenu() {
+      verticalMenu.classList.add('open');
+      menuItems.forEach((menuItem, index) => {
+        setTimeout(() => {
+          menuItem.style.opacity = '1';
+          menuItem.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    }
+
+    function closeMenu() {
+      verticalMenu.classList.remove('open');
+      menuItems.forEach((menuItem, index) => {
+        setTimeout(() => {
+          menuItem.style.opacity = '0';
+          menuItem.style.transform = 'translateY(-20px)';
+        }, index * 100);
+      });
+    }
+
+    menuItems.forEach((menuItem) => {
+      menuItem.addEventListener('click', () => {
+        if (menuItem.classList.contains('active')) {
+          menuItem.classList.remove('active');
+          activeMenuItem = null;
+        } else {
+          if (activeMenuItem) {
+            activeMenuItem.classList.remove('active');
+          }
+          menuItem.classList.add('active');
+          activeMenuItem = menuItem;
+        }
+      });
+    });
+
+    dropdownMenus.forEach((dropdownMenu) => {
+      const parentMenuItem = dropdownMenu.parentElement;
+
+      parentMenuItem.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
+
+        if (dropdownMenu.classList.contains('open')) {
+          dropdownMenu.classList.remove('open');
+        } else {
+          if (activeDropdownMenu) {
+            activeDropdownMenu.classList.remove('open');
+          }
+          dropdownMenu.classList.add('open');
+          activeDropdownMenu = dropdownMenu;
+        }
+      });
+    });
+
+ document.addEventListener('click', (event) => {
+  if (!event.target.closest('.vertical-menu')) {
+    if (activeDropdownMenu) {
+      activeDropdownMenu.classList.remove('open');
+      activeDropdownMenu = null;closeMenu()
+    }
+
+  }
+});
+
+ 
+  </script>
+
   <div class="header">
     <h1>網上模擬試題練習</h1>
   </div>
@@ -182,3 +394,4 @@
   </script>
 </body>
 </html>
+
