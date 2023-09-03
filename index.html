@@ -345,6 +345,7 @@ body {
   </div>
 
   <script>
+    'use strict';
   
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     const verticalMenu = document.querySelector('.vertical-menu');
@@ -1107,15 +1108,21 @@ function showResult() {
 }
 
 function loadQuizState() {
-  const quizState = JSON.parse(localStorage.getItem('quizState'));
+    try {
+        const storedState = localStorage.getItem('quizState');
 
-  if (quizState) {
-    currentQuestionIndex = quizState.currentQuestionIndex;
-    score = quizState.score;
-    questions.forEach((question, index) => {
-      question.userAnswer = quizState.userAnswers[index];
-    });
-  }
+        if (storedState) {
+            const parsedState = JSON.parse(storedState);
+            currentQuestionIndex = parsedState.currentQuestionIndex;
+            score = parsedState.score;
+            showQuestion();
+        } else {
+            startQuiz();
+        }
+    } catch (error) {
+        console.error('Failed to load quiz state:', error);
+        startQuiz();
+    }
 }
 
   function getRandomQuestions(numQuestions) {
