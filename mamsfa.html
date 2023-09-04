@@ -1,1 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <title>拯溺筆試練習(水上急救) - 網上模擬試題練習</title>
+  <meta name="description" content="網上免費模擬試題練習，提供各類模擬試題，包括拯搦考試、急救考試，等各類牌照測試，並設有温習模式及操練模式。">
+  <meta name="keywords" content="拯溺，拯溺考試，水上急救，銅章，泳池救生，沙灘救生，救生，急救，急救考試，重考, 急考, 補考, 考牌">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://215508890.github.io/mepo/">
+  <meta property="og:title" content="拯溺筆試練習(水上急救) - 網上模擬試題練習">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://215508890.github.io/omep/">
+  <meta property="og:description" content="網上免費模擬試題練習，提供各類模擬試題，包括拯搦考試、急救考試，等各類牌照測試，並設有温習模式及操練模式。"> 
+  <meta property="og:site_name" content="網上模擬試題練習">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:image" content="Images/MEPO%20Logo.png">
+  <meta name="google-site-verification" content="ahRwm3QFISYLwfVeoxJwCO1Cg8XfWXKLtBIVsZlsZas" />
 
+  <link rel="profile" href="http://gmpg.org/xfn/11">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+
+  .scoreboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  .scoreboard-table th {
+    background-color: #006400; /* dark green */
+    font-size: 24px;
+    padding: 10px;
+    color: white;
+  }
+
+  .scoreboard-table td {
+    font-size: 24px;
+    padding: 10px;
+    text-align: right;
+    background-color: #f2f2f2;
+  }
+
+  .scoreboard-heading {
+    font-size: 32px;
+    margin-bottom: 10px;
+    background-color: #006400; /* dark green */
+    padding: 10px;
+    color: white;
+  }
+
+  .timer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .timer-label {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #000000; 
+  }
+
+  .timer {
+    font-size: 24px;
+    color: #000000; 
+  }
+
+  .score-separator {
+    font-size: 24px;
+    margin: 0 10px;
+    color: #000000; 
+  }
+
+  .score {
+    font-size: 24px;
+    color: #000000; 
+  }
+
+  .question {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .option {
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .option-label {
+    font-size: 16px;
+  }
+
+  .correct-option {
+    background-color: green;
+    color: white;
+  }
+
+  .wrong-option {
+    background-color: red;
+    color: white;
+  }
+
+  .next-button {
+    display: none;
+    margin-top: 20px;
+    width: 120px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .redo-button {
+    display: none;
+    margin-top: 20px;
+    width: 120px;
+    height: 40px;
+    font-size: 20px;
+  }
+      .hamburger-menu {      
+      cursor: pointer;
+      margin-right: 20px;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+    }
+
+    .hamburger-menu .line {
+      width: 25px;
+      height: 3px;
+      background-color: #000;
+      margin: 5px 0;
+    }
+
+    /* CSS for the vertical menu */
+    .vertical-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #fff;
+      z-index: -1; /* Initially hide the menu bar */
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      box-shadow: none; /* Hide the box shadow by default */
+    }
+
+    .vertical-menu.open {
+      transform: translateX(0);
+      z-index: 998; /* Show the menu bar when open */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Show the box shadow when open */
+    }
+
+    .vertical-menu-header {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: none; /* Remove the bottom border */
+    }
+
+    .vertical-menu-header h1 {
+      font-size: 16px;
+      margin: 0;
+      font-family: Arial, sans-serif; /* Set the font to Arial */
+    }
+
+    .vertical-menu-items {
+      padding: 10px;
+      margin-top: 20px; /* Adjust the top margin to align with the burger button */
+    }
+
+    .menu-item {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-family: Arial, sans-serif; /* Set the font to Arial */
+    }
+
+    .menu-item-text {
+      margin: 0;
+      margin-left: 10px; /* Add some left margin */
+    }
+
+    .dropdown-menu {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      margin-left: 20px; /* Indent the dropdown menu */
+      pointer-events: none;
+    }
+
+    .dropdown-menu.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .dropdown-item {
+      padding: 5px;
+      cursor: pointer;
+      font-family: Arial, sans-serif; /* Set the font to Arial */
+    }
+
+    .menu-item.active {
+      background-color: #f2f2f2;
+    }
+
+    a {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Inherits the color of its parent */
+    }
+  
+    a:hover {
+    color: inherit; /* Inherits the color of its parent on hover */
+    }
+
+  
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }    
+        
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      background-color: #fff;
+      padding: 10px;
+      z-index: 1000;
+    }
+    
+      .banner {
+      height: 80px;
+      width: auto;
+      margin-top: -10px;
+    }
+
+    .title {
+      font-family: 'Arial', sans-serif;
+      font-size: 2em;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      margin: 0;
+    }
+
+  .reminder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+  }
+
+
+</style>
+</head>
+<body>
+
+  <div class="header">
+<div class="hamburger-menu">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+      <img src="Images/logo.banner.png" alt="Banner" class="banner">
+  </div>
+
+  <div class="vertical-menu">
+    <div class="vertical-menu-header">
+       <p class="menu-item-text"><br><br></p>
+    </div>
+
+    <div class="vertical-menu-items">
+      <div class="menu-item">
+      <a href="index.html">
+        <p class="menu-item-text">首頁</p></a>
+      </div>
+      <div class="menu-item">
+        <p class="menu-item-text">拯溺系列</p>
+        <div class="dropdown-menu">
+        <a href="mbm.html">
+          <div class="dropdown-item">銅章</div></a>
+        <a href="mwfa.html">
+          <div class="dropdown-item">水上急救</div></a>
+        <a href="mpl.html">
+          <div class="dropdown-item">泳池救生</div></a>
+        </div>
+      </div>
+      <div class="menu-item">
+        <p class="menu-item-text">急救系列</p>
+        <div class="dropdown-menu">
+        <a href="mamsfa.html">
+          <div class="dropdown-item">AMS 急救</div></a>
+        <a href="msjfa.html">
+          <div class="dropdown-item">SJ 急救</div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="container">
+    <h1 class="scoreboard-heading">AMS 急救</h1>
+    <h4 class="reminder">(合格分數 30 | 時限 30分鐘)</h4>
+    <div class="timer-container">
+      <span class="timer" id="stopwatch">30:00</span>
+    </div>
+  
+
+
+  
+    <h1 class="question" id="question-text"></h1>
+    <div id="options-container"></div>
+    <div id="feedback-container"></div>
+    <button id="next-button" class="next-button">下一題</button>
+    <button id="redo-button" class="redo-button">重設</button>
+  </div>
+
+  <script>
+    'use strict';
+  
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const verticalMenu = document.querySelector('.vertical-menu');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+    let activeMenuItem = null;
+    let activeDropdownMenu = null;
+
+    hamburgerMenu.addEventListener('click', () => {
+      if (verticalMenu.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    function openMenu() {
+      verticalMenu.classList.add('open');
+      menuItems.forEach((menuItem, index) => {
+        setTimeout(() => {
+          menuItem.style.opacity = '1';
+          menuItem.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    }
+
+    function closeMenu() {
+      verticalMenu.classList.remove('open');
+      menuItems.forEach((menuItem, index) => {
+        setTimeout(() => {
+          menuItem.style.opacity = '0';
+          menuItem.style.transform = 'translateY(-20px)';
+        }, index * 100);
+      });
+    }
+
+    menuItems.forEach((menuItem) => {
+      menuItem.addEventListener('click', () => {
+        if (menuItem.classList.contains('active')) {
+          menuItem.classList.remove('active');
+          activeMenuItem = null;
+        } else {
+          if (activeMenuItem) {
+            activeMenuItem.classList.remove('active');
+          }
+          menuItem.classList.add('active');
+          activeMenuItem = menuItem;
+        }
+      });
+    });
+
+ dropdownMenus.forEach((dropdownMenu) => {
+      const parentMenuItem = dropdownMenu.parentElement;
+
+      parentMenuItem.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
+
+        if (dropdownMenu.classList.contains('open')) {
+          dropdownMenu.classList.remove('open');
+        } else {
+          if (activeDropdownMenu) {
+            activeDropdownMenu.classList.remove('open');
+          }
+          dropdownMenu.classList.add('open');
+          activeDropdownMenu = dropdownMenu;
+        }
+      });
+    });
+
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.vertical-menu') && !event.target.closest('.hamburger-menu')) {
+    if (verticalMenu.classList.contains('open')) {
+      closeMenu();
+    }
+  }
+});
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', (event) => {
+  touchStartX = event.changedTouches[0].screenX;
+}, false);
+
+document.addEventListener('touchend', (event) => {
+  touchEndX = event.changedTouches[0].screenX;
+  handleSwipe();
+}, false);
+
+function handleSwipe() {
+  if (touchEndX < touchStartX) {
+    if (verticalMenu.classList.contains('open')) {
+      closeMenu();
+    }
+  }
+};
+
+// JavaScript to handle click events on about-options and service-options
+const aboutOptions = document.querySelectorAll('.about-options');
+const serviceOptions = document.querySelectorAll('.service-options');
+
+aboutOptions.forEach((option) => {
+  option.addEventListener('click', () => {
+    const optionText = option.querySelector('p').textContent;
+    console.log(`About Option Selected: ${optionText}`);
+  });
+});
+
+serviceOptions.forEach((option) => {
+  option.addEventListener('click', () => {
+    const optionText = option.querySelector('p').textContent;
+    console.log(`Service Option Selected: ${optionText}`);
+  });
+});
+  
+    const stopwatchElement = document.getElementById('stopwatch');
+  let timeInSeconds = 30 * 60; // 30 minutes in seconds
+  let timerInterval = null;
+  window.addEventListener('load', loadQuizState);
+
+    function updateStopwatch() {
+      const minutes = Math.floor(timeInSeconds / 60);
+      const seconds = timeInSeconds % 60;
+      stopwatchElement.textContent = `${padZero(minutes)}:${padZero(seconds)}`;
+      timeInSeconds--;
+      if (timeInSeconds < 0) {
+        clearInterval(timerInterval);
+        handleTimeUp();
+      }
+    }
+
+    function padZero(value) {
+      return value.toString().padStart(2, '0');
+    }
+
+    function handleTimeUp() {
+      alert('Time is up!');
+    }
+
+    // Start the stopwatch
+    timerInterval = setInterval(updateStopwatch, 1000);
+
+
+
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const feedbackContainer = document.getElementById('feedback-container');
+    const nextButton = document.getElementById('next-button');
+    const redoButton = document.getElementById('redo-button');
+
+
+  const allQuestions = [
+    {}
+
+  ];
+
+  const numRandomQuestions = 50;
+  const questions = getRandomQuestions(numRandomQuestions);
+
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let userAnswered = false;
+
+    function showQuestion() {
+      const question = questions[currentQuestionIndex];
+      questionText.textContent = question.question;
+      optionsContainer.innerHTML = '';
+
+      question.options.forEach(option => {
+        const optionElement = document.createElement('div');
+        optionElement.classList.add('option');
+        optionElement.dataset.value = option.value;
+        optionElement.addEventListener('click', handleOptionClick);
+
+        const optionLabel = document.createElement('span');
+        optionLabel.classList.add('option-label');
+        optionLabel.textContent = option.label;
+
+        optionElement.appendChild(optionLabel);
+        optionsContainer.appendChild(optionElement);
+      });
+
+      if (userAnswered) {
+        const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
+        if (selectedOption) {
+          selectedOption.classList.add('wrong-option');
+        }
+        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+        if (correctOption) {
+          correctOption.classList.add('correct-option');
+        }
+      }
+
+      feedbackContainer.textContent = '';
+      nextButton.style.display = 'none';
+    }
+
+function handleOptionClick(event) {
+  if (userAnswered) {
+    return;
+  }
+
+  userAnswered = true;
+  const selectedOption = event.target.closest('.option');
+
+  // Log the selectedOption object to the console.
+  console.log('selectedOption', selectedOption);
+
+  // If no element was found with the class 'option', log an error and return.
+  if (!selectedOption) {
+    console.error('No option selected');
+    return;
+  }
+
+  const selectedValue = selectedOption.dataset.value;
+
+  // Log the selectedValue to the console.
+  console.log('selectedValue', selectedValue);
+
+  // Debugging logs
+console.log('questions', questions);
+console.log('currentQuestionIndex', currentQuestionIndex);
+console.log('questions.length', questions.length); // check the length of the array
+
+  const question = questions[currentQuestionIndex];
+
+  console.log('question', question);  // Add this line
+
+  // If question is undefined, log an error and return.
+  if (!question) {
+    console.error('No current question');
+    return;
+  }
+
+  question.userAnswer = selectedValue;
+
+  if (selectedValue === question.correctAnswer) {
+    selectedOption.classList.add('correct-option');
+    score++;
+  } else {
+    selectedOption.classList.add('wrong-option');
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    correctOption.classList.add('correct-option');
+  }
+
+  feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
+  nextButton.style.display = 'block';
+}
+    function showNextQuestion() {
+      currentQuestionIndex++;
+      userAnswered = false;
+
+      if (currentQuestionIndex >= questions.length) {
+        showResult();
+      } else {
+        showQuestion();
+      }
+    }
+
+function saveQuizState() {
+  const quizState = {
+    currentQuestionIndex: currentQuestionIndex,
+    score: score,
+    userAnswers: questions.map(question => question.userAnswer)
+  };
+  localStorage.setItem('quizState', JSON.stringify(quizState));
+}
+
+
+function showResult() {
+  saveQuizState();
+  questionText.textContent = '測試完成';
+  optionsContainer.innerHTML = '';
+  feedbackContainer.textContent = `你的分數是 ${score} / ${questions.length}`;
+  nextButton.style.display = 'none';
+  redoButton.style.display = 'block';
+
+  clearInterval(timerInterval); // Stop the timer
+}
+
+function loadQuizState() {
+    try {
+        const storedState = localStorage.getItem('quizState');
+
+        if (storedState) {
+            const parsedState = JSON.parse(storedState);
+            currentQuestionIndex = parsedState.currentQuestionIndex;
+            score = parsedState.score;
+            showQuestion();
+        } else {
+            startQuiz();
+        }
+    } catch (error) {
+        console.error('Failed to load quiz state:', error);
+        startQuiz();
+    }
+}
+
+    function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+}
+
+  function getRandomQuestions(numQuestions) {
+    const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
+    return shuffledQuestions.slice(0, numQuestions);
+  }
+
+function redoQuiz() {
+  localStorage.removeItem('quizState');
+  clearInterval(timerInterval);
+  loadQuizState();
+  currentQuestionIndex = 0;
+  score = 0;
+  userAnswered = false;
+  showQuestion();
+  redoButton.style.display = 'none';
+  clearInterval(timerInterval); // Clear the previous timer interval
+  timeInSeconds = 30 * 60; // Reset the timer to 30 minutes
+  timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
+}    
+
+    nextButton.addEventListener('click', showNextQuestion);
+    redoButton.addEventListener('click', redoQuiz);
+
+    // Show the first question
+    showQuestion();
+
+    </script>
+  <h2>Coming soon....</h2>
+<!--/ browser-warning -->
+<script>
+function detectBrowser() {
+  var userAgent = window.navigator.userAgent;
+  if(!(userAgent.indexOf("Chrome") > -1 || userAgent.indexOf("CriOS") > -1)) {
+    var overlay = document.getElementById('overlay');
+    overlay.style.display = "block";
+    var modal = document.getElementById('myModal');
+    modal.style.display = "block";
+  }
+}
+
+function closeModal() {
+  var overlay = document.getElementById('overlay');
+  overlay.style.display = "none";
+  var modal = document.getElementById('myModal');
+  modal.style.display = "none";
+}
+
+</script>
+  
+  
+</body>
+</html>
