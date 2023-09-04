@@ -130,20 +130,19 @@
     height: 40px;
     font-size: 20px;
   }
-  
-    .hamburger-menu {
-      position: absolute;
-      top: 20px;
-      left: 20px;
+      .hamburger-menu {      
       cursor: pointer;
-      z-index: 999;
+      margin-right: 20px;
+      position: absolute;
+      left: 10px;
+      top: 10px;
     }
 
     .hamburger-menu .line {
       width: 25px;
       height: 3px;
       background-color: #000;
-      margin-bottom: 5px;
+      margin: 5px 0;
     }
 
     /* CSS for the vertical menu */
@@ -205,11 +204,13 @@
       transform: translateY(-20px);
       transition: opacity 0.3s ease, transform 0.3s ease;
       margin-left: 20px; /* Indent the dropdown menu */
+      pointer-events: none;
     }
 
     .dropdown-menu.open {
       opacity: 1;
       transform: translateY(0);
+      pointer-events: auto;
     }
 
     .dropdown-item {
@@ -222,102 +223,98 @@
       background-color: #f2f2f2;
     }
 
-   // browser-warning 
-body {
-  margin: 0;
-  padding: 0;
-}
+    a {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Inherits the color of its parent */
+    }
+  
+    a:hover {
+    color: inherit; /* Inherits the color of its parent on hover */
+    }
 
-.overlay {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(128,128,128,0.5);
-}
+  
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }    
+        
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      background-color: #fff;
+      padding: 10px;
+      z-index: 1000;
+    }
+    
+      .banner {
+      height: 80px;
+      width: auto;
+      margin-top: -10px;
+    }
 
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1001;
-  padding-top: 100px;
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-}
+    .title {
+      font-family: 'Arial', sans-serif;
+      font-size: 2em;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      margin: 0;
+    }
 
-.modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 300px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.btn-ok {
-  background-color: #007BFF;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 15px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  width: 100%;
-}
-
-.btn-ok:hover {
-  background-color: #0056b3;
-}
   .reminder {
     display: flex;
     justify-content: center;
     align-items: center;
     color: grey;
-}
+  }
+
+
 </style>
 </head>
 <body>
 
-  <div class="hamburger-menu">
+  <div class="header">
+<div class="hamburger-menu">
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
   </div>
+      <img src="Images/logo.banner.png" alt="Banner" class="banner">
+  </div>
 
   <div class="vertical-menu">
     <div class="vertical-menu-header">
-      <h1></h1> <!-- Leave the heading blank -->
+       <p class="menu-item-text"><br><br></p>
     </div>
 
     <div class="vertical-menu-items">
       <div class="menu-item">
-        
-        <p class="menu-item-text">首頁</p>
+      <a href="intex.html">
+        <p class="menu-item-text">首頁</p></a>
       </div>
       <div class="menu-item">
         <p class="menu-item-text">拯溺系列</p>
         <div class="dropdown-menu">
-          <div class="dropdown-item">銅章</div>
-          <div class="dropdown-item">水上急救</div>
-          <div class="dropdown-item">泳池救生</div>
+        <a href="mbm.html">
+          <div class="dropdown-item">銅章</div></a>
+        <a href="mwfa.html">
+          <div class="dropdown-item">水上急救</div></a>
+        <a href="mpl.html">
+          <div class="dropdown-item">泳池救生</div></a>
         </div>
       </div>
       <div class="menu-item">
         <p class="menu-item-text">急救系列</p>
         <div class="dropdown-menu">
-          <div class="dropdown-item">AMS 急救</div>
-          <div class="dropdown-item">SJ 急救</div>
-          <div class="dropdown-item"></div>
+        <a href="mamsfa.html">
+          <div class="dropdown-item">AMS 急救</div></a>
+        <a href="msjfa.html">
+          <div class="dropdown-item">SJ 急救</div></a>
         </div>
       </div>
     </div>
@@ -394,7 +391,7 @@ body {
       });
     });
 
-    dropdownMenus.forEach((dropdownMenu) => {
+ dropdownMenus.forEach((dropdownMenu) => {
       const parentMenuItem = dropdownMenu.parentElement;
 
       parentMenuItem.addEventListener('click', (event) => {
@@ -412,15 +409,33 @@ body {
       });
     });
 
- document.addEventListener('click', (event) => {
-  if (!event.target.closest('.vertical-menu')) {
-    if (activeDropdownMenu) {
-      activeDropdownMenu.classList.remove('open');
-      activeDropdownMenu = null;closeMenu()
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.vertical-menu') && !event.target.closest('.hamburger-menu')) {
+    if (verticalMenu.classList.contains('open')) {
+      closeMenu();
     }
-
   }
 });
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', (event) => {
+  touchStartX = event.changedTouches[0].screenX;
+}, false);
+
+document.addEventListener('touchend', (event) => {
+  touchEndX = event.changedTouches[0].screenX;
+  handleSwipe();
+}, false);
+
+function handleSwipe() {
+  if (touchEndX < touchStartX) {
+    if (verticalMenu.classList.contains('open')) {
+      closeMenu();
+    }
+  }
+};
 
 // JavaScript to handle click events on about-options and service-options
 const aboutOptions = document.querySelectorAll('.about-options');
