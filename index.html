@@ -94,11 +94,13 @@
       transform: translateY(-20px);
       transition: opacity 0.3s ease, transform 0.3s ease;
       margin-left: 20px; /* Indent the dropdown menu */
+      pointer-events: none;
     }
 
     .dropdown-menu.open {
       opacity: 1;
       transform: translateY(0);
+      pointer-events: auto;
     }
 
     .dropdown-item {
@@ -259,7 +261,7 @@
 
     <div class="vertical-menu-items">
       <div class="menu-item">
-      <a href="intex.html">
+      <a href="index.html">
         <p class="menu-item-text">首頁</p></a>
       </div>
       <div class="menu-item">
