@@ -110,6 +110,16 @@
     .menu-item.active {
       background-color: #f2f2f2;
     }
+
+    a {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Inherits the color of its parent */
+    }
+  
+    a:hover {
+    color: inherit; /* Inherits the color of its parent on hover */
+    }
+
   
     body {
       margin: 0;
@@ -118,14 +128,28 @@
     }
 
     .header {
-      position: fixed;
+      display: flex;
+      align-items: center;
+      position: sticky;
       top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #f1f1f1;
-      padding: 20px;
+      background-color: #fff;
+      padding: 10px;
+      z-index: 1000;
+    }
+    
+     .banner {
+      height: 50px;
+      width: auto;
+    }
+
+    .title {
+      font-family: 'Arial', sans-serif;
+      font-size: 2em;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 2px;
       text-align: center;
-      font-size: 24px;
+      margin: 0;
     }
 
     .sections-container {
@@ -217,38 +241,43 @@
   </style>
 </head>
 <body>
-
+  <div class="header">
 <div class="hamburger-menu">
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
   </div>
+      <img src="logo.banner.png/Images" alt="Banner" class="banner">
+  </div>
 
   <div class="vertical-menu">
     <div class="vertical-menu-header">
-      <h1></h1> <!-- Leave the heading blank -->
+       <p class="menu-item-text"><br></p>
     </div>
 
     <div class="vertical-menu-items">
       <div class="menu-item">
-          <a href="html.html">
+      <a href="intex.html">
         <p class="menu-item-text">首頁</p></a>
       </div>
       <div class="menu-item">
         <p class="menu-item-text">拯溺系列</p>
         <div class="dropdown-menu">
-          <div class="dropdown-item">銅章</div>
-            <a href="mwfa.html">
+        <a href="mbm.html">
+          <div class="dropdown-item">銅章</div></a>
+        <a href="mwfa.html">
           <div class="dropdown-item">水上急救</div></a>
-          <div class="dropdown-item">泳池救生</div>
+        <a href="mpl.html">
+          <div class="dropdown-item">泳池救生</div></a>
         </div>
       </div>
       <div class="menu-item">
         <p class="menu-item-text">急救系列</p>
         <div class="dropdown-menu">
-          <div class="dropdown-item">Option 1</div>
-          <div class="dropdown-item">Option 2</div>
-          <div class="dropdown-item">Option 3</div>
+        <a href="mamsfa.html">
+          <div class="dropdown-item">AMS 急救</div></a>
+        <a href="msjfa.html">
+          <div class="dropdown-item">SJ 急救</div></a>
         </div>
       </div>
     </div>
@@ -307,7 +336,7 @@
       });
     });
 
-    dropdownMenus.forEach((dropdownMenu) => {
+ dropdownMenus.forEach((dropdownMenu) => {
       const parentMenuItem = dropdownMenu.parentElement;
 
       parentMenuItem.addEventListener('click', (event) => {
@@ -325,23 +354,42 @@
       });
     });
 
- document.addEventListener('click', (event) => {
-  if (!event.target.closest('.vertical-menu')) {
-    if (activeDropdownMenu) {
-      activeDropdownMenu.classList.remove('open');
-      activeDropdownMenu = null;closeMenu()
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.vertical-menu') && !event.target.closest('.hamburger-menu')) {
+    if (verticalMenu.classList.contains('open')) {
+      closeMenu();
     }
-
   }
 });
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', (event) => {
+  touchStartX = event.changedTouches[0].screenX;
+}, false);
+
+document.addEventListener('touchend', (event) => {
+  touchEndX = event.changedTouches[0].screenX;
+  handleSwipe();
+}, false);
+
+function handleSwipe() {
+  if (touchEndX < touchStartX) {
+    if (verticalMenu.classList.contains('open')) {
+      closeMenu();
+    }
+  }
+}
 
  
   </script>
 
-  <div class="header">
+ <div class="title">
     <h1>網上模擬試題練習</h1>
-  </div>
-  <br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+
+
 
   <div class="sections-container">
     <div class="section" id="section1">
@@ -411,4 +459,3 @@
   </script>
 </body>
 </html>
-
