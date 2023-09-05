@@ -264,6 +264,12 @@
     color: grey;
   }
 
+#questionSelect {
+  font-size: 20px; 
+  padding: 5px;
+  width: 200px;
+}
+
 
 /*front-page/
 
