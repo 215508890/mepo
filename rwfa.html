@@ -68,7 +68,6 @@
     <h1 class="scoreboard-heading">水上急救</h1>
     <h4 class="reminder">(合格分數 45 | 時限 30分鐘)</h4>
     <div class="timer-container">
-      <span class="timer" id="stopwatch">30:00</span>
     </div>
   
 
@@ -185,19 +184,7 @@ function handleSwipe() {
 const aboutOptions = document.querySelectorAll('.about-options');
 const serviceOptions = document.querySelectorAll('.service-options');
 
-aboutOptions.forEach((option) => {
-  option.addEventListener('click', () => {
-    const optionText = option.querySelector('p').textContent;
-    console.log(`About Option Selected: ${optionText}`);
-  });
-});
 
-serviceOptions.forEach((option) => {
-  option.addEventListener('click', () => {
-    const optionText = option.querySelector('p').textContent;
-    console.log(`Service Option Selected: ${optionText}`);
-  });
-});
   
     const stopwatchElement = document.getElementById('stopwatch');
   let timeInSeconds = 30 * 60; // 30 minutes in seconds
@@ -219,12 +206,7 @@ serviceOptions.forEach((option) => {
       return value.toString().padStart(2, '0');
     }
 
-    function handleTimeUp() {
-      alert('Time is up!');
-    }
-
-    // Start the stopwatch
-    timerInterval = setInterval(updateStopwatch, 1000);
+ 
 
 
 
@@ -744,41 +726,36 @@ serviceOptions.forEach((option) => {
 
     let currentQuestionIndex = 0;
     let score = 0;
-    let userAnswered = false;
+
 
     function showQuestion() {
-      const question = questions[currentQuestionIndex];
-      questionText.textContent = question.question;
-      optionsContainer.innerHTML = '';
+  const question = questions[currentQuestionIndex];
+  questionText.textContent = question.question;
+  optionsContainer.innerHTML = '';
 
-      question.options.forEach(option => {
-        const optionElement = document.createElement('div');
-        optionElement.classList.add('option');
-        optionElement.dataset.value = option.value;
-        optionElement.addEventListener('click', handleOptionClick);
+  question.options.forEach(option => {
+    const optionElement = document.createElement('div');
+    optionElement.classList.add('option');
+    optionElement.dataset.value = option.value;
 
-        const optionLabel = document.createElement('span');
-        optionLabel.classList.add('option-label');
-        optionLabel.textContent = option.label;
+    const optionLabel = document.createElement('span');
+    optionLabel.classList.add('option-label');
+    optionLabel.textContent = option.label;
 
-        optionElement.appendChild(optionLabel);
-        optionsContainer.appendChild(optionElement);
-      });
+    optionElement.appendChild(optionLabel);
+    optionsContainer.appendChild(optionElement);
+  });
 
-      if (userAnswered) {
-        const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
-        if (selectedOption) {
-          selectedOption.classList.add('wrong-option');
-        }
-        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-        if (correctOption) {
-          correctOption.classList.add('correct-option');
-        }
-      }
+  const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+  if (correctOption) {
+    correctOption.classList.add('correct-option');
+  }
 
-      feedbackContainer.textContent = '';
-      nextButton.style.display = 'none';
-    }
+  // Show the correct answer in the feedback container
+  feedbackContainer.textContent = `正確答案: ${question.correctAnswer}`;
+  nextButton.style.display = 'block';
+}
+    
 
 function handleOptionClick(event) {
   if (userAnswered) {
