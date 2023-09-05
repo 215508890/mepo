@@ -67,7 +67,8 @@
 <div class="container">
     <h1 class="scoreboard-heading">水上急救</h1>
     <h4 class="reminder">(合格分數 45 | 時限 30分鐘)</h4>
-
+    <div class="timer-container">
+      <span class="timer" id="stopwatch">30:00</span>
     </div>
   
 
@@ -738,53 +739,98 @@ serviceOptions.forEach((option) => {
   ];
 
   const numRandomQuestions = 50;
- const questions = getQuestions(numRandomQuestions);
+  const questions = getRandomQuestions(numRandomQuestions);
 
 
     let currentQuestionIndex = 0;
     let score = 0;
     let userAnswered = false;
 
-   function showQuestion() {
+    function showQuestion() {
       const question = questions[currentQuestionIndex];
       questionText.textContent = question.question;
       optionsContainer.innerHTML = '';
 
-      // Display all options but highlight the correct one
-      question.options.forEach(optionData => {
+      question.options.forEach(option => {
         const optionElement = document.createElement('div');
         optionElement.classList.add('option');
-        optionElement.dataset.value = optionData.value;
-
-        if (optionData.value === question.correctAnswer) {
-          optionElement.classList.add('correct-answer');
-        }
+        optionElement.dataset.value = option.value;
+        optionElement.addEventListener('click', handleOptionClick);
 
         const optionLabel = document.createElement('span');
         optionLabel.classList.add('option-label');
-        optionLabel.textContent = optionData.label;
+        optionLabel.textContent = option.label;
 
         optionElement.appendChild(optionLabel);
         optionsContainer.appendChild(optionElement);
       });
 
+      if (userAnswered) {
+        const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
+        if (selectedOption) {
+          selectedOption.classList.add('wrong-option');
+        }
+        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+        if (correctOption) {
+          correctOption.classList.add('correct-option');
+        }
+      }
+
       feedbackContainer.textContent = '';
-
-
+      nextButton.style.display = 'none';
     }
-    
 
-    
-function handleOptionClick() {
-      // No need to check for userAnswered as there's only one option (the correct answer)
+function handleOptionClick(event) {
+  if (userAnswered) {
+    return;
+  }
 
-      const question = questions[currentQuestionIndex];
-      question.userAnswer = question.correctAnswer; // Only one answer which is correct
+  userAnswered = true;
+  const selectedOption = event.target.closest('.option');
 
-      feedbackContainer.textContent = '正確答案';
-      setTimeout(showNextQuestion, 1000); // Automatically proceed to next question after 1 second
-    }
-    
+  // Log the selectedOption object to the console.
+  console.log('selectedOption', selectedOption);
+
+  // If no element was found with the class 'option', log an error and return.
+  if (!selectedOption) {
+    console.error('No option selected');
+    return;
+  }
+
+  const selectedValue = selectedOption.dataset.value;
+
+  // Log the selectedValue to the console.
+  console.log('selectedValue', selectedValue);
+
+  // Debugging logs
+console.log('questions', questions);
+console.log('currentQuestionIndex', currentQuestionIndex);
+console.log('questions.length', questions.length); // check the length of the array
+
+  const question = questions[currentQuestionIndex];
+
+  console.log('question', question);  // Add this line
+
+  // If question is undefined, log an error and return.
+  if (!question) {
+    console.error('No current question');
+    return;
+  }
+
+  question.userAnswer = selectedValue;
+
+  if (selectedValue === question.correctAnswer) {
+    selectedOption.classList.add('correct-option');
+    score++;
+  } else {
+    selectedOption.classList.add('wrong-option');
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    correctOption.classList.add('correct-option');
+  }
+
+  feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
+  nextButton.style.display = 'block';
+}
     function showNextQuestion() {
       currentQuestionIndex++;
       userAnswered = false;
@@ -807,18 +853,15 @@ function saveQuizState() {
 
 
 function showResult() {
-      // Your existing showResult code here...
   saveQuizState();
-  questionText.textContent = '温習完成';
+  questionText.textContent = '測試完成';
   optionsContainer.innerHTML = '';
+  feedbackContainer.textContent = `你的分數是 ${score} / ${questions.length}`;
   nextButton.style.display = 'none';
   redoButton.style.display = 'block';
-      // Add reset button
-      const resetButton = document.createElement('button');
-      resetButton.textContent = '重置';
-      resetButton.addEventListener('click', resetQuiz);
-      resultContainer.appendChild(resetButton);
-    }
+
+  clearInterval(timerInterval); // Stop the timer
+}
 
 function loadQuizState() {
     try {
@@ -844,24 +887,30 @@ function loadQuizState() {
     showQuestion();
 }
 
-  function getQuestions(numQuestions) {
-  return allQuestions.slice(0, numQuestions);
-}
+  function getRandomQuestions(numQuestions) {
+    const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
+    return shuffledQuestions.slice(0, numQuestions);
+  }
 
-function resetQuiz() {
-      // Your reset logic here...
-    }
+function redoQuiz() {
+  localStorage.removeItem('quizState');
+  clearInterval(timerInterval);
+  loadQuizState();
+  currentQuestionIndex = 0;
+  score = 0;
+  userAnswered = false;
+  showQuestion();
+  redoButton.style.display = 'none';
+  clearInterval(timerInterval); // Clear the previous timer interval
+  timeInSeconds = 30 * 60; // Reset the timer to 30 minutes
+  timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
+}    
 
-    function showNextQuestion() {
-      currentQuestionIndex++;
+    nextButton.addEventListener('click', showNextQuestion);
+    redoButton.addEventListener('click', redoQuiz);
 
-      if (currentQuestionIndex >= questions.length) {
-        showResult();
-      } else {
-        userAnswered = false; // Reset for next question
-        showQuestion();
-      }
-    }
+    // Show the first question
+    showQuestion();
     
   </script>
 
