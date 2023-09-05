@@ -720,8 +720,12 @@ const serviceOptions = document.querySelectorAll('.service-options');
     
   ];
 
-  const numRandomQuestions = 50;
-  const questions = getRandomQuestions(numRandomQuestions);
+  function getAllQuestions() {
+  return allQuestions;
+}
+
+const questions = getAllQuestions();
+
 
 
     let currentQuestionIndex = 0;
@@ -730,32 +734,40 @@ const serviceOptions = document.querySelectorAll('.service-options');
 
 
     function showQuestion() {
-  const question = questions[currentQuestionIndex];
-  questionText.textContent = question.question;
-  optionsContainer.innerHTML = '';
+  if (currentQuestionIndex < questions.length) { // Check if there is a next question
+    const question = questions[currentQuestionIndex];
+    questionText.textContent = question.question;
+    optionsContainer.innerHTML = '';
 
-  question.options.forEach(option => {
-    const optionElement = document.createElement('div');
-    optionElement.classList.add('option');
-    optionElement.dataset.value = option.value;
+    question.options.forEach(option => {
+      const optionElement = document.createElement('div');
+      optionElement.classList.add('option');
+      optionElement.dataset.value = option.value;
 
-    const optionLabel = document.createElement('span');
-    optionLabel.classList.add('option-label');
-    optionLabel.textContent = option.label;
+      const optionLabel = document.createElement('span');
+      optionLabel.classList.add('option-label');
+      optionLabel.textContent = option.label;
 
-    optionElement.appendChild(optionLabel);
-    optionsContainer.appendChild(optionElement);
-  });
+      optionElement.appendChild(optionLabel);
+      optionsContainer.appendChild(optionElement);
+    });
 
-  const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-  if (correctOption) {
-    correctOption.classList.add('correct-option');
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    if (correctOption) {
+      correctOption.classList.add('correct-option');
+    }
+
+    // Show the correct answer in the feedback container
+    feedbackContainer.textContent = `正確答案: ${question.correctAnswer}`;
+    nextButton.style.display = 'block';
+  } else {
+    // When there are no more questions, hide the nextButton and show the redoButton
+    nextButton.style.display = 'none';
+    redoButton.style.display = 'block';
   }
-
-  // Show the correct answer in the feedback container
-  feedbackContainer.textContent = `正確答案: ${question.correctAnswer}`;
-  nextButton.style.display = 'block';
 }
+
+
     
 
 function handleOptionClick(event) {
@@ -809,16 +821,12 @@ console.log('questions.length', questions.length); // check the length of the ar
   feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
   nextButton.style.display = 'block';
 }
-    function showNextQuestion() {
-      currentQuestionIndex++;
-      userAnswered = false;
 
-      if (currentQuestionIndex >= questions.length) {
-        showResult();
-      } else {
-        showQuestion();
-      }
-    }
+    
+function showNextQuestion() {
+  currentQuestionIndex++;
+  showQuestion();
+}
 
 function saveQuizState() {
   const quizState = {
@@ -865,10 +873,9 @@ function loadQuizState() {
     showQuestion();
 }
 
-  function getRandomQuestions(numQuestions) {
-    const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
-    return shuffledQuestions.slice(0, numQuestions);
-  }
+function getQuestions(numQuestions) {
+  return allQuestions.slice(0, numQuestions);
+}
 
 function redoQuiz() {
   localStorage.removeItem('quizState');
