@@ -76,6 +76,7 @@
     <h1 class="question" id="question-text"></h1>
     <div id="options-container"></div>
     <div id="feedback-container"></div>
+  <button id="prevButton" style="display: none">上一題</button>
     <button id="next-button" class="next-button">下一題</button>
     <button id="redo-button" class="redo-button">重設</button>
   </div>
@@ -733,8 +734,11 @@ const questions = getAllQuestions();
     let userAnswered = false;
 
 
-    function showQuestion() {
-  if (currentQuestionIndex < questions.length) { // Check if there is a next question
+ function showQuestion() {
+  userAnswered = false; // Reset the userAnswered flag
+
+  // Check if there is a next question
+  if (currentQuestionIndex < questions.length) { 
     const question = questions[currentQuestionIndex];
     questionText.textContent = question.question;
     optionsContainer.innerHTML = '';
@@ -759,9 +763,17 @@ const questions = getAllQuestions();
 
     // Show the correct answer in the feedback container
     feedbackContainer.textContent = `正確答案: ${question.correctAnswer}`;
-    nextButton.style.display = 'block';
+    nextButton.style.display = 'block'; // Show the next button
+
+    if (currentQuestionIndex > 0) {
+      prevButton.style.display = 'block'; // Show the prev button if not the first question
+    } else {
+      prevButton.style.display = 'none'; // Hide the prev button if it is the first question
+    }
+
   } else {
-    // When there are no more questions, hide the nextButton and show the redoButton
+    // When there are no more questions, hide the buttons and show the redoButton
+    prevButton.style.display = 'none';
     nextButton.style.display = 'none';
     redoButton.style.display = 'block';
   }
@@ -877,6 +889,17 @@ function getQuestions(numQuestions) {
   return allQuestions.slice(0, numQuestions);
 }
 
+
+function showPreviousQuestion() {
+  if (currentQuestionIndex > 0) { // Check if there is a previous question
+    currentQuestionIndex--;
+    userAnswered = false; // Allow the user to answer the previous question again
+    showQuestion();
+  }
+}
+    const prevButton = document.getElementById('prevButton');
+prevButton.addEventListener('click', showPreviousQuestion);
+    
 function redoQuiz() {
   localStorage.removeItem('quizState');
   clearInterval(timerInterval);
