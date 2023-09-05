@@ -95,23 +95,7 @@
     color: white;
   }
 
-  .next-button {
-    display: none;
-    margin-top: 10px;
-    width: 120px;
-    height: 40px;
-    font-size: 20px;
-    border-radius: 8px;
-  }
 
-  .prevButton {
-    display: none;
-    margin-top: 10px;
-    width: 120px;
-    height: 40px;
-    font-size: 20px;
-    border-radius: 8px;
-  }
 
   .redo-button {
     display: none;
