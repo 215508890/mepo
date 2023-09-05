@@ -738,7 +738,7 @@ serviceOptions.forEach((option) => {
   ];
 
   const numRandomQuestions = 50;
-  const questions = getRandomQuestions(numRandomQuestions);
+ const questions = getQuestions(numRandomQuestions);
 
 
     let currentQuestionIndex = 0;
@@ -770,11 +770,7 @@ serviceOptions.forEach((option) => {
 
       feedbackContainer.textContent = '';
 
-      // Add reset button
-      const resetButton = document.createElement('button');
-      resetButton.textContent = '重置';
-      resetButton.addEventListener('click', resetQuiz);
-      optionsContainer.appendChild(resetButton);
+
     }
     
 
@@ -812,7 +808,11 @@ function saveQuizState() {
 
 function showResult() {
       // Your existing showResult code here...
-
+  saveQuizState();
+  questionText.textContent = '温習完成';
+  optionsContainer.innerHTML = '';
+  nextButton.style.display = 'none';
+  redoButton.style.display = 'block';
       // Add reset button
       const resetButton = document.createElement('button');
       resetButton.textContent = '重置';
@@ -844,10 +844,9 @@ function loadQuizState() {
     showQuestion();
 }
 
-  function getRandomQuestions(numQuestions) {
-    const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
-    return shuffledQuestions.slice(0, numQuestions);
-  }
+  function getQuestions(numQuestions) {
+  return allQuestions.slice(0, numQuestions);
+}
 
 function resetQuiz() {
       // Your reset logic here...
