@@ -1,4 +1,4 @@
-<script>
+
 
 'use strict';
   
@@ -733,4 +733,4 @@ function redoQuiz() {
     // Show the first question
     showQuestion();
 
-    </script>
+
