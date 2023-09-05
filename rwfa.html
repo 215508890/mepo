@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <title>拯溺筆試練習(水上急救) - 網上模擬試題練習</title>
+  <meta name="description" content="網上免費模擬試題練習，提供各類模擬試題，包括拯搦考試、急救考試，等各類牌照測試，並設有温習模式及操練模式。">
+  <meta name="keywords" content="拯溺，拯溺考試，水上急救，銅章，泳池救生，沙灘救生，救生，急救，急救考試，重考, 急考, 補考, 考牌">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://215508890.github.io/mepo/">
+  <meta property="og:title" content="拯溺筆試練習(水上急救) - 網上模擬試題練習">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://215508890.github.io/omep/">
+  <meta property="og:description" content="網上免費模擬試題練習，提供各類模擬試題，包括拯搦考試、急救考試，等各類牌照測試，並設有温習模式及操練模式。"> 
+  <meta property="og:site_name" content="網上模擬試題練習">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:image" content="Images/MEPO%20Logo.png">
+  <meta name="google-site-verification" content="ahRwm3QFISYLwfVeoxJwCO1Cg8XfWXKLtBIVsZlsZas" />
+
+  <link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+
+  <div class="header">
+<div class="hamburger-menu">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+      <img src="Images/logo.banner.png" alt="Banner" class="banner">
+  </div>
+
+  <div class="vertical-menu">
+    <div class="vertical-menu-header">
+       <p class="menu-item-text"><br><br></p>
+    </div>
+
+    <div class="vertical-menu-items">
+      <div class="menu-item">
+      <a href="index.html">
+        <p class="menu-item-text">首頁</p></a>
+      </div>
+      <div class="menu-item">
+        <p class="menu-item-text">拯溺系列</p>
+        <div class="dropdown-menu">
+        <a href="mbm.html">
+          <div class="dropdown-item">銅章</div></a>
+        <a href="mwfa.html">
+          <div class="dropdown-item">水上急救</div></a>
+        <a href="mpl.html">
+          <div class="dropdown-item">泳池救生</div></a>
+        </div>
+      </div>
+      <div class="menu-item">
+        <p class="menu-item-text">急救系列</p>
+        <div class="dropdown-menu">
+        <a href="mamsfa.html">
+          <div class="dropdown-item">AMS 急救</div></a>
+        <a href="msjfa.html">
+          <div class="dropdown-item">SJ 急救</div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="container">
+    <h1 class="scoreboard-heading">水上急救</h1>
+    <h4 class="reminder">(合格分數 45 | 時限 30分鐘)</h4>
+    <div class="timer-container">
+      <span class="timer" id="stopwatch">30:00</span>
+    </div>
+  
+
+
+  
+    <h1 class="question" id="question-text"></h1>
+    <div id="options-container"></div>
+    <div id="feedback-container"></div>
+    <button id="next-button" class="next-button">下一題</button>
+    <button id="redo-button" class="redo-button">重設</button>
+  </div>
+
+  <script>
+
+      'use strict';
+  
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const verticalMenu = document.querySelector('.vertical-menu');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+    let activeMenuItem = null;
+    let activeDropdownMenu = null;
+
+    hamburgerMenu.addEventListener('click', () => {
+      if (verticalMenu.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    function openMenu() {
+      verticalMenu.classList.add('open');
+      menuItems.forEach((menuItem, index) => {
+        setTimeout(() => {
+          menuItem.style.opacity = '1';
+          menuItem.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    }
+
+    function closeMenu() {
+      verticalMenu.classList.remove('open');
+      menuItems.forEach((menuItem, index) => {
+        setTimeout(() => {
+          menuItem.style.opacity = '0';
+          menuItem.style.transform = 'translateY(-20px)';
+        }, index * 100);
+      });
+    }
+
+    menuItems.forEach((menuItem) => {
+      menuItem.addEventListener('click', () => {
+        if (menuItem.classList.contains('active')) {
+          menuItem.classList.remove('active');
+          activeMenuItem = null;
+        } else {
+          if (activeMenuItem) {
+            activeMenuItem.classList.remove('active');
+          }
+          menuItem.classList.add('active');
+          activeMenuItem = menuItem;
+        }
+      });
+    });
+
+ dropdownMenus.forEach((dropdownMenu) => {
+      const parentMenuItem = dropdownMenu.parentElement;
+
+      parentMenuItem.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
+
+        if (dropdownMenu.classList.contains('open')) {
+          dropdownMenu.classList.remove('open');
+        } else {
+          if (activeDropdownMenu) {
+            activeDropdownMenu.classList.remove('open');
+          }
+          dropdownMenu.classList.add('open');
+          activeDropdownMenu = dropdownMenu;
+        }
+      });
+    });
+
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.vertical-menu') && !event.target.closest('.hamburger-menu')) {
+    if (verticalMenu.classList.contains('open')) {
+      closeMenu();
+    }
+  }
+});
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', (event) => {
+  touchStartX = event.changedTouches[0].screenX;
+}, false);
+
+document.addEventListener('touchend', (event) => {
+  touchEndX = event.changedTouches[0].screenX;
+  handleSwipe();
+}, false);
+
+function handleSwipe() {
+  if (touchEndX < touchStartX) {
+    if (verticalMenu.classList.contains('open')) {
+      closeMenu();
+    }
+  }
+};
+
+// JavaScript to handle click events on about-options and service-options
+const aboutOptions = document.querySelectorAll('.about-options');
+const serviceOptions = document.querySelectorAll('.service-options');
+
+aboutOptions.forEach((option) => {
+  option.addEventListener('click', () => {
+    const optionText = option.querySelector('p').textContent;
+    console.log(`About Option Selected: ${optionText}`);
+  });
+});
+
+serviceOptions.forEach((option) => {
+  option.addEventListener('click', () => {
+    const optionText = option.querySelector('p').textContent;
+    console.log(`Service Option Selected: ${optionText}`);
+  });
+});
+  
+    const stopwatchElement = document.getElementById('stopwatch');
+  let timeInSeconds = 30 * 60; // 30 minutes in seconds
+  let timerInterval = null;
+  window.addEventListener('load', loadQuizState);
+
+    function updateStopwatch() {
+      const minutes = Math.floor(timeInSeconds / 60);
+      const seconds = timeInSeconds % 60;
+      stopwatchElement.textContent = `${padZero(minutes)}:${padZero(seconds)}`;
+      timeInSeconds--;
+      if (timeInSeconds < 0) {
+        clearInterval(timerInterval);
+        handleTimeUp();
+      }
+    }
+
+    function padZero(value) {
+      return value.toString().padStart(2, '0');
+    }
+
+    function handleTimeUp() {
+      alert('Time is up!');
+    }
+
+    // Start the stopwatch
+    timerInterval = setInterval(updateStopwatch, 1000);
+
+
+
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const feedbackContainer = document.getElementById('feedback-container');
+    const nextButton = document.getElementById('next-button');
+    const redoButton = document.getElementById('redo-button');
+    
+  const allQuestions = [
+    {
+        "question": "脊髓神經的對數為:",
+        "options": [
+            { "label": "A. 21", "value": "A" },
+            { "label": "B. 26", "value": "B" },
+            { "label": "C. 31", "value": "C" },
+            { "label": "D. 35", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "脊髓神經的功能包括:",
+        "options": [
+            { "label": "A. 心跳、呼吸與血液循環的控制", "value": "A" },
+            { "label": "B. 消化系統活動的調節", "value": "B" },
+            { "label": "C. 頸部以上部分的知覺行為", "value": "C" },
+            { "label": "D. 頸部以下部分的知覺行為", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "手鉗式固定法應用:",
+        "options": [
+            { "label": "A. 水深不足0.5米的拯救", "value": "A" },
+            { "label": "B. 頭部與手肘的固定序列", "value": "B" },
+            { "label": "C. 水底進行溺者反轉", "value": "C" },
+            { "label": "D. 深水時利用救生筒浮水", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "脊柱固定板使用的注意事項:",
+        "options": [
+            { "label": "A. 胸部應首先被固定帶固定", "value": "A" },
+            { "label": "B. 抬升溺者時，脊柱板與池邊保持平衡", "value": "B" },
+            { "label": "C. 所有施救者都需在水中執行拯救", "value": "C" },
+            { "label": "D. 抬起溺者時，脊柱板與池邊呈90度角", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "缺乏脊柱固定板時，移動溺者需:",
+        "options": [
+            { "label": "A. 最少五名施救者同時在水中進行", "value": "A" },
+            { "label": "B. 先將溺者拖至水深不超過腰部的岸邊", "value": "B" },
+            { "label": "C. 溺者出水時身體與池邊呈90度角", "value": "C" },
+            { "label": "D. 將溺者放到岸上後，負責支撐頭部的施救者需先將手抽出", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "以下那一項非脊柱骨折處理原則:",
+        "options": [
+            { "label": "A. 首要固定溺者身體", "value": "A" },
+            { "label": "B. 頭頸固定後，迅速固定患者其餘身體部分", "value": "B" },
+            { "label": "C. 儘可能使溺者在運送時仰臥", "value": "C" },
+            { "label": "D. 儘可能維持溺者脊柱不動", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "脊髓神經的功能是:",
+        "options": [
+            { "label": "A. 接收訊息和傳達腦部命令", "value": "A" },
+            { "label": "B. 保護中樞神經系統", "value": "B" },
+            { "label": "C. 加快心跳，呼吸和血液循環", "value": "C" },
+            { "label": "D. 維持身體姿勢", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "脊柱受傷可能導致的狀況: (1)肢體全失知覺 (2)休克 (3)呼吸困難 (4)心跳停止",
+        "options": [
+            { "label": "A. (1)和(3)", "value": "A" },
+            { "label": "B. (1)(2)和(3)", "value": "B" },
+            { "label": "C. (2)和(4)", "value": "C" },
+            { "label": "D. 全部正確", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "自主神經系統的特性是:",
+        "options": [
+            { "label": "A. 位於頭部的神經系統", "value": "A" },
+            { "label": "B. 中央神經系統部分", "value": "B" },
+            { "label": "C. 控制腸胃活動", "value": "C" },
+            { "label": "D. 控制四肢活動和感覺", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "手鉗式固定法的步驟:",
+        "options": [
+            { "label": "A. 適用於水深至膝的救援", "value": "A" },
+            { "label": "B. 首先用手肘固定溺者身體，再用手指固定頸部", "value": "B" },
+            { "label": "C. 適用於溺者掙扎時的救援", "value": "C" },
+            { "label": "D. 完成後，救生員全身在水中", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "脊柱骨折的處理原則包括: (1)保存生命 (2)固定頭頸 (3)固定整條脊柱 (4)儘可能使溺者在運送時仰臥",
+        "options": [
+            { "label": "A. (1)和(3)", "value": "A" },
+            { "label": "B. (1)(2)和(3)", "value": "B" },
+            { "label": "C. (2)和(4)", "value": "C" },
+            { "label": "D. 全部正確", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "椎間盤的功能為:",
+        "options": [
+            { "label": "A. 維持身體姿勢", "value": "A" },
+            { "label": "B. 保護脊髓神經", "value": "B" },
+            { "label": "C. 減少脊椎骨之間的摩擦", "value": "C" },
+            { "label": "D. 控制頸部以下身體的感覺活動", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "脊椎骨折的病人可能會出現以下情況: 1)呼吸停止 (2)肢體麻痺 (3)口鼻流血 (4)瞳孔大小不一",
+        "options": [
+            { "label": "A. (1)和(2)", "value": "A" },
+            { "label": "B. (2)和(3)", "value": "B" },
+            { "label": "C. (1)和(3)", "value": "C" },
+            { "label": "D. 全部正確", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "水上脊柱骨折處理的順序為: (1)固定頭頸 (2)尋求援助 (3)將溺者固定在脊柱板上 (4)將溺者運到岸上",
+        "options": [
+            { "label": "A. 1,2,3,4", "value": "A" },
+            { "label": "B. 2,1,3,4", "value": "B" },
+            { "label": "C. 2,1,4,3", "value": "C" },
+            { "label": "D. 2,3,1,4", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "關於脊柱固定板的使用:",
+        "options": [
+            { "label": "A. 應先用固定帶固定溺者的頭部", "value": "A" },
+            { "label": "B. 在水中將溺者固定在脊柱板上的同時，可以進行心肺復甦", "value": "B" },
+            { "label": "C. 運送溺者時，應儘量使其垂直", "value": "C" },
+            { "label": "D. 將溺者抬離水面時，脊柱板需要與池邊成90度角", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "下列哪一句子不正確:",
+        "options": [
+            { "label": "A. 五公升裝的沙威隆藥水主要用於消毒傷口", "value": "A" },
+            { "label": "B. 用於消毒一般傷口，沙威隆藥水稀釋比例為1:100", "value": "B" },
+            { "label": "C. 經稀釋後的沙減隆不可存放過夜", "value": "C" },
+            { "label": "D. 沙威隆藥水不可用於腦部和中耳受傷，只可內服", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "下列哪一句子不正確:",
+        "options": [
+            { "label": "A. 不鋼鈍刃藥主要用於剪斷鈔布，繃帶等物品", "value": "A" },
+            { "label": "B. 使用彈性繃帶需要注意繃帶的壓力", "value": "B" },
+            { "label": "C. 冰墊可以用於冷敷", "value": "C" },
+            { "label": "D. 使用消毒眼墊應避免手部接觸到敷墊部分", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "新民夾板的內層結構是什麼金屬:",
+        "options": [
+            { "label": "A. 鐵", "value": "A" },
+            { "label": "B. 銅", "value": "B" },
+            { "label": "C. 鋁", "value": "C" },
+            { "label": "D. 鎂", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "以下哪一項不是袋裝面罩的優點:",
+        "options": [
+            { "label": "A. 可以增加入氣量", "value": "A" },
+            { "label": "B. 小巧輕便，方便攜帶", "value": "B" },
+            { "label": "C. 在進行人工呼吸時，可以避免直接接觸患者", "value": "C" },
+            { "label": "D. 面罩上的單向活門可以避免吸入患者排出的氣體", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "膠囊和面罩復甦器的成人氧袋可以存放多少毫升的氣體:",
+        "options": [
+            { "label": "A. 1000-2000毫升", "value": "A" },
+            { "label": "B. 500-1000毫升", "value": "B" },
+            { "label": "C. 2000-2500毫升", "value": "C" },
+            { "label": "D. 2500-3000毫升", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "哪一句關於氣樽的說法有誤？",
+        "options": [
+            { "label": "A. 氣樽不能接觸到油脂", "value": "A" },
+            { "label": "B. 氧樽應放在涼爽乾燥的地方，遠離熱源", "value": "B" },
+            { "label": "C. 使用氧樽時，應將氣流調至最大", "value": "C" },
+            { "label": "D. 用完的氣樽需要立刻關閉，包括氧樽的閥門", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "對於有呼吸的傷者，連續抽液不應超過",
+        "options": [
+            { "label": "A. 5秒", "value": "A" },
+            { "label": "B. 10秒", "value": "B" },
+            { "label": "C. 15秒", "value": "C" },
+            { "label": "D. 20秒", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "選擇適當口咽人工氣道時，應將其凸邊底部放在傷者口角，然後向下延伸至",
+        "options": [
+            { "label": "A. 下頜尖", "value": "A" },
+            { "label": "B. 耳垂", "value": "B" },
+            { "label": "C. 額角", "value": "C" },
+            { "label": "D. 上咽喉", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "當氣道完全阻塞時，以下哪種情況不會出現？",
+        "options": [
+            { "label": "A. 感覺不到或聽不到傷者的口鼻氣流", "value": "A" },
+            { "label": "B. 傷者的胸部不上下移動", "value": "B" },
+            { "label": "C. 傷者進行人工呼吸時，會覺得肺部難以充氣", "value": "C" },
+            { "label": "D. 用耳聽傷者的胸部可以聽到空氣進入", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "當傷者昏迷時，首先要處理的是",
+        "options": [
+            { "label": "A. 人工呼吸", "value": "A" },
+            { "label": "B. 保持氣道暢通", "value": "B" },
+            { "label": "C. 心肺復甦", "value": "C" },
+            { "label": "D. 包紮傷口", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "當要為可能頸椎受傷的傷者確保氣道暢通時，應使用哪種方法？",
+        "options": [
+            { "label": "A. 復原卧式", "value": "A" },
+            { "label": "B. 按額提顎法", "value": "B" },
+            { "label": "C. 改良推顎法", "value": "C" },
+            { "label": "D. 以上全對", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "處理疑似脊柱受傷且需要嘔吐的傷者時，應該使用哪種方法？",
+        "options": [
+            { "label": "A. 將傷者的頭和頸部轉側以便嘔吐", "value": "A" },
+            { "label": "B. 在保持傷者頭、頸和整個脊柱在同一直線的情況下，使傷者轉側嘔吐", "value": "B" },
+            { "label": "C. 抬高傷者的上半身並轉側其頭和頸以便嘔吐", "value": "C" },
+            { "label": "D. 以上所有方法都不正確", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "在操作傷者的氣道時，急救員應該",
+        "options": [
+            { "label": "A. 打開傷者的口", "value": "A" },
+            { "label": "B. 開啟傷者的氣道並清理口腔", "value": "B" },
+            { "label": "C. 確保氣道暢通", "value": "C" },
+            { "label": "D. 以上全對", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "在濕熱的天氣中，運動員在運動後感覺暈眩、噁心、臉色蒼白、皮膚冷而濕、脈搏快而弱、呼吸快而淺，這可能是",
+        "options": [
+            { "label": "A. 熱衰竭", "value": "A" },
+            { "label": "B. 中暑", "value": "B" },
+            { "label": "C. 感冒", "value": "C" },
+            { "label": "D. 體溫過高", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "在包紮肢體後，如何判斷是否影響了血液循環？",
+        "options": [
+            { "label": "A. 檢查結的正確性", "value": "A" },
+            { "label": "B. 評估傷者的清醒程度", "value": "B" },
+            { "label": "C. 檢查傷者的手指或腳趾的血液循環情況", "value": "C" },
+            { "label": "D. 觀察傷者的臉色是否蒼白", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+{
+    "question": "在處理休克的傷者時，應該",
+    "options": [
+        { "label": "A. 抬高傷者的雙腳以增加重要器官的血液循環", "value": "A" },
+        { "label": "B. 讓傷者的雙腳平放，確保血液流通", "value": "B" },
+        { "label": "C. 提升傷者的頭部和肩部以減少腦部充血", "value": "C" },
+        { "label": "D. 讓傷者平躺，確保面部朝上", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "在處理骨折傷者時，應避免哪一種行為？",
+    "options": [
+        { "label": "A. 讓傷者進食", "value": "A" },
+        { "label": "B. 使用充氣夾板固定受傷的肢體", "value": "B" },
+        { "label": "C. 將受傷部位牢固地固定在身體未受傷的部位", "value": "C" },
+        { "label": "D. 用雙手穩定並支撐受傷部位", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "多處肋骨受傷可能導致胸壁失去支撐，造成'對抗性呼吸'的情況，這種傷勢被稱為",
+    "options": [
+        { "label": "A. 吸氣性傷害", "value": "A" },
+        { "label": "B. 胸部凹陷傷害", "value": "B" },
+        { "label": "C. 胸部創傷", "value": "C" },
+        { "label": "D. 對抗性呼吸", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下列哪一項不屬於處理軟組織受傷的方法？",
+    "options": [
+        { "label": "A. 使用熱敷", "value": "A" },
+        { "label": "B. 抬高受傷部位", "value": "B" },
+        { "label": "C. 讓傷者休息", "value": "C" },
+        { "label": "D. 在受傷部位用繃帶加壓", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "使用手動抽液器對無呼吸的傷者進行援助時，連續抽吸的時間不應超過多少秒？",
+    "options": [
+        { "label": "A. 3秒", "value": "A" },
+        { "label": "B. 5秒", "value": "B" },
+        { "label": "C. 7秒", "value": "C" },
+        { "label": "D. 20秒", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "在搬運正在進行心肺復甦術的傷者時，應盡量縮短中斷時間，每次中斷的時間不應超過多少時間？",
+    "options": [
+        { "label": "A. 一分鐘", "value": "A" },
+        { "label": "B. 十秒鐘", "value": "B" },
+        { "label": "C. 三十秒鐘", "value": "C" },
+        { "label": "D. 五分鐘", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "醫療用的氧氣樽的顏色是",
+    "options": [
+        { "label": "A. 白色樽頸，藍色樽身", "value": "A" },
+        { "label": "B. 全黑色", "value": "B" },
+        { "label": "C. 白色樽頸，黑色樽身", "value": "C" },
+        { "label": "D. 藍白色樽頸，藍色樽身", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "當膠囊和面罩復甦器接上氧氣和氧氣儲存袋，以每分鐘15公升的氧氣流量，其輸出的氧氣濃度可達到",
+    "options": [
+        { "label": "A. 50%", "value": "A" },
+        { "label": "B. 40-60%", "value": "B" },
+        { "label": "C. 90-100%", "value": "C" },
+        { "label": "D. 21%", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "一般急救用的氧氣壓力調節器的作用是將槽內的高壓氧氣降至安全的壓力輸給傷者，其安全壓力為",
+    "options": [
+        { "label": "A. 每平方吋小於70磅", "value": "A" },
+        { "label": "B. 每平方吋大於70磅", "value": "B" },
+        { "label": "C. 每平方吋大於100磅", "value": "C" },
+        { "label": "D. 每平方吋小於10磅", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "在處理被鯊魚咬傷並大量出血的傷者時，不應該",
+    "options": [
+        { "label": "A. 使用間接壓力法止血", "value": "A" },
+        { "label": "B. 使用繃帶包紮", "value": "B" },
+        { "label": "C. 使用止血帶", "value": "C" },
+        { "label": "D. 移除沾滿血跡的紗布再進行包紮", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "以下哪一項不是被海洋生物刺傷而出現中毒的現象？",
+    "options": [
+        { "label": "A. 嘔吐", "value": "A" },
+        { "label": "B. 傷處感覺麻痺", "value": "B" },
+        { "label": "C. 口渴", "value": "C" },
+        { "label": "D. 發燒", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "以下哪一種情況可引致減壓病？",
+    "options": [
+        { "label": "A. 急速潛入深水", "value": "A" },
+        { "label": "B. 從深水急速返回水面", "value": "B" },
+        { "label": "C. 深水潛水時呼吸過慢", "value": "C" },
+        { "label": "D. 潛水時遇到海洋生物受驚", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "壓力失調症的症狀包括：",
+    "options": [
+        { "label": "A. 全身麻痺", "value": "A" },
+        { "label": "B. 耳部疼痛", "value": "B" },
+        { "label": "C. 手部抽搐", "value": "C" },
+        { "label": "D. 呼吸停止", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "潛水前進行過度換氣（超呼吸）可能導致：",
+    "options": [
+        { "label": "A. 血液中的二氧化碳降低", "value": "A" },
+        { "label": "B. 血液中的氧氣降低", "value": "B" },
+        { "label": "C. 下潛的時間減少", "value": "C" },
+        { "label": "D. 下潛的深度減少", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "以下哪一項不是肺部破裂的症狀：",
+    "options": [
+        { "label": "A. 呼吸困難", "value": "A" },
+        { "label": "B. 吞嚥困難", "value": "B" },
+        { "label": "C. 發紺", "value": "C" },
+        { "label": "D. 痙攣", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "下列哪種傷患者，可使用口咽人工氣道？",
+    "options": [
+        { "label": "A. 氣道阻塞的清醒傷者", "value": "A" },
+        { "label": "B. 有微弱呼吸的清醒傷者", "value": "B" },
+        { "label": "C. 喉部受重擊的傷者", "value": "C" },
+        { "label": "D. 昏迷無呼吸的傷者", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "使用口咽人工氣道時，若傷者出現咳嗽，施救員應：",
+    "options": [
+        { "label": "A. 繼續施行吹氣法人工呼吸", "value": "A" },
+        { "label": "B. 重新開通氣道", "value": "B" },
+        { "label": "C. 將傷者擺放為恢復位卧式", "value": "C" },
+        { "label": "D. 立即將口咽人工氣道取出", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "下列哪一項是主觀病症？",
+    "options": [
+        { "label": "A. 傷者口述的傷患徵狀", "value": "A" },
+        { "label": "B. 施救員從傷者身上找到的病歷卡指示", "value": "B" },
+        { "label": "C. 施救員自己的視、聽、觸、嗅覺觀察傷者的結果", "value": "C" },
+        { "label": "D. 傷者自己診斷的結果", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "使用膠囊及面罩復甦器接駁了氧氣槽後，流量應調整至",
+    "options": [
+        { "label": "A. 6公升/分鐘", "value": "A" },
+        { "label": "B. 8公升/分鐘", "value": "B" },
+        { "label": "C. 15公升/分鐘", "value": "C" },
+        { "label": "D. 20公升/分鐘", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "下列哪一項能減輕昆蟲咬傷的疼痛和腫脹？",
+    "options": [
+        { "label": "A. 冷敷", "value": "A" },
+        { "label": "B. 按摩", "value": "B" },
+        { "label": "C. 熱敷", "value": "C" },
+        { "label": "D. 包紮傷處", "value": "D" }
+    ],
+    "correctAnswer": "A"
+}
+    
+  ];
+
+  const numRandomQuestions = 50;
+  const questions = getRandomQuestions(numRandomQuestions);
+
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let userAnswered = false;
+
+    function showQuestion() {
+      const question = questions[currentQuestionIndex];
+      questionText.textContent = question.question;
+      optionsContainer.innerHTML = '';
+
+      // Only show correct answer
+      const correctOptionData = question.options.find(option => option.value === question.correctAnswer);
+      const optionElement = document.createElement('div');
+      optionElement.classList.add('option');
+      optionElement.dataset.value = correctOptionData.value;
+
+      const optionLabel = document.createElement('span');
+      optionLabel.classList.add('option-label');
+      optionLabel.textContent = correctOptionData.label;
+
+      optionElement.appendChild(optionLabel);
+      optionsContainer.appendChild(optionElement);
+
+      feedbackContainer.textContent = '';
+    }
+    
+function handleOptionClick() {
+      // No need to check for userAnswered as there's only one option (the correct answer)
+
+      const question = questions[currentQuestionIndex];
+      question.userAnswer = question.correctAnswer; // Only one answer which is correct
+
+      feedbackContainer.textContent = '正確答案';
+      setTimeout(showNextQuestion, 1000); // Automatically proceed to next question after 1 second
+    }
+    
+    function showNextQuestion() {
+      currentQuestionIndex++;
+      userAnswered = false;
+
+      if (currentQuestionIndex >= questions.length) {
+        showResult();
+      } else {
+        showQuestion();
+      }
+    }
+
+function saveQuizState() {
+  const quizState = {
+    currentQuestionIndex: currentQuestionIndex,
+    score: score,
+    userAnswers: questions.map(question => question.userAnswer)
+  };
+  localStorage.setItem('quizState', JSON.stringify(quizState));
+}
+
+
+function showResult() {
+  saveQuizState();
+  questionText.textContent = '測試完成';
+  optionsContainer.innerHTML = '';
+  feedbackContainer.textContent = `你的分數是 ${score} / ${questions.length}`;
+  nextButton.style.display = 'none';
+  redoButton.style.display = 'block';
+
+  clearInterval(timerInterval); // Stop the timer
+}
+
+function loadQuizState() {
+    try {
+        const storedState = localStorage.getItem('quizState');
+
+        if (storedState) {
+            const parsedState = JSON.parse(storedState);
+            currentQuestionIndex = parsedState.currentQuestionIndex;
+            score = parsedState.score;
+            showQuestion();
+        } else {
+            startQuiz();
+        }
+    } catch (error) {
+        console.error('Failed to load quiz state:', error);
+        startQuiz();
+    }
+}
+
+    function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+}
+
+  function getRandomQuestions(numQuestions) {
+    const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
+    return shuffledQuestions.slice(0, numQuestions);
+  }
+
+function redoQuiz() {
+  localStorage.removeItem('quizState');
+  clearInterval(timerInterval);
+  loadQuizState();
+  currentQuestionIndex = 0;
+  score = 0;
+  userAnswered = false;
+  showQuestion();
+  redoButton.style.display = 'none';
+  clearInterval(timerInterval); // Clear the previous timer interval
+  timeInSeconds = 30 * 60; // Reset the timer to 30 minutes
+  timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
+}    
+
+    nextButton.addEventListener('click', showNextQuestion);
+    redoButton.addEventListener('click', redoQuiz);
+
+    // Show the first question
+    showQuestion();
+    
+  </script>
+
+  
+  
+</body>
+</html>
