@@ -1,4 +1,4 @@
-<script>
+
   
     'use strict';
   
@@ -97,4 +97,3 @@ function handleSwipe() {
     }
   }
 };
-</script>
