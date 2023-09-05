@@ -264,8 +264,8 @@
     color: grey;
   }
 
-#questionSelect {
-  font-size: 40px; 
+.questionSelect {
+  font-size: 24px; 
   padding: 10px 14px;
   width: 200px;
 }
