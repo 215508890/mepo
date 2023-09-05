@@ -265,10 +265,11 @@
   }
 
 .questionSelect {
-  font-size: 24px; 
-  padding: 10px 14px;
+  font-size: 18px; 
   width: 200px;
+  border-radius: 8px;
 }
+
 
 
 
