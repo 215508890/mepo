@@ -265,8 +265,9 @@
   }
 
 .questionSelect {
-  font-size: 18px; 
-  width: 200px;
+  font-size: 15px; 
+  width: 200px
+  padding: 5px;
   border-radius: 8px;
 }
 
