@@ -1,5 +1,7 @@
 <script>
 
+'use strict';
+  
 // JavaScript to handle click events on about-options and service-options
 const aboutOptions = document.querySelectorAll('.about-options');
 const serviceOptions = document.querySelectorAll('.service-options');
