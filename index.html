@@ -19,8 +19,232 @@
   <link rel="apple-touch-icon" href="Images/MEPO%20Logo.png">
 
   <link rel="profile" href="http://gmpg.org/xfn/11">
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <style>
+  
+  /* CSS for the hamburger menu */
+    .hamburger-menu {      
+      cursor: pointer;
+      margin-right: 20px;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+    }
 
+    .hamburger-menu .line {
+      width: 35px;
+      height: 7px;
+      background-color: #000;
+      margin: 5px 0;
+    }
+
+    /* CSS for the vertical menu */
+    .vertical-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #fff;
+      z-index: -1; /* Initially hide the menu bar */
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      box-shadow: none; /* Hide the box shadow by default */
+    }
+
+    .vertical-menu.open {
+      transform: translateX(0);
+      z-index: 998; /* Show the menu bar when open */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Show the box shadow when open */
+    }
+
+    .vertical-menu-header {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: none; /* Remove the bottom border */
+    }
+
+    .vertical-menu-header h1 {
+      font-size: 16px;
+      margin: 0;
+      font-family: Arial, sans-serif; /* Set the font to Arial */
+    }
+
+    .vertical-menu-items {
+      padding: 10px;
+      margin-top: 20px; /* Adjust the top margin to align with the burger button */
+    }
+
+    .menu-item {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-family: Arial, sans-serif; /* Set the font to Arial */
+    }
+
+    .menu-item-text {
+      margin: 0;
+      margin-left: 10px; /* Add some left margin */
+    }
+
+    .dropdown-menu {
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      margin-left: 20px; /* Indent the dropdown menu */
+      pointer-events: none;
+    }
+
+    .dropdown-menu.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .dropdown-item {
+      padding: 5px;
+      cursor: pointer;
+      font-family: Arial, sans-serif; /* Set the font to Arial */
+    }
+
+    .menu-item.active {
+      background-color: #f2f2f2;
+    }
+
+    a {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Inherits the color of its parent */
+    }
+  
+    a:hover {
+    color: inherit; /* Inherits the color of its parent on hover */
+    }
+
+  
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }    
+        
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      background-color: #fff;
+      padding: 10px;
+      z-index: 1000;
+    }
+    
+      .banner {
+      height: 80px;
+      width: auto;
+      margin-top: -10px;
+    }
+
+    .title {
+      font-family: 'Arial', sans-serif;
+      font-size: 2em;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      margin: 0;
+    }
+
+    .sections-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
+    }
+
+    .section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border: none;
+      background: none;
+      outline: none;
+      font-size: 20px;
+      color: #fff;
+      background-color: #c3b091;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .section:hover {
+      background-color: #555;
+    }
+
+    .section.active {
+      background-color: #666;
+    }
+
+    .section h2 {
+      margin: 0;
+    }
+
+    .options {
+      position: relative;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .section.active .options {
+      max-height: 200px;
+      transition: max-height 0.5s ease;
+    }
+
+    .section button {
+      display: inline-block;
+      margin-top: 10px;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      padding: 5px 10px;
+      font-size: 16px;
+      background-color: #ffffff;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .section.active button {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    /* Revised section background colors */
+    #section1.active {
+      background-color: #81D8D0;
+    }
+
+    #section2.active {
+      background-color: #006400;
+    }
+
+    #section3.active {
+      background-color: #FF8C00;
+    }
+  </style>
 </head>
 <body>
   <div class="header">
