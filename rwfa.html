@@ -67,8 +67,7 @@
 <div class="container">
     <h1 class="scoreboard-heading">水上急救</h1>
     <h4 class="reminder">(合格分數 45 | 時限 30分鐘)</h4>
-    <div class="timer-container">
-      <span class="timer" id="stopwatch">30:00</span>
+
     </div>
   
 
@@ -746,26 +745,39 @@ serviceOptions.forEach((option) => {
     let score = 0;
     let userAnswered = false;
 
-    function showQuestion() {
+   function showQuestion() {
       const question = questions[currentQuestionIndex];
       questionText.textContent = question.question;
       optionsContainer.innerHTML = '';
 
-      // Only show correct answer
-      const correctOptionData = question.options.find(option => option.value === question.correctAnswer);
-      const optionElement = document.createElement('div');
-      optionElement.classList.add('option');
-      optionElement.dataset.value = correctOptionData.value;
+      // Display all options but highlight the correct one
+      question.options.forEach(optionData => {
+        const optionElement = document.createElement('div');
+        optionElement.classList.add('option');
+        optionElement.dataset.value = optionData.value;
 
-      const optionLabel = document.createElement('span');
-      optionLabel.classList.add('option-label');
-      optionLabel.textContent = correctOptionData.label;
+        if (optionData.value === question.correctAnswer) {
+          optionElement.classList.add('correct-answer');
+        }
 
-      optionElement.appendChild(optionLabel);
-      optionsContainer.appendChild(optionElement);
+        const optionLabel = document.createElement('span');
+        optionLabel.classList.add('option-label');
+        optionLabel.textContent = optionData.label;
+
+        optionElement.appendChild(optionLabel);
+        optionsContainer.appendChild(optionElement);
+      });
 
       feedbackContainer.textContent = '';
+
+      // Add reset button
+      const resetButton = document.createElement('button');
+      resetButton.textContent = '重置';
+      resetButton.addEventListener('click', resetQuiz);
+      optionsContainer.appendChild(resetButton);
     }
+    
+
     
 function handleOptionClick() {
       // No need to check for userAnswered as there's only one option (the correct answer)
@@ -799,15 +811,14 @@ function saveQuizState() {
 
 
 function showResult() {
-  saveQuizState();
-  questionText.textContent = '測試完成';
-  optionsContainer.innerHTML = '';
-  feedbackContainer.textContent = `你的分數是 ${score} / ${questions.length}`;
-  nextButton.style.display = 'none';
-  redoButton.style.display = 'block';
+      // Your existing showResult code here...
 
-  clearInterval(timerInterval); // Stop the timer
-}
+      // Add reset button
+      const resetButton = document.createElement('button');
+      resetButton.textContent = '重置';
+      resetButton.addEventListener('click', resetQuiz);
+      resultContainer.appendChild(resetButton);
+    }
 
 function loadQuizState() {
     try {
@@ -838,25 +849,20 @@ function loadQuizState() {
     return shuffledQuestions.slice(0, numQuestions);
   }
 
-function redoQuiz() {
-  localStorage.removeItem('quizState');
-  clearInterval(timerInterval);
-  loadQuizState();
-  currentQuestionIndex = 0;
-  score = 0;
-  userAnswered = false;
-  showQuestion();
-  redoButton.style.display = 'none';
-  clearInterval(timerInterval); // Clear the previous timer interval
-  timeInSeconds = 30 * 60; // Reset the timer to 30 minutes
-  timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
-}    
+function resetQuiz() {
+      // Your reset logic here...
+    }
 
-    nextButton.addEventListener('click', showNextQuestion);
-    redoButton.addEventListener('click', redoQuiz);
+    function showNextQuestion() {
+      currentQuestionIndex++;
 
-    // Show the first question
-    showQuestion();
+      if (currentQuestionIndex >= questions.length) {
+        showResult();
+      } else {
+        userAnswered = false; // Reset for next question
+        showQuestion();
+      }
+    }
     
   </script>
 
