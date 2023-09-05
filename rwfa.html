@@ -67,6 +67,10 @@
 <div class="container">
     <h1 class="scoreboard-heading">水上急救</h1>
     <h4 class="reminder">(合格分數 45 | 時限 30分鐘)</h4>
+  <select id="questionSelect">
+  <option value="0">-- 選擇問題 --</option>
+  <!-- the options will be populated by JavaScript -->
+</select>
     <div class="timer-container">
     </div>
   
@@ -919,6 +923,25 @@ function redoQuiz() {
 
     // Show the first question
     showQuestion();
+
+function populateQuestionSelect() {
+  const questionSelect = document.getElementById('questionSelect');
+  
+  // Add an option for each question to the dropdown menu
+  questions.forEach((question, index) => {
+    const option = document.createElement('option');
+    option.value = index;
+    option.textContent = `問題 ${index + 1}`;
+    questionSelect.appendChild(option);
+  });
+}
+    populateQuestionSelect();
+   
+    document.getElementById('questionSelect').addEventListener('change', function() {
+  currentQuestionIndex = parseInt(this.value);
+  showQuestion();
+});
+
     
   </script>
 
