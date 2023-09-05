@@ -878,7 +878,7 @@ function redoQuiz() {
   score = 0;
   userAnswered = false;
   showQuestion();
-  redoButton.style.display = 'none';
+  redoButton.style.display = 'block';
   clearInterval(timerInterval); // Clear the previous timer interval
   timeInSeconds = 30 * 60; // Reset the timer to 30 minutes
   timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
