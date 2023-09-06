@@ -267,39 +267,39 @@
         <p class="menu-item-text">首頁</p></a>
       </div>
       <div class="menu-item">
-        <p class="menu-item-text">拯溺系列</p>
+        <p class="menu-item-text" id="ls" >拯溺系列</p>
         <div class="dropdown-menu">
         <a href="reditpage.html">
-          <div class="dropdown-item">銅章</div></a>
+          <div class="dropdown-item" id="bm" >銅章</div></a>
         <a href="reditpage.html">
-          <div class="dropdown-item">水上急救</div></a>
+          <div class="dropdown-item" id="wfa" >水上急救</div></a>
         <a href="reditpage.html">
-          <div class="dropdown-item">泳池救生</div></a>
+          <div class="dropdown-item" id="pl" >泳池救生</div></a>
         </div>
       </div>
       <div class="menu-item">
-        <p class="menu-item-text">急救系列</p>
+        <p class="menu-item-text" id="fa" >急救系列</p>
         <div class="dropdown-menu">
         <a href="reditpage.html">
-          <div class="dropdown-item">AMS 急救</div></a>
+          <div class="dropdown-item" id="amsfa" >AMS 急救</div></a>
         <a href="reditpage.html">
-          <div class="dropdown-item">SJ 急救</div></a>
+          <div class="dropdown-item" id="sjfa" >SJ 急救</div></a>
         </div>
       </div>
             <div class="menu-item">
-        <p class="menu-item-text">遊樂船系列</p>
+        <p class="menu-item-text" id="pv" >遊樂船系列</p>
         <div class="dropdown-menu">
         <a href="reditpage.html">
-          <div class="dropdown-item">二級操作員</div></a>
+          <div class="dropdown-item" id="op2" >二級操作員</div></a>
         </div>
       </div>
             <div class="menu-item">
-        <p class="menu-item-text">CRE系列</p>
+        <p class="menu-item-text" id="cre" >CRE系列</p>
         <div class="dropdown-menu">
         <a href="reditpage.html">
-          <div class="dropdown-item">中文運用</div></a>
+          <div class="dropdown-item" id="cn" >中文運用</div></a>
           <a href="reditpage.html">
-          <div class="dropdown-item">英文運用</div></a>
+          <div class="dropdown-item" id="en" >英文運用</div></a>
         </div>
       </div>
     </div>
@@ -419,11 +419,11 @@ function handleSwipe() {
       <h2>拯溺系列</h2>
       <div class="options">
         <a href="reditpage.html">
-        <button>銅章</button></a>
+        <button id="bm" >銅章</button></a>
         <a href="reditpage.html">
-        <button>水上急救</button></a>
+        <button id="wfa" >水上急救</button></a>
         <a href="reditpage.html">
-        <button>泳池救生</button></a>
+        <button id="pl" >泳池救生</button></a>
       </div>
     </div>
 
@@ -431,9 +431,9 @@ function handleSwipe() {
       <h2>急救系列</h2>
       <div class="options">
         <a href="reditpage.html">
-        <button>AMS 急救</button></a>
+        <button id="amsfa" >AMS 急救</button></a>
         <a href="reditpage.html">
-        <button>SJ 急救</button></a>
+        <button id="sjfa" >SJ 急救</button></a>
       </div>
     </div>
 
@@ -441,7 +441,7 @@ function handleSwipe() {
       <h2>遊樂船系列</h2>
       <div class="options">
         <a href="reditpage.html">
-    <button>二級操作員</button></a>
+    <button id="op2" >二級操作員</button></a>
       </div>
     </div>
 
@@ -449,9 +449,9 @@ function handleSwipe() {
       <h2>CRE系列</h2>
       <div class="options">
         <a href="reditpage.html">
-    <button>中文運用</button></a>
+    <button id="cn" >中文運用</button></a>
         <a href="reditpage.html">
-    <button>英文運用</button></a>
+    <button id="en">英文運用</button></a>
       </div>
     </div>
     
@@ -497,8 +497,44 @@ function handleSwipe() {
 
 
 /*cookies for storing button value*/
-document.getElementById('yourButtonId').addEventListener('click', function() {
-  document.cookie = "buttonClicked=Button1"; // Replace "Button1" with your button's information
+document.getElementById('bm').addEventListener('click', function() {
+  document.cookie = "buttonClicked=bm; path=/";  
+  window.location.href = "reditpage.html"; 
+});
+
+document.getElementById('wfa').addEventListener('click', function() {
+  document.cookie = "buttonClicked=wfa; path=/";  
+  window.location.href = "reditpage.html"; 
+});
+
+document.getElementById('pl').addEventListener('click', function() {
+  document.cookie = "buttonClicked=pl; path=/";  
+  window.location.href = "reditpage.html"; 
+});
+
+document.getElementById('amsfa').addEventListener('click', function() {
+  document.cookie = "buttonClicked=amsfa; path=/";  
+  window.location.href = "reditpage.html"; 
+});
+
+document.getElementById('sjfa').addEventListener('click', function() {
+  document.cookie = "buttonClicked=sjfa; path=/";  
+  window.location.href = "reditpage.html"; 
+});
+
+document.getElementById('op2').addEventListener('click', function() {
+  document.cookie = "buttonClicked=op2; path=/";  
+  window.location.href = "reditpage.html"; 
+});
+
+document.getElementById('cn').addEventListener('click', function() {
+  document.cookie = "buttonClicked=cn; path=/";  
+  window.location.href = "reditpage.html"; 
+});
+
+document.getElementById('en').addEventListener('click', function() {
+  document.cookie = "buttonClicked=en; path=/";  
+  window.location.href = "reditpage.html"; 
 });
     
   </script>
