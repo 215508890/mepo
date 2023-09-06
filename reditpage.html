@@ -28,25 +28,28 @@
 <script>
 const cookies = document.cookie.split('; ');
 const buttonClicked = cookies.find(row => row.startsWith('buttonClicked')).split('=')[1];
+let url;
 
 if (buttonClicked === 'bm') {
-  document.getElementById('buttonOnNextPage').href = "mbm.html";
+  url = "mbm.html";
 } else if (buttonClicked === 'wfa') {
-  document.getElementById('buttonOnNextPage').href = "mwfa.html";
+  url = "mwfa.html";
 } else if (buttonClicked === 'pl') {
-  document.getElementById('buttonOnNextPage').href = "mpl.html";
+  url = "mpl.html";
 } else if (buttonClicked === 'amsfa') {
-  document.getElementById('buttonOnNextPage').href = "mamsfa.html";
+  url = "mamsfa.html";
 } else if (buttonClicked === 'sjfa') {
-  document.getElementById('buttonOnNextPage').href = "msjfa.html";
+  url = "msjfa.html";
 } else if (buttonClicked === 'op2') {
-  document.getElementById('buttonOnNextPage').href = "mg2o.html";
+  url = "mg2o.html";
 } else if (buttonClicked === 'cn') {
-  document.getElementById('buttonOnNextPage').href = "mcn.html";
+  url = "mcn.html";
 } else if (buttonClicked === 'en') {
-  document.getElementById('buttonOnNextPage').href = "men.html";
+  url = "men.html";
+} else {
+  url = "default.html";
 }
-  
+
 document.getElementById('buttonOnNextPage').addEventListener('click', function() {
   window.location.href = url;
 });
