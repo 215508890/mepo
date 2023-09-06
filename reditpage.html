@@ -23,28 +23,18 @@
 
 <h1>請選擇模式</h1>
 
-<button id="myButton">Go Back</button>
+<a id="myButtonOnNextPage">温習模式</a>
 
 <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const source = urlParams.get('source');
+const cookies = document.cookie.split('; ');
+const buttonClicked = cookies.find(row => row.startsWith('buttonClicked')).split('=')[1];
 
-  const myButton = document.getElementById('myButton');
-
-  if (source === 'A') {
-    myButton.addEventListener('click', function() {
-      window.location.href = 'http://example.com/A';
-    });
-  } else if (source === 'B') {
-    myButton.addEventListener('click', function() {
-      window.location.href = 'http://example.com/B';
-    });
-  } else {
-    myButton.addEventListener('click', function() {
-      window.location.href = 'http://example.com/';
-    });
-  }
-</script>
-
-</body>
+if (buttonClicked === 'bm') {
+  document.getElementById('buttonOnNextPage').href = 'https://your-url-for-button-1.com';
+} else if (buttonClicked === 'Button2') {
+  document.getElementById('buttonOnNextPage').href = 'https://your-url-for-button-2.com';
+} else if (buttonClicked === 'Button3') {
+  document.getElementById('buttonOnNextPage').href = 'https://your-url-for-button-3.com';
+}
+</script></body>
 </html>
