@@ -467,6 +467,13 @@ function handleSwipe() {
         });
       }
     });
+
+
+/*cookies for storing button value*/
+document.getElementById('yourButtonId').addEventListener('click', function() {
+  document.cookie = "buttonClicked=Button1"; // Replace "Button1" with your button's information
+});
+    
   </script>
 </body>
 </html>
