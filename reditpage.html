@@ -27,36 +27,43 @@
 
 <script>
 const cookies = document.cookie.split('; ');
-const buttonClicked = cookies.find(row => row.startsWith('buttonClicked')).split('=')[1];
-let url;
+const cookie = cookies.find(row => row.startsWith('buttonClicked'));
 
-if (buttonClicked === 'bm') {
-  url = "mbm.html";
-} else if (buttonClicked === 'wfa') {
-  url = "mwfa.html";
-} else if (buttonClicked === 'pl') {
-  url = "mpl.html";
-} else if (buttonClicked === 'amsfa') {
-  url = "mamsfa.html";
-} else if (buttonClicked === 'sjfa') {
-  url = "msjfa.html";
-} else if (buttonClicked === 'op2') {
-  url = "mg2o.html";
-} else if (buttonClicked === 'cn') {
-  url = "mcn.html";
-} else if (buttonClicked === 'en') {
-  url = "men.html";
+// Check if cookie was found
+if (cookie) {
+    const buttonClicked = cookie.split('=')[1];
+    let url;
+
+    if (buttonClicked === 'bm') {
+      url = "mbm.html";
+    } else if (buttonClicked === 'wfa') {
+      url = "mwfa.html";
+    } else if (buttonClicked === 'pl') {
+      url = "mpl.html";
+    } else if (buttonClicked === 'amsfa') {
+      url = "mamsfa.html";
+    } else if (buttonClicked === 'sjfa') {
+      url = "msjfa.html";
+    } else if (buttonClicked === 'op2') {
+      url = "mg2o.html";
+    } else if (buttonClicked === 'cn') {
+      url = "mcn.html";
+    } else if (buttonClicked === 'en') {
+      url = "men.html";
+    } else {
+      url = "default.html";
+    }
+
+    console.log('buttonClicked:', buttonClicked); // This will log the value of buttonClicked
+    console.log('url:', url); // This will log the value of url
+
+    document.getElementById('buttonOnNextPage').addEventListener('click', function() {
+      window.location.href = url;
+    });
+
 } else {
-  url = "default.html";
+    console.log('buttonClicked cookie not found');
 }
-
-console.log('buttonClicked:', buttonClicked);
-console.log('url:', url);
-  
-document.getElementById('buttonOnNextPage').addEventListener('click', function() {
-  window.location.href = url;
-});
-
 
   
 </script></body>
