@@ -23,7 +23,7 @@
 
 <h1>請選擇模式</h1>
 
-<button id="buttonOnNextPage">温習模式</button>
+<a id="buttonOnNextPage" class="button-style">温習模式</button>
 
 <script>
 const cookies = document.cookie.split('; ');
@@ -47,7 +47,9 @@ if (buttonClicked === 'bm') {
   document.getElementById('buttonOnNextPage').href = "men.html";
 }
   
-
+document.getElementById('buttonOnNextPage').addEventListener('click', function() {
+  window.location.href = url;
+});
 
   
 </script></body>
