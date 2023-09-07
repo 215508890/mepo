@@ -536,9 +536,10 @@ function handleSwipe() {
 let currentThirdLayer = null;  // keep track of the currently open third layer
 
 sections.forEach(section => {
-  // Add event listener to the h2 element, not the whole section
-  section.querySelector('h2').addEventListener('click', function(event) {
-    event.stopPropagation();  // Prevent event from bubbling up to the section
+  section.addEventListener('click', function(event) {
+    // Check if the event's target is a button, if yes, don't execute the section's click event
+    if (event.target.tagName.toLowerCase() === 'button') return;
+
     sections.forEach(s => {
       if (s !== section) {
         s.classList.remove('active');
