@@ -530,20 +530,21 @@ sections.forEach(section => {
       if (s !== section) {
         s.classList.remove('active');
         const options = s.querySelector('.options');
-        options.style.maxHeight = '0';
+        options.style.maxHeight = getComputedStyle(options).maxHeight === '0px' ? `${options.scrollHeight}px` : '0px';
         s.querySelector('h2').style.transform = 'translateY(0)';
       }
     });
 
     section.classList.toggle('active');
     const options = section.querySelector('.options');
-    options.style.maxHeight = options.style.maxHeight === '0px' ? `${options.scrollHeight}px` : '0px';
+    options.style.maxHeight = getComputedStyle(options).maxHeight === '0px' ? `${options.scrollHeight}px` : '0px';
     section.querySelector('h2').style.transform = options.style.maxHeight !== '0px' ? 'translateY(-20px)' : 'translateY(0)';
   });
 
   section.addEventListener('transitionend', function() {
     if (!section.classList.contains('active')) {
-      section.querySelector('.options').style.maxHeight = '0px';
+      const options = section.querySelector('.options');
+      options.style.maxHeight = '0px';
       section.querySelector('h2').style.transform = 'translateY(0)';
     }
   });
@@ -554,7 +555,8 @@ document.addEventListener('click', function(event) {
   if (!target.closest('.section')) {
     sections.forEach(section => {
       section.classList.remove('active');
-      section.querySelector('.options').style.maxHeight = '0px';
+      const options = section.querySelector('.options');
+      options.style.maxHeight = '0px';
       section.querySelector('h2').style.transform = 'translateY(0)';
     });
   }
@@ -575,7 +577,7 @@ buttons.forEach(button => {
         }
       });
       // Toggle the clicked third layer
-      thirdLayer.style.maxHeight = thirdLayer.style.maxHeight === '0px' ? `${thirdLayer.scrollHeight}px` : '0px';
+      thirdLayer.style.maxHeight = getComputedStyle(thirdLayer).maxHeight === '0px' ? `${thirdLayer.scrollHeight}px` : '0px';
     }
   });
 });
