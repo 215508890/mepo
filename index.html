@@ -496,45 +496,7 @@ function handleSwipe() {
   </div>
 
   <script>
-    const sections = document.querySelectorAll('.section');
-
-    sections.forEach(section => {
-      section.addEventListener('click', function() {
-        sections.forEach(s => {
-          if (s !== section) {
-            s.classList.remove('active');
-            const options = s.querySelector('.options');
-            options.style.maxHeight = '0';
-            s.querySelector('h2').style.transform = 'translateY(0)';
-          }
-        });
-        section.classList.toggle('active');
-        const options = section.querySelector('.options');
-        options.style.maxHeight = options.style.maxHeight ? null : `${options.scrollHeight}px`;
-        section.querySelector('h2').style.transform = options.style.maxHeight ? 'translateY(-20px)' : 'translateY(0)';
-      });
-
-      section.addEventListener('transitionend', function() {
-        if (!section.classList.contains('active')) {
-          section.querySelector('.options').style.maxHeight = null;
-          section.querySelector('h2').style.transform = 'translateY(0)';
-        }
-      });
-    });
-
-    document.addEventListener('click', function(event) {
-      const target = event.target;
-      if (!target.closest('.section')) {
-        sections.forEach(section => {
-          section.classList.remove('active');
-          section.querySelector('.options').style.maxHeight = null;
-          section.querySelector('h2').style.transform = 'translateY(0)';
-        });
-      }
-    });
-    
-/*third layer of section options*/
-const buttons = documentconst sections = document.querySelectorAll('.section');
+    const sections = documentconst sections = document.querySelectorAll('.section');
 
 sections.forEach(section => {
   section.addEventListener('click', function() {
@@ -562,12 +524,6 @@ sections.forEach(section => {
     if (!section.classList.contains('active')) {
       section.querySelector('.options').style.maxHeight = null;
       section.querySelector('h2').style.transform = 'translateY(0)';
-
-      // Reset the maxHeight of third-layer elements when the transition ends
-      const thirdLayers = section.querySelectorAll('.third-layer');
-      thirdLayers.forEach(thirdLayer => {
-        thirdLayer.style.maxHeight = null;
-      });
     }
   });
 });
@@ -579,14 +535,21 @@ document.addEventListener('click', function(event) {
       section.classList.remove('active');
       section.querySelector('.options').style.maxHeight = null;
       section.querySelector('h2').style.transform = 'translateY(0)';
-
-      // Hide the third layer when click outside the section
-      const thirdLayers = section.querySelectorAll('.third-layer');
-      thirdLayers.forEach(thirdLayer => {
-        thirdLayer.style.maxHeight = '0';
-      });
     });
   }
+});
+
+/*third layer of section options*/
+const buttons = document.querySelectorAll('.options button');
+
+buttons.forEach(button => {
+  button.addEventListener('click', function(event) {
+    event.stopPropagation();  // Prevent event from bubbling up to the section
+    const thirdLayer = button.nextElementSibling;
+    if (thirdLayer && thirdLayer.classList.contains('third-layer')) {
+      thirdLayer.style.maxHeight = thirdLayer.style.maxHeight ? null : `${thirdLayer.scrollHeight}px`;
+    }
+  });
 });
 
 /*cookies for storing button value*/
