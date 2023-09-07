@@ -521,6 +521,7 @@ function handleSwipe() {
 
   <script>
     let activeSection = null;
+let activeThirdLayer = null;
 
 document.querySelectorAll('.section').forEach(section => {
   section.addEventListener('click', event => {
@@ -542,30 +543,26 @@ document.querySelectorAll('.section').forEach(section => {
   });
 });
 
-let activeButton = null;
-
 document.querySelectorAll('.options button').forEach(button => {
   button.addEventListener('click', event => {
     event.stopPropagation();
 
-    if (activeButton && activeButton !== button) {
-      const oldThirdLayer = activeButton.nextElementSibling;
-      oldThirdLayer.style.maxHeight = '0px';
-    }
-
     const thirdLayer = button.nextElementSibling;
     if (thirdLayer && thirdLayer.classList.contains('third-layer')) {
-      thirdLayer.style.visibility = 'hidden';
-      thirdLayer.style.maxHeight = '';
+      // Close the currently active third layer
+      if (activeThirdLayer && activeThirdLayer !== thirdLayer) {
+        activeThirdLayer.style.maxHeight = '0px';
+      }
+      // Temporarily display the third layer to calculate scrollHeight
+      thirdLayer.style.display = 'block';
       const scrollHeight = thirdLayer.scrollHeight;
-      thirdLayer.style.visibility = '';
+      thirdLayer.style.display = '';
+      // Start the animation
       thirdLayer.style.maxHeight = getComputedStyle(thirdLayer).maxHeight === '0px' ? `${scrollHeight}px` : '0px';
+      activeThirdLayer = getComputedStyle(thirdLayer).maxHeight !== '0px' ? thirdLayer : null;
     }
-
-    activeButton = getComputedStyle(thirdLayer).maxHeight !== '0px' ? button : null;
   });
 });
-
 
     
   </script>
