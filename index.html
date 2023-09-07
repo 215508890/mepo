@@ -451,7 +451,6 @@ function handleSwipe() {
     <div class="section" id="section1">
       <h2>拯溺系列</h2>
       <div class="options">
-        <a href="reditpage.html">
      <button id="bm" >銅章</button>
 <div class="third-layer">
     <a href="rwfa.html">
@@ -535,16 +534,17 @@ function handleSwipe() {
     });
     
 /*third layer of section options*/
-const options = document.querySelectorAll('.option');
+const buttons = document.querySelectorAll('.options button');
 
-options.forEach(option => {
-  option.addEventListener('click', function(event) {
+buttons.forEach(button => {
+  button.addEventListener('click', function(event) {
     event.stopPropagation();  // Prevent event from bubbling up to the section
-    const thirdLayer = option.querySelector('.third-layer');
-    thirdLayer.style.maxHeight = thirdLayer.style.maxHeight ? null : `${thirdLayer.scrollHeight}px`;
+    const thirdLayer = button.nextElementSibling;
+    if (thirdLayer && thirdLayer.classList.contains('third-layer')) {
+      thirdLayer.style.maxHeight = thirdLayer.style.maxHeight ? null : `${thirdLayer.scrollHeight}px`;
+    }
   });
 });
-
 
 /*cookies for storing button value*/
 document.getElementById('bm').addEventListener('click', function() {
