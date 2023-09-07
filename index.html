@@ -521,7 +521,6 @@ function handleSwipe() {
 
   <script>
     const sections = document.querySelectorAll('.section');
-let currentThirdLayer = null;  // keep track of the currently open third layer
 
 sections.forEach(section => {
   section.addEventListener('click', function(event) {
@@ -538,13 +537,13 @@ sections.forEach(section => {
     });
     section.classList.toggle('active');
     const options = section.querySelector('.options');
-    options.style.maxHeight = options.style.maxHeight ? null : `${options.scrollHeight}px`;
-    section.querySelector('h2').style.transform = options.style.maxHeight ? 'translateY(-20px)' : 'translateY(0)';
+    options.style.maxHeight = options.style.maxHeight === '0px' ? `${options.scrollHeight}px` : '0px';
+    section.querySelector('h2').style.transform = options.style.maxHeight !== '0px' ? 'translateY(-20px)' : 'translateY(0)';
   });
 
   section.addEventListener('transitionend', function() {
     if (!section.classList.contains('active')) {
-      section.querySelector('.options').style.maxHeight = null;
+      section.querySelector('.options').style.maxHeight = '0px';
       section.querySelector('h2').style.transform = 'translateY(0)';
     }
   });
@@ -555,13 +554,12 @@ document.addEventListener('click', function(event) {
   if (!target.closest('.section')) {
     sections.forEach(section => {
       section.classList.remove('active');
-      section.querySelector('.options').style.maxHeight = null;
+      section.querySelector('.options').style.maxHeight = '0px';
       section.querySelector('h2').style.transform = 'translateY(0)';
     });
   }
 });
 
-/*third layer of section options*/
 const buttons = document.querySelectorAll('.options button');
 
 buttons.forEach(button => {
@@ -569,11 +567,7 @@ buttons.forEach(button => {
     event.stopPropagation();  // Prevent event from bubbling up to the section
     const thirdLayer = button.nextElementSibling;
     if (thirdLayer && thirdLayer.classList.contains('third-layer')) {
-      if (currentThirdLayer && currentThirdLayer !== thirdLayer) {
-        currentThirdLayer.style.maxHeight = null;  // close the previously open third layer
-      }
-      thirdLayer.style.maxHeight = thirdLayer.style.maxHeight ? null : `${thirdLayer.scrollHeight}px`;
-      currentThirdLayer = thirdLayer;  // update the currently open third layer
+      thirdLayer.style.maxHeight = thirdLayer.style.maxHeight === '0px' ? `${thirdLayer.scrollHeight}px` : '0px';
     }
   });
 });
