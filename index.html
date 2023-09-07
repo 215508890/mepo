@@ -524,7 +524,6 @@ function handleSwipe() {
 
 sections.forEach(section => {
   section.addEventListener('click', function(event) {
-    // Check if the event's target is a button, if yes, don't execute the section's click event
     if (event.target.tagName.toLowerCase() === 'button') return;
 
     sections.forEach(s => {
@@ -535,6 +534,7 @@ sections.forEach(section => {
         s.querySelector('h2').style.transform = 'translateY(0)';
       }
     });
+
     section.classList.toggle('active');
     const options = section.querySelector('.options');
     options.style.maxHeight = options.style.maxHeight === '0px' ? `${options.scrollHeight}px` : '0px';
@@ -564,9 +564,17 @@ const buttons = document.querySelectorAll('.options button');
 
 buttons.forEach(button => {
   button.addEventListener('click', function(event) {
-    event.stopPropagation();  // Prevent event from bubbling up to the section
+    event.stopPropagation(); // Prevent event from bubbling up to the section
     const thirdLayer = button.nextElementSibling;
     if (thirdLayer && thirdLayer.classList.contains('third-layer')) {
+      // Close all other third layers
+      buttons.forEach(b => {
+        const otherThirdLayer = b.nextElementSibling;
+        if (otherThirdLayer && otherThirdLayer !== thirdLayer) {
+          otherThirdLayer.style.maxHeight = '0px';
+        }
+      });
+      // Toggle the clicked third layer
       thirdLayer.style.maxHeight = thirdLayer.style.maxHeight === '0px' ? `${thirdLayer.scrollHeight}px` : '0px';
     }
   });
