@@ -546,20 +546,26 @@ document.querySelectorAll('.section').forEach(section => {
 document.querySelectorAll('.options button').forEach(button => {
   button.addEventListener('click', event => {
     event.stopPropagation();
-
     const thirdLayer = button.nextElementSibling;
+
     if (thirdLayer && thirdLayer.classList.contains('third-layer')) {
       // Close the currently active third layer
       if (activeThirdLayer && activeThirdLayer !== thirdLayer) {
         activeThirdLayer.style.maxHeight = '0px';
       }
+      
+      // Check if third layer is displayed
+      const isDisplayed = getComputedStyle(thirdLayer).maxHeight !== '0px';
+
       // Temporarily display the third layer to calculate scrollHeight
-      thirdLayer.style.display = 'block';
-      const scrollHeight = thirdLayer.scrollHeight;
-      thirdLayer.style.display = '';
+      thirdLayer.style.visibility = 'hidden';
+      thirdLayer.style.maxHeight = '';
+      const scrollHeight = `${thirdLayer.scrollHeight}px`;
+      thirdLayer.style.visibility = '';
+
       // Start the animation
-      thirdLayer.style.maxHeight = getComputedStyle(thirdLayer).maxHeight === '0px' ? `${scrollHeight}px` : '0px';
-      activeThirdLayer = getComputedStyle(thirdLayer).maxHeight !== '0px' ? thirdLayer : null;
+      thirdLayer.style.maxHeight = !isDisplayed ? scrollHeight : '0px';
+      activeThirdLayer = !isDisplayed ? thirdLayer : null;
     }
   });
 });
