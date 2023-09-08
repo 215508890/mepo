@@ -552,10 +552,10 @@ document.querySelectorAll('.section').forEach(section => {
     }
 
     section.classList.toggle('active');
-    const options = section.querySelector('.options');
-    options.style.maxHeight = getComputedStyle(options).maxHeight === '0px' ? `${options.scrollHeight}px` : '0px';
-    section.querySelector('h2').style.transform = getComputedStyle(options).maxHeight !== '0px' ? 'translateY(-20px)' : 'translateY(0)';
-
+section.querySelector('h2').style.transform = section.classList.contains('active') ? 'translateY(-20px)' : 'translateY(0)';
+const options = section.querySelector('.options');
+options.style.maxHeight = section.classList.contains('active') ? `${options.scrollHeight}px` : '0px';
+    
     activeSection = section.classList.contains('active') ? section : null;
   });
 });
