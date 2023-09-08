@@ -132,7 +132,12 @@
     border-radius: 8px;
 }
 
-
+.fixed-bottom-ad {
+    position: fixed;
+    bottom: 0;
+    width: 100%; /* or you can set it to the width of your ad */
+    z-index: 1000; /* this will ensure the ad stays on top of other elements */
+}
 
       .hamburger-menu {      
       cursor: pointer;
