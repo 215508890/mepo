@@ -161,12 +161,6 @@
       margin: 0;
     }
     
-    .fixed-bottom-ad {
-    position: fixed;
-    bottom: 0;
-    width: 100%; 
-    z-index: 1000; 
-}
 
     .sections-container {
   display: flex;
@@ -549,6 +543,12 @@ document.querySelectorAll('.section').forEach(section => {
 
       oldOptions.style.maxHeight = null;
       activeSection.querySelector('h2').style.transform = 'translateY(0)';
+    } else if (activeSection && activeSection === section) {
+      // If the active section is clicked again, close any active third layer
+      if (activeThirdLayer) {
+        activeThirdLayer.style.maxHeight = '0px';
+        activeThirdLayer = null;
+      }
     }
 
     section.classList.toggle('active');
@@ -559,7 +559,6 @@ document.querySelectorAll('.section').forEach(section => {
     activeSection = section.classList.contains('active') ? section : null;
   });
 });
-
 document.querySelectorAll('.options button').forEach(button => {
   button.addEventListener('click', event => {
     event.stopPropagation();
@@ -596,7 +595,6 @@ document.querySelectorAll('.options button').forEach(button => {
     
   </script>
     
-  
   
 </body>
 </html>
