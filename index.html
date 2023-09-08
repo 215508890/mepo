@@ -520,7 +520,7 @@ function handleSwipe() {
   </div>
 
   <script>
-    let activeSection = null;
+   let activeSection = null;
 let activeThirdLayer = null;
 
 document.querySelectorAll('.section').forEach(section => {
@@ -530,7 +530,14 @@ document.querySelectorAll('.section').forEach(section => {
     if (activeSection && activeSection !== section) {
       activeSection.classList.remove('active');
       const oldOptions = activeSection.querySelector('.options');
-      oldOptions.style.maxHeight = '0px';
+
+      // Close any active third layer in the old section
+      if (activeThirdLayer) {
+        activeThirdLayer.style.maxHeight = '0px';
+        activeThirdLayer = null;
+      }
+
+      oldOptions.style.maxHeight = null;
       activeSection.querySelector('h2').style.transform = 'translateY(0)';
     }
 
@@ -547,11 +554,14 @@ document.querySelectorAll('.options button').forEach(button => {
   button.addEventListener('click', event => {
     event.stopPropagation();
     const thirdLayer = button.nextElementSibling;
+    const options = button.parentNode;
 
     if (thirdLayer && thirdLayer.classList.contains('third-layer')) {
       // Close the currently active third layer
       if (activeThirdLayer && activeThirdLayer !== thirdLayer) {
         activeThirdLayer.style.maxHeight = '0px';
+        activeThirdLayer.parentNode.style.maxHeight = `${activeThirdLayer.parentNode.scrollHeight}px`;
+        activeThirdLayer = null;
       }
       
       // Check if third layer is displayed
@@ -565,11 +575,14 @@ document.querySelectorAll('.options button').forEach(button => {
 
       // Start the animation
       thirdLayer.style.maxHeight = !isDisplayed ? scrollHeight : '0px';
+
+      // Adjust the maxHeight of the options container
+      options.style.maxHeight = !isDisplayed ? `${options.scrollHeight + thirdLayer.scrollHeight}px` : `${options.scrollHeight}px`;
+
       activeThirdLayer = !isDisplayed ? thirdLayer : null;
     }
   });
 });
-
     
   </script>
   
