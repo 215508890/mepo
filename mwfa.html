@@ -153,8 +153,8 @@
 
 
 <div class="container">
-    <h1 class="scoreboard-heading">水上急救</h1>
-    <h4 class="reminder">(合格分數 45 | 時限 30分鐘)</h4>
+    <h1 class="scoreboard-heading">銅章</h1>
+    <h4 class="reminder">(合格分數 18 | 時限 30分鐘)</h4>
     <div class="timer-container">
       <span class="timer" id="stopwatch">30:00</span>
     </div>
@@ -429,7 +429,7 @@ serviceOptions.forEach((option) => {
         "correctAnswer": "A"
     },
     {
-        "question": "脊柱受傷可能導致的狀況: (1)肢體全失知覺 (2)休克 (3)呼吸困難 (4)心跳停止",
+        "question": "脊柱受傷可能導致的狀況: \n(1)肢體全失知覺 \n(2)休克 \n(3)呼吸困難 \n(4)心跳停止",
         "options": [
             { "label": "A. (1)和(3)", "value": "A" },
             { "label": "B. (1)(2)和(3)", "value": "B" },
@@ -459,7 +459,7 @@ serviceOptions.forEach((option) => {
         "correctAnswer": "B"
     },
     {
-        "question": "脊柱骨折的處理原則包括: (1)保存生命 (2)固定頭頸 (3)固定整條脊柱 (4)儘可能使溺者在運送時仰臥",
+        "question": "脊柱骨折的處理原則包括: \n(1)保存生命 \n(2)固定頭頸 \n(3)固定整條脊柱 \n(4)儘可能使溺者在運送時仰臥",
         "options": [
             { "label": "A. (1)和(3)", "value": "A" },
             { "label": "B. (1)(2)和(3)", "value": "B" },
@@ -479,7 +479,7 @@ serviceOptions.forEach((option) => {
         "correctAnswer": "C"
     },
     {
-        "question": "脊椎骨折的病人可能會出現以下情況: (1)呼吸停止 (2)肢體麻痺 (3)口鼻流血 (4)瞳孔大小不一",
+        "question": "脊椎骨折的病人可能會出現以下情況: \n(1)呼吸停止 \n(2)肢體麻痺 \n(3)口鼻流血 \n(4)瞳孔大小不一",
         "options": [
             { "label": "A. (1)和(2)", "value": "A" },
             { "label": "B. (2)和(3)", "value": "B" },
@@ -489,7 +489,7 @@ serviceOptions.forEach((option) => {
         "correctAnswer": "D"
     },
     {
-        "question": "水上脊柱骨折處理的順序為: (1)固定頭頸 (2)尋求援助 (3)將溺者固定在脊柱板上 (4)將溺者運到岸上",
+        "question": "水上脊柱骨折處理的順序為: \n(1)固定頭頸 \n(2)尋求援助 \n(3)將溺者固定在脊柱板上 \n(4)將溺者運到岸上",
         "options": [
             { "label": "A. 1,2,3,4", "value": "A" },
             { "label": "B. 2,1,3,4", "value": "B" },
@@ -861,7 +861,7 @@ serviceOptions.forEach((option) => {
     
   ];
 
-  const numRandomQuestions = 50;
+  const numRandomQuestions = 30;
   const questions = getRandomQuestions(numRandomQuestions);
 
 
@@ -869,40 +869,56 @@ serviceOptions.forEach((option) => {
     let score = 0;
     let userAnswered = false;
 
-    function showQuestion() {
-      const question = questions[currentQuestionIndex];
-      questionText.textContent = question.question;
-      optionsContainer.innerHTML = '';
+function showQuestion() {
+  const question = questions[currentQuestionIndex];
 
-      question.options.forEach(option => {
-        const optionElement = document.createElement('div');
-        optionElement.classList.add('option');
-        optionElement.dataset.value = option.value;
-        optionElement.addEventListener('click', handleOptionClick);
+  // Split the question string into parts
+  const questionParts = question.question.split('\n');
 
-        const optionLabel = document.createElement('span');
-        optionLabel.classList.add('option-label');
-        optionLabel.textContent = option.label;
+  // Clear any existing content
+  questionText.innerHTML = '';
 
-        optionElement.appendChild(optionLabel);
-        optionsContainer.appendChild(optionElement);
-      });
+  // Create text and break elements for each part
+  questionParts.forEach((part, index) => {
+    questionText.appendChild(document.createTextNode(part));
 
-      if (userAnswered) {
-        const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
-        if (selectedOption) {
-          selectedOption.classList.add('wrong-option');
-        }
-        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-        if (correctOption) {
-          correctOption.classList.add('correct-option');
-        }
-      }
-
-      feedbackContainer.textContent = '';
-      nextButton.style.display = 'none';
+    // Add a line break after every part except the last one
+    if (index < questionParts.length - 1) {
+      questionText.appendChild(document.createElement('br'));
     }
+  });
 
+  optionsContainer.innerHTML = '';
+
+  question.options.forEach(option => {
+    const optionElement = document.createElement('div');
+    optionElement.classList.add('option');
+    optionElement.dataset.value = option.value;
+    optionElement.addEventListener('click', handleOptionClick);
+
+    const optionLabel = document.createElement('span');
+    optionLabel.classList.add('option-label');
+    optionLabel.textContent = option.label;
+
+    optionElement.appendChild(optionLabel);
+    optionsContainer.appendChild(optionElement);
+  });
+
+  if (userAnswered) {
+    const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
+    if (selectedOption) {
+      selectedOption.classList.add('wrong-option');
+    }
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    if (correctOption) {
+      correctOption.classList.add('correct-option');
+    }
+  }
+
+  feedbackContainer.textContent = '';
+  nextButton.style.display = 'none';
+}
+    
 function handleOptionClick(event) {
   if (userAnswered) {
     return;
@@ -1034,8 +1050,6 @@ function redoQuiz() {
 
     // Show the first question
     showQuestion();
-
-question.question = question.question.replace(/ \((\d)\)/g, '<br>($1)');
     
   </script>
 
