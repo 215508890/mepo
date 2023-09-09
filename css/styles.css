@@ -2,6 +2,7 @@
     font-family: Arial, sans-serif;
     text-align: center;
     padding-bottom: 90px;
+    margin-bottom: 20px;
   }
 
   .container {
@@ -310,9 +311,6 @@
     }
   }
 
-* {
-  margin-bottom: 20px;
-}
 
 /*front-page/
 
