@@ -466,7 +466,7 @@ const serviceOptions = document.querySelectorAll('.service-options');
         "correctAnswer": "C"
     },
     {
-        "question": "脊椎骨折的病人可能會出現以下情況: 1)呼吸停止 (2)肢體麻痺 (3)口鼻流血 (4)瞳孔大小不一",
+        "question": "脊椎骨折的病人可能會出現以下情況: (1)呼吸停止 (2)肢體麻痺 (3)口鼻流血 (4)瞳孔大小不一",
         "options": [
             { "label": "A. (1)和(2)", "value": "A" },
             { "label": "B. (2)和(3)", "value": "B" },
@@ -1065,7 +1065,7 @@ function populateQuestionSelect() {
   showQuestion();
 });
 
-    
+question.question = question.question.replace(/ \((\d)\)/g, '<br>($1)');    
   </script>
 
   
