@@ -746,7 +746,7 @@ const serviceOptions = document.querySelectorAll('.service-options');
     "correctAnswer": "B"
 },
 {
-    "question": "進行吹氣法人工呼吸時，首先為患者進行兩次吹氣，目的是讓患者：(1)評估傷者氣道是否暢通  (2)給予傷者氧氣供應  (3)讓傷者肺部即時進行氣體交換  (4)必要的心肺復甦程序",
+    "question": "進行吹氣法人工呼吸時，首先為患者進行兩次吹氣，目的是讓患者：\n(1)評估傷者氣道是否暢通 \n(2)給予傷者氧氣供應 \n(3)讓傷者肺部即時進行氣體交換 \n(4)必要的心肺復甦程序",
     "options": [
         { "label": "A. 只有1，3", "value": "A" },
         { "label": "B. 只有2，4", "value": "B" },
@@ -756,7 +756,7 @@ const serviceOptions = document.querySelectorAll('.service-options');
     "correctAnswer": "D"
 },
 {
-        "question": "脊柱骨折的一般症狀是： (1)患處感到疼痛. (2)頸部或脊柱紅腫和瘀青  (3)脊柱變形或歪曲 (4)休克或甚至昏迷",
+        "question": "脊柱骨折的一般症狀是： \n(1)患處感到疼痛 \n(2)頸部或脊柱紅腫和瘀青 \n(3)脊柱變形或歪曲 \n(4)休克或甚至昏迷",
         "options": [
             { "label": "A. 只有1，3", "value": "A" },
             { "label": "B. 只有2，4", "value": "B" },
@@ -766,7 +766,7 @@ const serviceOptions = document.querySelectorAll('.service-options');
         "correctAnswer": "D"
     },
     {
-        "question": "脊柱受傷的患者可能會： (1)肢體失去感覺 (2)休克  (3)呼吸困難  (4)心跳加速",
+        "question": "脊柱受傷的患者可能會：\n(1)肢體失去感覺 \n(2)休克 \n(3)呼吸困難 \n(4)心跳加速",
         "options": [
             { "label": "A. 只有1，2，3", "value": "A" },
             { "label": "B. 只有2，4", "value": "B" },
@@ -861,13 +861,29 @@ const questions = getAllQuestions();
     let userAnswered = false;
 
 
- function showQuestion() {
+function showQuestion() {
   userAnswered = false; // Reset the userAnswered flag
 
   // Check if there is a next question
   if (currentQuestionIndex < questions.length) { 
     const question = questions[currentQuestionIndex];
-    questionText.textContent = question.question;
+
+    // Split the question string into parts
+    const questionParts = question.question.split('\n');
+
+    // Clear any existing content
+    questionText.innerHTML = '';
+
+    // Create text and break elements for each part
+    questionParts.forEach((part, index) => {
+      questionText.appendChild(document.createTextNode(part));
+
+      // Add a line break after every part except the last one
+      if (index < questionParts.length - 1) {
+        questionText.appendChild(document.createElement('br'));
+      }
+    });
+
     optionsContainer.innerHTML = '';
 
     question.options.forEach(option => {
@@ -905,7 +921,6 @@ const questions = getAllQuestions();
     redoButton.style.display = 'block';
   }
 }
-
 
     
 
