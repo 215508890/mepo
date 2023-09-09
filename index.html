@@ -125,6 +125,13 @@
     a:hover {
     color: inherit; /* Inherits the color of its parent on hover */
     }
+ .dropdown-menu-third {
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
 
   
     body {
@@ -291,42 +298,110 @@
       <a href="index.html">
         <p class="menu-item-text">首頁</p></a>
       </div>
+<div class="menu-item">
+  <p class="menu-item-text" id="ls" >拯溺系列</p>
+  <div class="dropdown-menu">
+    <div class="dropdown-item" id="bm" >銅章
+      <div class="dropdown-menu-third">
+        <a href="reditpage.html">
+          <div class="dropdown-item" id="third1">温習</div>
+        </a>
+        <a href="reditpage.html">
+          <div class="dropdown-item" id="third2">測試</div>
+        </a>
+      </div>
+    </div>
+    <div class="dropdown-item" id="wfa" >水上急救
+      <div class="dropdown-menu-third">
+        <a href="reditpage.html">
+          <div class="dropdown-item" id="third3">温習</div>
+        </a>
+        <a href="reditpage.html">
+          <div class="dropdown-item" id="third4">測試</div>
+        </a>
+      </div>
+    </div>
+    <div class="dropdown-item" id="pl" >泳池救生
+      <div class="dropdown-menu-third">
+        <a href="reditpage.html">
+          <div class="dropdown-item" id="third5">温習</div>
+        </a>
+        <a href="reditpage.html">
+          <div class="dropdown-item" id="third6">測試</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+      
       <div class="menu-item">
-        <p class="menu-item-text" id="ls" >拯溺系列</p>
-        <div class="dropdown-menu">
+  <p class="menu-item-text" id="fa" >急救系列</p>
+  <div class="dropdown-menu">
+    <div class="dropdown-item" id="amsfa" >AMS 急救
+      <div class="dropdown-menu-third">
         <a href="reditpage.html">
-          <div class="dropdown-item" id="bm" >銅章</div></a>
+          <div class="dropdown-item" id="third7">温習</div>
+        </a>
         <a href="reditpage.html">
-          <div class="dropdown-item" id="wfa" >水上急救</div></a>
-        <a href="reditpage.html">
-          <div class="dropdown-item" id="pl" >泳池救生</div></a>
-        </div>
+          <div class="dropdown-item" id="third8">測試</div>
+        </a>
       </div>
+    </div>
+    <div class="dropdown-item" id="sjfa" >SJ 急救
+      <div class="dropdown-menu-third">
+        <a href="reditpage.html">
+          <div class="dropdown-item" id="third9">温習</div>
+        </a>
+        <a href="reditpage.html">
+          <div class="dropdown-item" id="third10">測試</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    <div class="menu-item">
+  <p class="menu-item-text" id="pv" >遊樂船系列</p>
+  <div class="dropdown-menu">
+    <div class="dropdown-item" id="op2" >二級操作員
+      <div class="dropdown-menu-third">
+        <a href="reditpage.html">
+          <div class="dropdown-item" id="third11">温習</div>
+        </a>
+        <a href="reditpage.html">
+          <div class="dropdown-item" id="third12">測試</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+      
       <div class="menu-item">
-        <p class="menu-item-text" id="fa" >急救系列</p>
-        <div class="dropdown-menu">
+  <p class="menu-item-text" id="cre" >CRE系列</p>
+  <div class="dropdown-menu">
+    <div class="dropdown-item" id="cn" >中文運用
+      <div class="dropdown-menu-third">
         <a href="reditpage.html">
-          <div class="dropdown-item" id="amsfa" >AMS 急救</div></a>
+          <div class="dropdown-item" id="third13">温習</div>
+        </a>
         <a href="reditpage.html">
-          <div class="dropdown-item" id="sjfa" >SJ 急救</div></a>
-        </div>
+          <div class="dropdown-item" id="third14">測試</div>
+        </a>
       </div>
-            <div class="menu-item">
-        <p class="menu-item-text" id="pv" >遊樂船系列</p>
-        <div class="dropdown-menu">
+    </div>
+    <div class="dropdown-item" id="en" >英文運用
+      <div class="dropdown-menu-third">
         <a href="reditpage.html">
-          <div class="dropdown-item" id="op2" >二級操作員</div></a>
-        </div>
-      </div>
-            <div class="menu-item">
-        <p class="menu-item-text" id="cre" >CRE系列</p>
-        <div class="dropdown-menu">
+          <div class="dropdown-item" id="third15">温習</div>
+        </a>
         <a href="reditpage.html">
-          <div class="dropdown-item" id="cn" >中文運用</div></a>
-          <a href="reditpage.html">
-          <div class="dropdown-item" id="en" >英文運用</div></a>
-        </div>
+          <div class="dropdown-item" id="third16">測試</div>
+        </a>
       </div>
+    </div>
+  </div>
+</div>
+      
     </div>
   </div>
 
@@ -339,6 +414,7 @@
     const dropdownMenus = document.querySelectorAll('.dropdown-menu');
     let activeMenuItem = null;
     let activeDropdownMenu = null;
+    let activeThirdLayerMenu = null;
 
     hamburgerMenu.addEventListener('click', () => {
       if (verticalMenu.classList.contains('open')) {
@@ -383,23 +459,30 @@
       });
     });
 
- dropdownMenus.forEach((dropdownMenu) => {
-      const parentMenuItem = dropdownMenu.parentElement;
+dropdownMenus.forEach((dropdownMenu) => {
+  const parentMenuItem = dropdownMenu.parentElement;
 
-      parentMenuItem.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
+  parentMenuItem.addEventListener('click', (event) => {
+    // Stop propagation if a third-layer menu is being clicked
+    if (event.target.closest('.dropdown-menu-third')) {
+      event.stopPropagation();
+      return;
+    }
 
-        if (dropdownMenu.classList.contains('open')) {
-          dropdownMenu.classList.remove('open');
-        } else {
-          if (activeDropdownMenu) {
-            activeDropdownMenu.classList.remove('open');
-          }
-          dropdownMenu.classList.add('open');
-          activeDropdownMenu = dropdownMenu;
-        }
-      });
-    });
+    // Prevent the parent menu item from closing when clicking the dropdown menu
+    event.stopPropagation(); 
+
+    if (dropdownMenu.classList.contains('open')) {
+      dropdownMenu.classList.remove('open');
+    } else {
+      if (activeDropdownMenu) {
+        activeDropdownMenu.classList.remove('open');
+      }
+      dropdownMenu.classList.add('open');
+      activeDropdownMenu = dropdownMenu;
+    }
+  });
+});
 
 document.addEventListener('click', (event) => {
   if (!event.target.closest('.vertical-menu') && !event.target.closest('.hamburger-menu')) {
@@ -429,6 +512,33 @@ function handleSwipe() {
   }
 }
 
+document.querySelectorAll('.dropdown-item').forEach(item => {
+  item.addEventListener('click', event => {
+    event.stopPropagation(); // Stop the event from bubbling up
+
+    const subMenu = event.currentTarget.querySelector('.dropdown-menu-third');
+    
+    // If the clicked submenu is already the active one, hide it and clear the reference
+    if (activeThirdLayerMenu === subMenu) {
+      subMenu.style.display = 'none';
+      subMenu.style.opacity = '0';
+      activeThirdLayerMenu = null;
+      return;
+    }
+
+    // If there's an active third layer menu, hide it
+    if (activeThirdLayerMenu) {
+      activeThirdLayerMenu.style.display = 'none';
+      activeThirdLayerMenu.style.opacity = '0';
+    }
+    
+    // Show the new menu and update the reference to the active menu
+    subMenu.style.display = 'flex';
+    setTimeout(() => subMenu.style.opacity = '1', 0); // Add a delay to apply opacity after display
+    activeThirdLayerMenu = subMenu;
+  });
+});
+    
  
   </script>
 
@@ -592,6 +702,8 @@ document.querySelectorAll('.options button').forEach(button => {
     }
   });
 });
+
+
     
   </script>
     
