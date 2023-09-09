@@ -4,7 +4,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8814964085069203"
      crossorigin="anonymous"></script>
   <meta charset="UTF-8">
-  <title>拯溺筆試温習(銅章) - 網上模擬試題練習</title>
+  <title>拯溺筆試練習(銅章) - 網上模擬試題練習</title>
   <meta name="description" content="網上免費模擬試題練習，提供各類模擬試題，包括拯搦考試、急救考試，等各類牌照測試，並設有温習模式及操練模式。">
   <meta name="keywords" content="拯溺,拯溺考試,水上急救,銅章,泳池救生,沙灘救生,救生,急救,急救考試,重考,急考,補考,考牌,筆試題目,考試">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +22,7 @@
 
   <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
 <body>
 
   <div class="header">
@@ -152,12 +153,10 @@
 
 
 <div class="container">
-    <h1 class="scoreboard-heading">銅章</h1>
+    <h1 class="scoreboard-heading">水上急救</h1>
     <h4 class="reminder">(合格分數 18 | 時限 30分鐘)</h4>
-  <select id="questionSelect" class="questionSelect">
-  <option value="0">-- 選擇問題 --</option>
-</select>
     <div class="timer-container">
+      <span class="timer" id="stopwatch">30:00</span>
     </div>
   
 
@@ -166,17 +165,15 @@
     <h1 class="question" id="question-text"></h1>
     <div id="options-container"></div>
     <div id="feedback-container"></div>
-  <button id="prevButton" class="prevButton">上一題</button>
-  <button id="next-button" class="next-button">下一題</button>
-<button id="redo-button" class="redo-button">重設</button>
+    <button id="next-button" class="next-button">下一題</button>
+    <button id="redo-button" class="redo-button">重設</button>
   </div>
 
-
-  
   <script>
 
       'use strict';
-      const hamburgerMenu = document.querySelector('.hamburger-menu');
+  
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
     const verticalMenu = document.querySelector('.vertical-menu');
     const menuItems = document.querySelectorAll('.menu-item');
     const dropdownMenus = document.querySelectorAll('.dropdown-menu');
@@ -307,12 +304,23 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
   });
 });
 
-
 // JavaScript to handle click events on about-options and service-options
 const aboutOptions = document.querySelectorAll('.about-options');
 const serviceOptions = document.querySelectorAll('.service-options');
 
+aboutOptions.forEach((option) => {
+  option.addEventListener('click', () => {
+    const optionText = option.querySelector('p').textContent;
+    console.log(`About Option Selected: ${optionText}`);
+  });
+});
 
+serviceOptions.forEach((option) => {
+  option.addEventListener('click', () => {
+    const optionText = option.querySelector('p').textContent;
+    console.log(`Service Option Selected: ${optionText}`);
+  });
+});
   
     const stopwatchElement = document.getElementById('stopwatch');
   let timeInSeconds = 30 * 60; // 30 minutes in seconds
@@ -334,7 +342,12 @@ const serviceOptions = document.querySelectorAll('.service-options');
       return value.toString().padStart(2, '0');
     }
 
- 
+    function handleTimeUp() {
+      alert('Time is up!');
+    }
+
+    // Start the stopwatch
+    timerInterval = setInterval(updateStopwatch, 1000);
 
 
 
@@ -848,66 +861,47 @@ const serviceOptions = document.querySelectorAll('.service-options');
     
   ];
 
-  function getAllQuestions() {
-  return allQuestions;
-}
-
-const questions = getAllQuestions();
-
+  const numRandomQuestions = 30;
+  const questions = getRandomQuestions(numRandomQuestions);
 
 
     let currentQuestionIndex = 0;
     let score = 0;
     let userAnswered = false;
 
+    function showQuestion() {
+      const question = questions[currentQuestionIndex];
+      questionText.textContent = question.question;
+      optionsContainer.innerHTML = '';
 
- function showQuestion() {
-  userAnswered = false; // Reset the userAnswered flag
+      question.options.forEach(option => {
+        const optionElement = document.createElement('div');
+        optionElement.classList.add('option');
+        optionElement.dataset.value = option.value;
+        optionElement.addEventListener('click', handleOptionClick);
 
-  // Check if there is a next question
-  if (currentQuestionIndex < questions.length) { 
-    const question = questions[currentQuestionIndex];
-    questionText.textContent = question.question;
-    optionsContainer.innerHTML = '';
+        const optionLabel = document.createElement('span');
+        optionLabel.classList.add('option-label');
+        optionLabel.textContent = option.label;
 
-    question.options.forEach(option => {
-      const optionElement = document.createElement('div');
-      optionElement.classList.add('option');
-      optionElement.dataset.value = option.value;
+        optionElement.appendChild(optionLabel);
+        optionsContainer.appendChild(optionElement);
+      });
 
-      const optionLabel = document.createElement('span');
-      optionLabel.classList.add('option-label');
-      optionLabel.textContent = option.label;
+      if (userAnswered) {
+        const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
+        if (selectedOption) {
+          selectedOption.classList.add('wrong-option');
+        }
+        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+        if (correctOption) {
+          correctOption.classList.add('correct-option');
+        }
+      }
 
-      optionElement.appendChild(optionLabel);
-      optionsContainer.appendChild(optionElement);
-    });
-
-    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-    if (correctOption) {
-      correctOption.classList.add('correct-option');
+      feedbackContainer.textContent = '';
+      nextButton.style.display = 'none';
     }
-
-    // Show the correct answer in the feedback container
-    feedbackContainer.textContent = `正確答案: ${question.correctAnswer}`;
-    nextButton.style.display = 'block'; // Show the next button
-
-    if (currentQuestionIndex > 0) {
-      prevButton.style.display = 'block'; // Show the prev button if not the first question
-    } else {
-      prevButton.style.display = 'none'; // Hide the prev button if it is the first question
-    }
-
-  } else {
-    // When there are no more questions, hide the buttons and show the redoButton
-    prevButton.style.display = 'none';
-    nextButton.style.display = 'none';
-    redoButton.style.display = 'block';
-  }
-}
-
-
-    
 
 function handleOptionClick(event) {
   if (userAnswered) {
@@ -960,12 +954,16 @@ console.log('questions.length', questions.length); // check the length of the ar
   feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
   nextButton.style.display = 'block';
 }
+    function showNextQuestion() {
+      currentQuestionIndex++;
+      userAnswered = false;
 
-    
-function showNextQuestion() {
-  currentQuestionIndex++;
-  showQuestion();
-}
+      if (currentQuestionIndex >= questions.length) {
+        showResult();
+      } else {
+        showQuestion();
+      }
+    }
 
 function saveQuizState() {
   const quizState = {
@@ -1012,21 +1010,11 @@ function loadQuizState() {
     showQuestion();
 }
 
-function getQuestions(numQuestions) {
-  return allQuestions.slice(0, numQuestions);
-}
-
-
-function showPreviousQuestion() {
-  if (currentQuestionIndex > 0) { // Check if there is a previous question
-    currentQuestionIndex--;
-    userAnswered = false; // Allow the user to answer the previous question again
-    showQuestion();
+  function getRandomQuestions(numQuestions) {
+    const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
+    return shuffledQuestions.slice(0, numQuestions);
   }
-}
-    const prevButton = document.getElementById('prevButton');
-prevButton.addEventListener('click', showPreviousQuestion);
-    
+
 function redoQuiz() {
   localStorage.removeItem('quizState');
   clearInterval(timerInterval);
@@ -1035,7 +1023,7 @@ function redoQuiz() {
   score = 0;
   userAnswered = false;
   showQuestion();
-  redoButton.style.display = 'block';
+  redoButton.style.display = 'none';
   clearInterval(timerInterval); // Clear the previous timer interval
   timeInSeconds = 30 * 60; // Reset the timer to 30 minutes
   timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
@@ -1046,25 +1034,6 @@ function redoQuiz() {
 
     // Show the first question
     showQuestion();
-
-function populateQuestionSelect() {
-  const questionSelect = document.getElementById('questionSelect');
-  
-  // Add an option for each question to the dropdown menu
-  questions.forEach((question, index) => {
-    const option = document.createElement('option');
-    option.value = index;
-    option.textContent = `問題 ${index + 1}`;
-    questionSelect.appendChild(option);
-  });
-}
-    populateQuestionSelect();
-   
-    document.getElementById('questionSelect').addEventListener('change', function() {
-  currentQuestionIndex = parseInt(this.value);
-  showQuestion();
-});
-
     
   </script>
 
