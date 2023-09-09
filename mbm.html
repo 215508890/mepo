@@ -870,38 +870,44 @@ serviceOptions.forEach((option) => {
     let userAnswered = false;
 
     function showQuestion() {
-      const question = questions[currentQuestionIndex];
-      questionText.textContent = question.question;
-      optionsContainer.innerHTML = '';
+  const question = questions[currentQuestionIndex];
 
-      question.options.forEach(option => {
-        const optionElement = document.createElement('div');
-        optionElement.classList.add('option');
-        optionElement.dataset.value = option.value;
-        optionElement.addEventListener('click', handleOptionClick);
+  // Modify the question string
+  question.question = question.question.replace(/ \((\d)\)/g, '<br>($1)');
 
-        const optionLabel = document.createElement('span');
-        optionLabel.classList.add('option-label');
-        optionLabel.textContent = option.label;
+  // Assign the modified question string to innerHTML instead of textContent
+  questionText.innerHTML = question.question;
 
-        optionElement.appendChild(optionLabel);
-        optionsContainer.appendChild(optionElement);
-      });
+  optionsContainer.innerHTML = '';
 
-      if (userAnswered) {
-        const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
-        if (selectedOption) {
-          selectedOption.classList.add('wrong-option');
-        }
-        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-        if (correctOption) {
-          correctOption.classList.add('correct-option');
-        }
-      }
+  question.options.forEach(option => {
+    const optionElement = document.createElement('div');
+    optionElement.classList.add('option');
+    optionElement.dataset.value = option.value;
+    optionElement.addEventListener('click', handleOptionClick);
 
-      feedbackContainer.textContent = '';
-      nextButton.style.display = 'none';
+    const optionLabel = document.createElement('span');
+    optionLabel.classList.add('option-label');
+    optionLabel.textContent = option.label;
+
+    optionElement.appendChild(optionLabel);
+    optionsContainer.appendChild(optionElement);
+  });
+
+  if (userAnswered) {
+    const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
+    if (selectedOption) {
+      selectedOption.classList.add('wrong-option');
     }
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    if (correctOption) {
+      correctOption.classList.add('correct-option');
+    }
+  }
+
+  feedbackContainer.textContent = '';
+  nextButton.style.display = 'none';
+}
 
 function handleOptionClick(event) {
   if (userAnswered) {
@@ -1035,7 +1041,7 @@ function redoQuiz() {
     // Show the first question
     showQuestion();
 
-    question.question = question.question.replace(/ \((\d)\)/g, '<br>($1)');
+    
     
   </script>
 
