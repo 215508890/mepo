@@ -179,6 +179,7 @@
     const dropdownMenus = document.querySelectorAll('.dropdown-menu');
     let activeMenuItem = null;
     let activeDropdownMenu = null;
+    let activeThirdLayerMenu = null;
 
     hamburgerMenu.addEventListener('click', () => {
       if (verticalMenu.classList.contains('open')) {
@@ -223,23 +224,30 @@
       });
     });
 
- dropdownMenus.forEach((dropdownMenu) => {
-      const parentMenuItem = dropdownMenu.parentElement;
+dropdownMenus.forEach((dropdownMenu) => {
+  const parentMenuItem = dropdownMenu.parentElement;
 
-      parentMenuItem.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
+  parentMenuItem.addEventListener('click', (event) => {
+    // Stop propagation if a third-layer menu is being clicked
+    if (event.target.closest('.dropdown-menu-third')) {
+      event.stopPropagation();
+      return;
+    }
 
-        if (dropdownMenu.classList.contains('open')) {
-          dropdownMenu.classList.remove('open');
-        } else {
-          if (activeDropdownMenu) {
-            activeDropdownMenu.classList.remove('open');
-          }
-          dropdownMenu.classList.add('open');
-          activeDropdownMenu = dropdownMenu;
-        }
-      });
-    });
+    // Prevent the parent menu item from closing when clicking the dropdown menu
+    event.stopPropagation(); 
+
+    if (dropdownMenu.classList.contains('open')) {
+      dropdownMenu.classList.remove('open');
+    } else {
+      if (activeDropdownMenu) {
+        activeDropdownMenu.classList.remove('open');
+      }
+      dropdownMenu.classList.add('open');
+      activeDropdownMenu = dropdownMenu;
+    }
+  });
+});
 
 document.addEventListener('click', (event) => {
   if (!event.target.closest('.vertical-menu') && !event.target.closest('.hamburger-menu')) {
@@ -267,7 +275,34 @@ function handleSwipe() {
       closeMenu();
     }
   }
-};
+}
+
+document.querySelectorAll('.dropdown-item').forEach(item => {
+  item.addEventListener('click', event => {
+    event.stopPropagation(); // Stop the event from bubbling up
+
+    const subMenu = event.currentTarget.querySelector('.dropdown-menu-third');
+    
+    // If the clicked submenu is already the active one, hide it and clear the reference
+    if (activeThirdLayerMenu === subMenu) {
+      subMenu.style.display = 'none';
+      subMenu.style.opacity = '0';
+      activeThirdLayerMenu = null;
+      return;
+    }
+
+    // If there's an active third layer menu, hide it
+    if (activeThirdLayerMenu) {
+      activeThirdLayerMenu.style.display = 'none';
+      activeThirdLayerMenu.style.opacity = '0';
+    }
+    
+    // Show the new menu and update the reference to the active menu
+    subMenu.style.display = 'flex';
+    setTimeout(() => subMenu.style.opacity = '1', 0); // Add a delay to apply opacity after display
+    activeThirdLayerMenu = subMenu;
+  });
+});
 
 // JavaScript to handle click events on about-options and service-options
 const aboutOptions = document.querySelectorAll('.about-options');
