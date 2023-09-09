@@ -140,7 +140,7 @@
     z-index: 1000; /* this will ensure the ad stays on top of other elements */
 }
 
-      .hamburger-menu {      
+    .hamburger-menu {      
       cursor: pointer;
       margin-right: 20px;
       position: absolute;
@@ -148,7 +148,7 @@
       top: 10px;
     }
 
-    .hamburger-menu .line {
+ .hamburger-menu .line {
       width: 25px;
       height: 3px;
       background-color: #000;
@@ -241,6 +241,13 @@
     a:hover {
     color: inherit; /* Inherits the color of its parent on hover */
     }
+ .dropdown-menu-third {
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
 
   
     body {
