@@ -872,11 +872,21 @@ serviceOptions.forEach((option) => {
 function showQuestion() {
   const question = questions[currentQuestionIndex];
 
-  // Modify the question string to replace '\n' with '<br>'
-  question.question = question.question.replace(/\n/g, '<br>');
+  // Split the question string into parts
+  const questionParts = question.question.split('\n');
 
-  // Assign the modified question string to innerHTML instead of textContent
-  questionText.innerHTML = question.question;
+  // Clear any existing content
+  questionText.innerHTML = '';
+
+  // Create text and break elements for each part
+  questionParts.forEach((part, index) => {
+    questionText.appendChild(document.createTextNode(part));
+
+    // Add a line break after every part except the last one
+    if (index < questionParts.length - 1) {
+      questionText.appendChild(document.createElement('br'));
+    }
+  });
 
   optionsContainer.innerHTML = '';
 
