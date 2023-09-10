@@ -508,13 +508,11 @@ document.addEventListener('touchend', (event) => {
 function handleSwipe() {
   if (touchEndX < touchStartX) {
     if (verticalMenu.classList.contains('open')) {
-      verticalMenu.classList.remove('open');
+      closeMenu();
     }
-  } else {
-    verticalMenu.classList.add('open');
   }
 }
-    
+
 document.querySelectorAll('.dropdown-item').forEach(item => {
   item.addEventListener('click', event => {
     event.stopPropagation(); // Stop the event from bubbling up
