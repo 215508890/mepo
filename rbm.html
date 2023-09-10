@@ -914,6 +914,10 @@ function showQuestion() {
       prevButton.style.display = 'none'; // Hide the prev button if it is the first question
     }
 
+    // Update the value of the dropdown menu to reflect the current question
+    const questionSelect = document.getElementById('questionSelect');
+    questionSelect.value = currentQuestionIndex;
+
   } else {
     // When there are no more questions, hide the buttons and show the redoButton
     prevButton.style.display = 'none';
@@ -921,7 +925,6 @@ function showQuestion() {
     redoButton.style.display = 'block';
   }
 }
-
     
 
 function handleOptionClick(event) {
