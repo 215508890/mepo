@@ -495,41 +495,25 @@ document.addEventListener('click', (event) => {
 
 let touchStartX = 0;
 let touchEndX = 0;
-let touchMoveX = 0;
-let verticalMenuWidth = 0; // assuming your menu width is in pixels
 
 document.addEventListener('touchstart', (event) => {
   touchStartX = event.changedTouches[0].screenX;
-  verticalMenuWidth = verticalMenu.offsetWidth; // get the current menu width
-}, false);
-
-document.addEventListener('touchmove', (event) => {
-  touchMoveX = event.changedTouches[0].screenX;
-  handleSwipe('move');
 }, false);
 
 document.addEventListener('touchend', (event) => {
   touchEndX = event.changedTouches[0].screenX;
-  handleSwipe('end');
+  handleSwipe();
 }, false);
 
-function handleSwipe(type) {
-  if (type === 'move') {
-    let moveDifference = touchStartX - touchMoveX;
-    if (verticalMenu.classList.contains('open') && moveDifference > 0) {
-      let newWidth = verticalMenuWidth - moveDifference;
-      if (newWidth < 0) newWidth = 0; // Ensuring the value doesn't go below 0
-      verticalMenu.style.width = newWidth + 'px';
+function handleSwipe() {
+  if (touchEndX < touchStartX) {
+    if (verticalMenu.classList.contains('open')) {
+      verticalMenu.classList.remove('open');
     }
-  } else if (type === 'end') {
-    if (touchEndX < touchStartX) {
-      if (verticalMenu.classList.contains('open')) {
-        closeMenu();
-      }
-    }
+  } else {
+    verticalMenu.classList.add('open');
   }
 }
-
     
 document.querySelectorAll('.dropdown-item').forEach(item => {
   item.addEventListener('click', event => {
