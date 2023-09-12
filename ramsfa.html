@@ -4,12 +4,12 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8814964085069203"
      crossorigin="anonymous"></script>
   <meta charset="UTF-8">
-  <title>拯溺筆試温習(銅章) - 網上模擬試題練習</title>
+  <title>急救筆試温習(AMS 急救) - 網上模擬試題練習</title>
   <meta name="description" content="網上免費模擬試題練習，提供各類模擬試題，包括拯搦考試、急救考試，等各類牌照測試，並設有温習模式及操練模式。">
   <meta name="keywords" content="拯溺,拯溺考試,水上急救,銅章,泳池救生,沙灘救生,救生,急救,急救考試,重考,急考,補考,考牌,筆試題目,考試">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="https://215508890.github.io/mepo/">
-  <meta property="og:title" content="拯溺筆試温習(銅章) - 網上模擬試題練習">
+  <link rel="canonical" href="https://mepohk.com">
+  <meta property="og:title" content="急救筆試温習(AMS 急救) - 網上模擬試題練習">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://215508890.github.io/omep/">
   <meta property="og:description" content="網上免費模擬試題練習，提供各類模擬試題，包括拯搦考試、急救考試，等各類牌照測試，並設有温習模式及操練模式。"> 
@@ -22,6 +22,7 @@
 
   <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
 <body>
 
   <div class="header">
@@ -152,9 +153,26 @@
 
 
 <div class="container">
-    <h1 class="scoreboard-heading">AMS 急救</h1>
+    <h1 class="scoreboard-heading">銅章</h1>
     <h4 class="reminder">(合格分數 18 | 時限 30分鐘)</h4>
-  <h2>Coming soon.....</h2>
+  <select id="questionSelect" class="questionSelect">
+  <option value="0">-- 選擇問題 --</option>
+</select>
+    <div class="timer-container">
+    </div>
+  
+
+
+  
+    <h1 class="question" id="question-text"></h1>
+    <div id="options-container"></div>
+    <div id="feedback-container"></div>
+  <button id="prevButton" class="prevButton">上一題</button>
+  <button id="next-button" class="next-button">下一題</button>
+<button id="redo-button" class="redo-button">重設</button>
+  </div>
+
+
   
   <script>
 
@@ -289,6 +307,2781 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
     activeThirdLayerMenu = subMenu;
   });
 });
+
+
+// JavaScript to handle click events on about-options and service-options
+const aboutOptions = document.querySelectorAll('.about-options');
+const serviceOptions = document.querySelectorAll('.service-options');
+
+
+  
+    const stopwatchElement = document.getElementById('stopwatch');
+  let timeInSeconds = 30 * 60; // 30 minutes in seconds
+  let timerInterval = null;
+  window.addEventListener('load', loadQuizState);
+
+    function updateStopwatch() {
+      const minutes = Math.floor(timeInSeconds / 60);
+      const seconds = timeInSeconds % 60;
+      stopwatchElement.textContent = `${padZero(minutes)}:${padZero(seconds)}`;
+      timeInSeconds--;
+      if (timeInSeconds < 0) {
+        clearInterval(timerInterval);
+        handleTimeUp();
+      }
+    }
+
+    function padZero(value) {
+      return value.toString().padStart(2, '0');
+    }
+
+ 
+
+
+
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const feedbackContainer = document.getElementById('feedback-container');
+    const nextButton = document.getElementById('next-button');
+    const redoButton = document.getElementById('redo-button');
+    
+  const allQuestions = [
+    {
+    "question": "在眾多的現場傷病者中，應儘可能進行分流。所謂的分流是指什麼？”,
+    "options": [
+        { "label": "A. 估計受傷人數以及送醫所需時間", "value": "A" },
+        { "label": "B. 消除危險因素", "value": "B" },
+        { "label": "C. 根據傷病者受傷的嚴重程度進行分類", "value": "C" },
+        { "label": "D. 運送嚴重受傷的傷病者前往醫院", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "在處理傷病者後，應使用皂液或消毒劑徹底清潔雙手，每個洗手步驟需要搓揉多少次以上以確保雙手完全潔淨？",
+    "options": [
+        { "label": "A. 3", "value": "A" },
+        { "label": "B. 5", "value": "B" },
+        { "label": "C. 7", "value": "C" },
+        { "label": "D. 10", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下列哪一項不是急救員在處理傷病者時應該採取的防護措施？",
+    "options": [
+        { "label": "A. 在接觸傷病者時穿上膠手套", "value": "A" },
+        { "label": "B. 在處理傷病者後，使用皂液或消毒劑徹底清潔雙手", "value": "B" },
+        { "label": "C. 在清潔雙手後，避免觸碰自己身體和個人物品", "value": "C" },
+        { "label": "D. 除非使用袋裝面罩或即棄吹氣面罩，否則絕對不進行人工呼吸", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "病況是指什麼？",
+    "options": [
+        { "label": "A. 急救員透過視覺、聽覺、觸覺等感覺獲得的有關傷者的情況", "value": "A" },
+        { "label": "B. 傷病者自己感受到的情況", "value": "B" },
+        { "label": "C. 幫助者提供的資訊", "value": "C" },
+        { "label": "D. 救護人員記錄的資訊", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下列那一項不是病狀的範例？",
+    "options": [
+        { "label": "A. 感到噁心", "value": "A" },
+        { "label": "B. 感到虛弱無力", "value": "B" },
+        { "label": "C. 感到麻木", "value": "C" },
+        { "label": "D. 皮膚呈現蒼白色", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "從以下選項中，哪一個不是病徵的例子？",
+    "options": [
+        { "label": "A. 傷口出血", "value": "A" },
+        { "label": "B. 觸痛", "value": "B" },
+        { "label": "C. 皮膚濕膩", "value": "C" },
+        { "label": "D. 口渴", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "初步檢查應在多少分鐘內完成，以便找出可能威脅傷病者生命的狀況？",
+    "options": [
+        { "label": "A. 2分鐘", "value": "A" },
+        { "label": "B. 3分鐘", "value": "B" },
+        { "label": "C. 4分鐘", "value": "C" },
+        { "label": "D. 5分鐘", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "在進行初步檢查時，首先應進行什麼步驟？",
+    "options": [
+        { "label": "A. 確保氣道暢通", "value": "A" },
+        { "label": "B. 檢查反應和呼吸狀況", "value": "B" },
+        { "label": "C. 快速進行身體檢查", "value": "C" },
+        { "label": "D. 檢查脈搏", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "若急救員在為傷病者進行快速身體檢查時，發現傷病者有嚴重出血的傷口，應如何應對？",
+    "options": [
+        { "label": "A. 稍後在完成詳細的檢查後，再進行止血", "value": "A" },
+        { "label": "B. 中止所有步驟，立即送醫", "value": "B" },
+        { "label": "C. 瞭解受傷原因後，進行止血", "value": "C" },
+        { "label": "D. 立即進行壓迫止血", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "下列哪個不是進一步檢查包含的步驟？",
+    "options": [
+        { "label": "A. 檢查病歷", "value": "A" },
+        { "label": "B. 量測生命體徵", "value": "B" },
+        { "label": "C. 全身檢查", "value": "C" },
+        { "label": "D. 心肺功能檢查", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "下列哪個不是生命體徵的檢查項目？",
+    "options": [
+        { "label": "A. 清醒程度", "value": "A" },
+        { "label": "B. 病歷", "value": "B" },
+        { "label": "C. 血壓", "value": "C" },
+        { "label": "D. 體溫", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "成人的正常血壓應約為多少？",
+    "options": [
+        { "label": "A. 80/50 mmHg", "value": "A" },
+        { "label": "B. 100/60 mmHg", "value": "B" },
+        { "label": "C. 120/80 mmHg", "value": "C" },
+        { "label": "D. 140/100 mmHg", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "成人的正常體溫應為攝氏 (C) 多少度？",
+    "options": [
+        { "label": "A. 35 - 36度", "value": "A" },
+        { "label": "B. 36.5 - 37.5度", "value": "B" },
+        { "label": "C. 37 - 38度", "value": "C" },
+        { "label": "D. 37.5 - 38.5度", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下列哪個是全身體檢查的正確程序？",
+    "options": [
+        { "label": "A. 上肢 - 下肢 - 盆骨 - 胸部 - 腹部 - 頸項 - 頭部", "value": "A" },
+        { "label": "B. 上肢 - 下肢 - 盆骨 - 胸部 - 頭部 - 頸項 - 腹部", "value": "B" },
+        { "label": "C. 頭部 - 頸項 - 胸部 - 腹部 - 上肢 - 下肢 - 盆骨", "value": "C" },
+        { "label": "D. 頭部 - 頸項 - 胸部 - 腹部 - 胸部 - 盆骨 - 下肢 - 上肢", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "若傷病者情況穩定，急救員可以每隔多少分鐘為其量測並記錄一次生命體徵？",
+    "options": [
+        { "label": "A. 5分鐘", "value": "A" },
+        { "label": "B. 10分鐘", "value": "B" },
+        { "label": "C. 15分鐘", "value": "C" },
+        { "label": "D. 20分鐘", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "對於狀況不穩定的傷病者，急救員應該每多少分鐘替其量度及記錄生命表徵一次？",
+    "options": [
+        { "label": "A. 5 分鐘", "value": "A" },
+        { "label": "B. 10 分鐘", "value": "B" },
+        { "label": "C. 15 分鐘", "value": "C" },
+        { "label": "D. 20 分鐘", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "下列哪一項關於進行全身身體檢查的注意要點是錯誤的？",
+    "options": [
+        { "label": "A. 有系統地從頭到腳，檢查傷病者有否異常之處", "value": "A" },
+        { "label": "B. 把傷病者身體左右對比，看看有否差異", "value": "B" },
+        { "label": "C. 注意傷病者各部位的活動情況，有否觸痛、變形及骨折等", "value": "C" },
+        { "label": "D. 應盡量移動傷病者身體，以清楚檢查傷勢", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "下列哪一個器官不被包括在人體的呼吸道內？",
+    "options": [
+        { "label": "A. 口和鼻", "value": "A" },
+        { "label": "B. 咽喉", "value": "B" },
+        { "label": "C. 氣管", "value": "C" },
+        { "label": "D. 食道", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "下列哪一項不屬於人體呼吸機理的動作？",
+    "options": [
+        { "label": "A. 嘆氣", "value": "A" },
+        { "label": "B. 吸氣", "value": "B" },
+        { "label": "C. 歇息", "value": "C" },
+        { "label": "D. 呼氣", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "負責調節人體呼吸的呼吸中樞在腦組織的哪個部分？",
+    "options": [
+        { "label": "A. 大腦", "value": "A" },
+        { "label": "B. 中腦", "value": "B" },
+        { "label": "C. 橋腦", "value": "C" },
+        { "label": "D. 延腦", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+        "question": "成人的正常呼吸次數每分鐘為？",
+        "options": [
+            { "label": "A. 10-15 次", "value": "A" },
+            { "label": "B. 15-18 次", "value": "B" },
+            { "label": "C. 24-40 次", "value": "C" },
+            { "label": "D. 60-80 次", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "兒童/嬰兒的正常呼吸次數每分鐘為？",
+        "options": [
+            { "label": "A. 10-15 次", "value": "A" },
+            { "label": "B. 15-18 次", "value": "B" },
+            { "label": "C. 24-40 次", "value": "C" },
+            { "label": "D. 60-80 次", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "在正常靜止狀態呼吸時，每次呼出與吸入的氣體約多少立方厘米(c.c.)？",
+        "options": [
+            { "label": "A. 300 c.c.", "value": "A" },
+            { "label": "B. 400 c.c.", "value": "B" },
+            { "label": "C. 500 c.c.", "value": "C" },
+            { "label": "D. 600 c.c.", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "在正常情況下，空氣中的氧氣成份為？",
+        "options": [
+            { "label": "A. 79%", "value": "A" },
+            { "label": "B. 20.9%", "value": "B" },
+            { "label": "C. 16%", "value": "C" },
+            { "label": "D. 4%", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "血液大約占據人體體重的百分比(%)為何？",
+        "options": [
+            { "label": "A. 4-5%", "value": "A" },
+            { "label": "B. 5-6%", "value": "B" },
+            { "label": "C. 7-8%", "value": "C" },
+            { "label": "D. 8-9%", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "成年人的體內約有多少公升的血液？",
+        "options": [
+            { "label": "A. 3-5 公升", "value": "A" },
+            { "label": "B. 5-6 公升", "value": "B" },
+            { "label": "C. 8-9 公升", "value": "C" },
+            { "label": "D. 10 公升", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "在人體血液中，哪種血細胞最多？",
+        "options": [
+            { "label": "A. 白血球", "value": "A" },
+            { "label": "B. 紅血球", "value": "B" },
+            { "label": "C. 血小板", "value": "C" },
+            { "label": "D. 免疫細胞", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "關於心臟位置的描述，以下哪項是正確的？",
+        "options": [
+            { "label": "A. 基底位於第二條左肋骨的軟骨部位，心尖位於第五及第六條肋骨之間", "value": "A" },
+            { "label": "B. 基底位於第五條左肋骨的軟骨部位，心尖位於第二及第三條肋骨之間", "value": "B" },
+            { "label": "C. 心尖位於第二條左肋骨的軟骨部位，基底位於第五及第六條肋骨之間", "value": "C" },
+            { "label": "D. 基底位於第四條左肋骨的軟骨部位，心尖位於第五及第六條肋骨之間", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "健康的心臟，左心室每次收縮時，大約有多少立方厘米(c.c.)的血液進入主動脈？",
+        "options": [
+            { "label": "A. 40 c.c.", "value": "A" },
+            { "label": "B. 50 c.c.", "value": "B" },
+            { "label": "C. 60 c.c.", "value": "C" },
+            { "label": "D. 70 c.c.", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "紅血球的主要功能是什麼？",
+        "options": [
+            { "label": "A. 運送氧氣至體內組織的細胞", "value": "A" },
+            { "label": "B. 抵抗感染", "value": "B" },
+            { "label": "C. 協助排泄", "value": "C" },
+            { "label": "D. 促進血液凝固", "value": "D" }
+        ],
+        "correctAnswer": “B”
+    },
+    {
+        "question": "除了哪一條動脈之外，其餘的動脈都輸送含氧的血液？",
+        "options": [
+            { "label": "A. 肱動脈", "value": "A" },
+            { "label": "B. 橈動脈", "value": "B" },
+            { "label": "C. 肺動脈", "value": "C" },
+            { "label": "D. 肝動脈", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "通常來說，哪個血壓數值以上被認為是高血壓？",
+        "options": [
+            { "label": "A. 100/70 mmHg", "value": "A" },
+            { "label": "B. 120/80 mmHg", "value": "B" },
+            { "label": "C. 130/70 mmHg", "value": "C" },
+            { "label": "D. 140/90 mmHg", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "通常來說，哪個血壓數值以下被認為是低血壓？",
+        "options": [
+            { "label": "A. 100/70 mmHg", "value": "A" },
+            { "label": "B. 120/80 mmHg", "value": "B" },
+            { "label": "C. 130/70 mmHg", "value": "C" },
+            { "label": "D. 140/90 mmHg", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "成人每分鐘的正常脈搏跳動次數是多少？",
+        "options": [
+            { "label": "A. 15-18 次", "value": "A" },
+            { "label": "B. 20-24 次", "value": "B" },
+            { "label": "C. 60-80 次", "value": "C" },
+            { "label": "D. 80-100 次", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "兒童每分鐘的正常脈搏跳動次數是多少？",
+        "options": [
+            { "label": "A. 15-18 次", "value": "A" },
+            { "label": "B. 20-24 次", "value": "B" },
+            { "label": "C. 60-80 次", "value": "C" },
+            { "label": "D. 80-100 次", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "嬰兒每分鐘的正常脈搏跳動次數是多少？",
+        "options": [
+            { "label": "A. 40-60 次", "value": "A" },
+            { "label": "B. 60-80 次", "value": "B" },
+            { "label": "C. 80-100 次", "value": "C" },
+            { "label": "D. 100 次以上", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "哪條血管負責為心臟供血？",
+        "options": [
+            { "label": "A. 肺動脈", "value": "A" },
+            { "label": "B. 冠狀動脈", "value": "B" },
+            { "label": "C. 頸動脈", "value": "C" },
+            { "label": "D. 腦動脈", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "關於心絞痛，以下哪個症狀描述是正確的？",
+        "options": [
+            { "label": "A. 病人在勞力時會感到腹部疼痛，通常持續超過10分鐘", "value": "A" },
+            { "label": "B. 病人在操勞或焦慮時會感到胸部疼痛，通常持續不超過3-5分鐘", "value": "B" },
+            { "label": "C. 病人會感到左腹部疼痛，有時會反射到左腰部", "value": "C" },
+            { "label": "D. 病人在操勞時會感到頭部疼痛，休息後痛楚會逐漸減輕", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "以下哪一項不是處理心絞痛病患者的正確步驟？",
+        "options": [
+            { "label": "A. 讓病患者平躺並抬高頭部", "value": "A" },
+            { "label": "B. 讓病患者吸入高流量的氧氣", "value": "B" },
+            { "label": "C. 幫助病患者服用舌下硝酸甘油藥物", "value": "C" },
+            { "label": "D. 立即將病患者送醫", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "下列哪一項不是急性心肌梗塞的主要症狀？",
+        "options": [
+            { "label": "A. 胸口劇痛，感到壓迫和悶痛", "value": "A" },
+            { "label": "B. 疼痛不會在休息後減輕", "value": "B" },
+            { "label": "C. 呼吸急促，心律不整和血壓下降", "value": "C" },
+            { "label": "D. 左腰部疼痛和下肢麻痺", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "多少分鐘的腦部缺氧能導致無法撤回的損害？",
+        "options": [
+            { "label": "A. 半分鐘", "value": "A" },
+            { "label": "B. 1-2分鐘", "value": "B" },
+            { "label": "C. 2-3分鐘", "value": "C" },
+            { "label": "D. 4-6分鐘", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "根據成人心肺復甦法，當救護人員發現受傷者，他們應該首先進行哪一步？",
+        "options": [
+            { "label": "A. 檢查頸動脈", "value": "A" },
+            { "label": "B. 進行胸部按壓", "value": "B" },
+            { "label": "C. 做出反應和呼吸狀態的檢查確認", "value": "C" },
+            { "label": "D. 進行額頭提頦操作", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "在進行胸部按壓之後，應該使用哪種方法來讓受傷者的氣道暢通，以進行人工呼吸？",
+        "options": [
+            { "label": "A. 按壓額頭並提起肩膀", "value": "A" },
+            { "label": "B. 用手打開受傷者的嘴", "value": "B" },
+            { "label": "C. 進行額頭提頦操作", "value": "C" },
+            { "label": "D. 將受傷者轉至側面", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "在進行吹氣法人工呼吸的時候，每次吹氣應該持續多久？",
+        "options": [
+            { "label": "A. 1 秒", "value": "A" },
+            { "label": "B. 1.5 秒", "value": "B" },
+            { "label": "C. 2 秒", "value": "C" },
+            { "label": "D. 3 秒", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "進行口對口人工呼吸時，傳遞的氣體含有多少百分比的氧氣？",
+        "options": [
+            { "label": "A. 21%", "value": "A" },
+            { "label": "B. 16%", "value": "B" },
+            { "label": "C. 24%", "value": "C" },
+            { "label": "D. 79%", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "在進行吹氣法人工呼吸的時候，每次吹入的氣體量大約是多少？",
+        "options": [
+            { "label": "A. 200-300c.c.", "value": "A" },
+            { "label": "B. 300-400c.c.", "value": "B" },
+            { "label": "C. 500-600c.c.", "value": "C" },
+            { "label": "D. 700-800c.c.", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "如果受傷者沒有呼吸但有脈搏，急救員進行人工呼吸，應該每分鐘吹氣多少次？",
+        "options": [
+            { "label": "A. 6-8次", "value": "A" },
+            { "label": "B. 12-18次", "value": "B" },
+            { "label": "C. 10-12次", "value": "C" },
+            { "label": "D. 20-24次", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "在進行吹氣法人工呼吸的時候，如果吹氣過快或吹入過大的氣體量，可能會導致受傷者出現哪種情況？",
+        "options": [
+            { "label": "A. 胃氣脹和胸腔壓力增大", "value": "A" },
+            { "label": "B. 肺氣腫和心壓降低", "value": "B" },
+            { "label": "C. 內出血和心悸", "value": "C" },
+            { "label": "D. 氣道阻塞", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "專業的急救人員應該在多少秒內完成對受傷者頸動脈的檢查？",
+        "options": [
+            { "label": "A. 3-5秒", "value": "A" },
+            { "label": "B. 4-6秒", "value": "B" },
+            { "label": "C. 5-10秒", "value": "C" },
+            { "label": "D. 6-12秒", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "頸動脈位於喉部中線左右側約多少公分的地方？",
+        "options": [
+            { "label": "A. 1.5公分", "value": "A" },
+            { "label": "B. 2.5公分", "value": "B" },
+            { "label": "C. 3.5公分", "value": "C" },
+            { "label": "D. 4.5公分", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "以下關於成人胸部按壓的說法哪一項是不正確的？",
+        "options": [
+            { "label": "A. 按壓時，手腕抬起，雙臂保持垂直", "value": "A" },
+            { "label": "B. 在胸部中心位置進行按壓", "value": "B" },
+            { "label": "C. 釋放壓力後（雙掌保持在按壓位置），讓胸骨恢復原狀", "value": "C" },
+            { "label": "D. 垂直壓下胸骨約4厘米", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "實施成人心肺復蘇時，每分鐘應按壓多少次？",
+        "options": [
+            { "label": "A. 至少120次", "value": "A" },
+            { "label": "B. 至少100次", "value": "B" },
+            { "label": "C. 最多80次", "value": "C" },
+            { "label": "D. 最多60次", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "兩位急救員實施成人心肺復蘇時，按壓與吹氣的比例應為？",
+        "options": [
+            { "label": "A. 15:2", "value": "A" },
+            { "label": "B. 20:4", "value": "B" },
+            { "label": "C. 5:1", "value": "C" },
+            { "label": "D. 30:2", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "一名急救員實施成人心肺復蘇時，按壓與吹氣的比例應為？",
+        "options": [
+            { "label": "A. 15:2", "value": "A" },
+            { "label": "B. 20:4", "value": "B" },
+            { "label": "C. 5:1", "value": "C" },
+            { "label": "D. 30:2", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "實施心肺復蘇時，每隔多久或多少個循環應對受傷者進行再檢查？",
+        "options": [
+            { "label": "A. 應持續施行，直到其他救護人員接替或受傷者出現復蘇跡象，無需再檢查", "value": "A" },
+            { "label": "B. 每2分鐘或5個循環檢查一次", "value": "B" },
+            { "label": "C. 每5分鐘或20個循環檢查一次", "value": "C" },
+            { "label": "D. 每分鐘檢查一次", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+{
+        "question": "下列哪一項不是實施心肺復蘇時需要注意的事項？",
+        "options": [
+            { "label": "A. 讓受傷者平躺在堅硬的表面上進行", "value": "A" },
+            { "label": "B. 按壓時保持雙肘垂直，控制好力度和節拍", "value": "B" },
+            { "label": "C. 除非醫生證實受傷者已死亡，否則不應停止急救", "value": "C" },
+            { "label": "D. 如果超過10分鐘，受傷者仍未出現復蘇跡象，可以停止急救", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "實施嬰兒心肺復蘇時，按壓深度應為多少厘米？",
+        "options": [
+            { "label": "A. 8厘米", "value": "A" },
+            { "label": "B. 6厘米", "value": "B" },
+            { "label": "C. 4厘米", "value": "C" },
+            { "label": "D. 2厘米", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "下列關於兒童心肺復蘇方法的說法哪一項是錯誤的？",
+        "options": [
+            { "label": "A. 用手掌或雙手掌根進行按壓", "value": "A" },
+            { "label": "B. 在乳頭與胸骨的交叉線下方進行按壓", "value": "B" },
+            { "label": "C. 每分鐘按壓次數至少為100次", "value": "C" },
+            { "label": "D. 持續進行，直到救護車到達或其他救護人員接手或受傷者出現復蘇跡象", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "下列關於嬰兒心肺復蘇方法的說法哪一項是錯誤的？",
+        "options": [
+            { "label": "A. 用手掌或雙手掌根進行按壓", "value": "A" },
+            { "label": "B. 在乳頭與胸骨的交叉線下方進行按壓", "value": "B" },
+            { "label": "C. 每分鐘按壓次數至少為100次", "value": "C" },
+            { "label": "D. 持續進行，直到救護車到達或其他救護人員接手或受傷者出現復蘇跡象", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "進行嬰兒心肺復蘇時，每分鐘按壓次數應為多少次？",
+        "options": [
+            { "label": "A. 至少120次", "value": "A" },
+            { "label": "B. 至少100次", "value": "B" },
+            { "label": "C. 最多80次", "value": "C" },
+            { "label": "D. 最多60次", "value": "D" }
+       ],
+        "correctAnswer": “B”
+    },
+    {
+        "question": "在進行兒童心肺復蘇法時，每分鐘的按壓次數應為多少？",
+        "options": [
+            { "label": "A. 至少120次", "value": "A" },
+            { "label": "B. 至少100次", "value": "B" },
+            { "label": "C. 最多80次", "value": "C" },
+            { "label": "D. 最多60次", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "在進行兒童心肺復蘇法時，按壓的深度應約為多少厘米？",
+        "options": [
+            { "label": "A. 9厘米", "value": "A" },
+            { "label": "B. 7厘米", "value": "B" },
+            { "label": "C. 5厘米", "value": "C" },
+            { "label": "D. 3厘米", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "當兩名急救員對嬰兒進行心肺復蘇法時，按壓和吹氣的比例應為何？",
+        "options": [
+            { "label": "A. 15:2", "value": "A" },
+            { "label": "B. 20:4", "value": "B" },
+            { "label": "C. 5:1", "value": "C" },
+            { "label": "D. 30:2", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "在為嬰兒進行人工呼吸時，每次吹氣應持續多久？",
+        "options": [
+            { "label": "A. 1秒", "value": "A" },
+            { "label": "B. 1.5秒", "value": "B" },
+            { "label": "C. 2秒", "value": "C" },
+            { "label": "D. 3秒", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "在為兒童進行人工呼吸時，每次吹氣應持續多久？",
+        "options": [
+            { "label": "A. 1秒", "value": "A" },
+            { "label": "B. 1.5秒", "value": "B" },
+            { "label": "C. 2秒", "value": "C" },
+            { "label": "D. 3秒", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+{
+        "question": "下列關於心室纖維性顫動(VF)的哪項描述是錯誤的？",
+        "options": [
+            { "label": "A. 它是一種無組織且快速的顫動", "value": "A" },
+            { "label": "B. 這種心律不能有效地泵送血液", "value": "B" },
+            { "label": "C. 如果未適當治療，最終可能導致心跳停止", "value": "C" },
+            { "label": "D. 只進行心肺復蘇是對心室纖維性顫動最有效的處理方式", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "當急救員為傷者進行除顫後，應立即繼續進行心肺復蘇的時間長度為多少分鐘？",
+        "options": [
+            { "label": "A. 1分鐘", "value": "A" },
+            { "label": "B. 2分鐘", "value": "B" },
+            { "label": "C. 5分鐘", "value": "C" },
+            { "label": "D. 直到救護車抵達為止", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "進行除顫時，電擊墊通常應貼在傷者身上的哪個部位？",
+        "options": [
+            { "label": "A. 胸部中央和左側胸部靠近心尖的位置", "value": "A" },
+            { "label": "B. 右側鎖骨下胸部和左側胸部靠近心尖的位置", "value": "B" },
+            { "label": "C. 右側鎖骨下胸部和左側胸部乳頭的位置", "value": "C" },
+            { "label": "D. 胸部中央和左側胸部乳頭的位置", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "當為體重低於多少公斤的兒童進行除顫時，應使用專用的劑量減少電擊墊？",
+        "options": [
+            { "label": "A. 40公斤", "value": "A" },
+            { "label": "B. 35公斤", "value": "B" },
+            { "label": "C. 25公斤", "value": "C" },
+            { "label": "D. 20公斤", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "進行除顫時，如果發現傷者胸部有貼膠布或其他醫療用品，應如何處理？",
+        "options": [
+            { "label": "A. 應該撕掉並清潔該處", "value": "A" },
+            { "label": "B. 在傷者胸部位置貼上兩片電擊墊", "value": "B" },
+            { "label": "C. 電擊墊應貼在距離該膠布或醫療用品約2.5厘米以上的位置", "value": "C" },
+            { "label": "D. 因為不會受影響，因此可以直接在其上貼上電擊墊", "value": “D” }
+  ],
+        "correctAnswer": “A”
+    },
+    {
+        "question": "若傷病者在進食過程中呈現輕度阻塞的跡象，如能夠發聲且有咳嗽反應，急救員應該採取哪種行動？",
+        "options": [
+            { "label": "A. 執行環抱壓腹法", "value": "A" },
+            { "label": "B. 施行心肺復蘇法", "value": "B" },
+            { "label": "C. 執行壓胸法", "value": "C" },
+            { "label": "D. 鼓勵並安撫傷病者儘量咳嗽，自我排除異物", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "若傷病者在進食過程中出現嚴重阻塞的表現，包括呼吸困難和疼痛症狀，急救員應該如何處置？",
+        "options": [
+            { "label": "A. 執行環抱壓腹法", "value": "A" },
+            { "label": "B. 施行心肺復蘇法", "value": "B" },
+            { "label": "C. 執行壓胸法", "value": "C" },
+            { "label": "D. 鼓勵並安撫傷病者儘量咳嗽，自我排除異物", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "在為傷病者施行環抱壓腹法時，應該在哪個位置進行壓迫？",
+        "options": [
+            { "label": "A. 肚臍之上2.5厘米", "value": "A" },
+            { "label": "B. 肚臍之下2.5厘米", "value": "B" },
+            { "label": "C. 兩乳頭與胸骨交叉線的位置", "value": "C" },
+            { "label": "D. 兩乳頭與胸骨交叉線下方的位置", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "若急救員發現哽塞的傷病者已經無法清醒回應，應該採取何種措施？",
+        "options": [
+            { "label": "A. 執行環抱壓腹法", "value": "A" },
+            { "label": "B. 施行心肺復蘇法", "value": "B" },
+            { "label": "C. 執行壓胸法", "value": "C" },
+            { "label": "D. 執行推腹法", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "下列何項不是適用於嬰兒哽塞狀況的處理方法？",
+        "options": [
+            { "label": "A. 執行環抱壓腹法", "value": "A" },
+            { "label": "B. 施行背部拍打法", "value": "B" },
+            { "label": "C. 執行壓胸法", "value": "C" },
+            { "label": "D. 施行心肺復蘇法", "value": “D”)
+        ],
+        "correctAnswer": “A”
+    },
+    {
+        "question": "在為嬰兒進行背部拍打法時，應連續拍打嬰兒肩胛骨中間的次數為多少次？",
+        "options": [
+            { "label": "A. 3次", "value": "A" },
+            { "label": "B. 5次", "value": "B" },
+            { "label": "C. 8次", "value": "C" },
+            { "label": "D. 直到嬰兒將哽塞物吐出為止進行不間斷的拍打", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "在為嬰兒進行壓胸法時，應在何處施壓？",
+        "options": [
+            { "label": "A. 肚臍上方2.5厘米的位置", "value": "A" },
+            { "label": "B. 肚臍下方2.5厘米的位置", "value": "B" },
+            { "label": "C. 兩乳頭與胸骨交叉線的位置", "value": "C" },
+            { "label": "D. 兩乳頭與胸骨交叉線下方的位置", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "在為懷孕的婦女進行阻塞處理時，應在哪個位置進行壓迫？",
+        "options": [
+            { "label": "A. 肚臍上方2.5厘米的位置", "value": "A" },
+            { "label": "B. 肚臍下方2.5厘米的位置", "value": "B" },
+            { "label": "C. 胸骨中央", "value": "C" },
+            { "label": "D. 腹部中央", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "下列哪一項關於救助溺水者的處理方法是不正確的？",
+        "options": [
+            { "label": "A. 如溺水者能夠自行呼吸，應將其置於恢復臥式", "value": "A" },
+            { "label": "B. 若在深水中，應一邊將溺水者拖向岸邊，一邊間歇性進行人工呼吸", "value": "B" },
+            { "label": "C. 若溺水者沒有呼吸和脈搏，則在岸上進行心肺復蘇法", "value": "C" },
+            { "label": "D. 上岸後，應儘可能使其吐出胃中的水", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "下列哪一項對於動脈出血的描述是不正確的？",
+        "options": [
+            { "label": "A. 血液會噴射出來", "value": "A" },
+            { "label": "B. 出血的節奏與心跳相同", "value": "B" },
+            { "label": "C. 血液的色澤鮮紅", "value": "C" },
+            { "label": "D. 傷口的血液通常很容易凝固", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "當靜脈出血，血液的顏色會呈現暗紅色，這是因為血液中含有大量的哪種成分？",
+        "options": [
+            { "label": "A. 氧氣和血小板", "value": "A" },
+            { "label": "B. 二氧化碳和白血球", "value": "B" },
+            { "label": "C. 氧氣和廢物", "value": "C" },
+            { "label": "D. 二氧化碳", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "如果急救人員在處理傷口出血時，已經包紮了傷口，但敷料仍被血液滲透，那麼應該如何應對？",
+        "options": [
+            { "label": "A. 使用冰袋進行冷敷止血", "value": "A" },
+            { "label": "B. 移除敷料，清潔傷口", "value": "B" },
+            { "label": "C. 在原本的敷料上再加上新的敷料進行包紮", "value": "C" },
+            { "label": "D. 在傷口下方的血管上用手施壓", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "使用間接壓迫法，在一般情况下，需要壓迫多久才能减少出血，並協助血液凝固？",
+        "options": [
+            { "label": "A. 2-3 分鐘", "value": "A" },
+            { "label": "B. 4-8 分鐘", "value": "B" },
+            { "label": "C. 5-10 分鐘", "value": "C" },
+            { "label": "D. 6-12 分鐘", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "在急救中，最常用的動脈壓點有哪兩對？",
+        "options": [
+            { "label": "A. 肱動脈和頸動脈", "value": "A" },
+            { "label": "B. 肱動脈和鎖骨下動脈", "value": "B" },
+            { "label": "C. 頸動脈和股動脈", "value": "C" },
+            { "label": "D. 肱動脈和股動脈", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "下列哪項關於使用直接壓迫法止血的描述是錯誤的？",
+        "options": [
+            { "label": "A. 在為傷者的傷口施壓時，需要穿戴塑膠或一次性手套，並使用敷料", "value": "A" },
+            { "label": "B. 如果當時沒有手套或敷料，急救人員可以使用乾淨的塑膠袋代替手套", "value": "B" },
+            { "label": "C. 如果情況允許，可以讓傷者自己壓住傷口止血", "value": "C" },
+            { "label": "D. 當大量出血時，應使用膠帶繫緊傷口", "value": "D" }
+        ],
+        "correctAnswer": "D"
+       },
+    {
+        "question": "休克是指什麼狀況？",
+        "options": [
+            { "label": "A. 細胞獲得的氧氣和養分不足，導致身體功能崩潰", "value": "A" },
+            { "label": "B. 心臟獲得的血液供應不足，導致心跳紊亂", "value": "B" },
+            { "label": "C. 細胞獲得的糖分供應不足，導致人昏迷", "value": "C" },
+            { "label": "D. 身體無法調整體溫，導致身體功能崩潰", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "下列哪一項是造成心源性休克的主要原因？",
+        "options": [
+            { "label": "A. 大量流失體液", "value": "A" },
+            { "label": "B. 血管過度擴張", "value": "B" },
+            { "label": "C. 心臟泵血能力失效", "value": "C" },
+            { "label": "D. 大量流失血液", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "下列哪一項是造成過敏性休克的主要原因？",
+        "options": [
+            { "label": "A. 大量流失體液", "value": "A" },
+            { "label": "B. 血管過度擴張", "value": "B" },
+            { "label": "C. 心臟泵血能力失效", "value": "C" },
+            { "label": "D. 大量流失血液", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "下列哪一項是造成心理性休克的主要原因？",
+        "options": [
+            { "label": "A. 大量流失體液", "value": "A" },
+            { "label": "B. 血管過度擴張", "value": "B" },
+            { "label": "C. 心臟泵血能力失效", "value": "C" },
+            { "label": "D. 大量流失血液", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "對於嚴重失血的傷患者，最常見的休克類型是？",
+        "options": [
+            { "label": "A. 心源性休克", "value": "A" },
+            { "label": "B. 低血量性休克", "value": "B" },
+            { "label": "C. 心理性休克", "value": "C" },
+            { "label": "D. 敗血性休克", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "以下哪一個不是休克的症狀？",
+        "options": [
+            { "label": "A. 呼吸快且淺", "value": "A" },
+            { "label": "B. 臉色蒼白，皮膚冷濕", "value": "B" },
+            { "label": "C. 脈搏慢且有力", "value": "C" },
+            { "label": "D. 血壓降低", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "以下哪一種處理休克患者的方式是不正確的？",
+        "options": [
+            { "label": "A. 鬆開繃緊的衣物，並保持患者暖和", "value": "A" },
+            { "label": "B. 確保空氣流通，提供氧氣", "value": "B" },
+            { "label": "C. 安撫患者", "value": "C" },
+            { "label": "D. 提高頭部位置，降低腦部血管壓力", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "爆炸傷、機器夾傷或動物抓傷，傷口齒糾不平，血管被撕裂出血。這種傷口被稱為？",
+        "options": [
+            { "label": "A. 切傷", "value": "A" },
+            { "label": "B. 瘀傷", "value": "B" },
+            { "label": "C. 刺傷", "value": "C" },
+            { "label": "D. 裂傷", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "如果受傷地點遭受鈍物擊打、硬物撞擊或壓傷，導致皮膚內部組織出血。這種傷口可以稱為？",
+        "options": [
+            { "label": "A. 切傷", "value": "A" },
+            { "label": "B. 瘀傷", "value": "B" },
+            { "label": "C. 刺傷", "value": "C" },
+            { "label": "D. 裂傷", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "如果傷口有少量鬆散的砂石粘在傷口表面，應該如何處理？",
+        "options": [
+            { "label": "A. 絕對不要試圖拔出，因為可能移動異物", "value": "A" },
+            { "label": "B. 直接用敷料覆蓋傷口，然後用水清洗，以減少傷口傷害", "value": "B" },
+            { "label": "C. 可以用清水沖洗，然後用乾淨的敷料包紮", "value": "C" },
+            { "label": "D. 在傷口周圍加上敷料墊起，再用繃帶包紮", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "以下關於腦震盪的描述中，哪一項是錯誤的？",
+        "options": [
+            { "label": "A. 患者大部分會有一段相對較長的昏迷或神志不清", "value": "A" },
+            { "label": "B. 腦部功能遭受短暫的干擾", "value": "B" },
+            { "label": "C. 頭昏、頭痛或嘔吐是常見的症狀", "value": "C" },
+            { "label": "D. 患者可能有短暫的記憶喪失", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "何謂顳性硬膜外血腫？",
+        "options": [
+            { "label": "A. 硬膜外和頭骨之間的動脈出血", "value": "A" },
+            { "label": "B. 硬膜下和蜘蛛膜間的靜脈出血", "value": "B" },
+            { "label": "C. 脊椎神經微血管出血", "value": "C" },
+            { "label": "D. 冠狀動脈出血", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "如果頸部有大出血或刺傷出血，傷及血管且大出血。急救員應該如何處理？",
+        "options": [
+            { "label": "A. 使用繃帶繞頸部包紮", "value": "A" },
+            { "label": "B. 使用手指壓法，對頸動脈進行壓迫", "value": "B" },
+            { "label": "C. 在傷口周圍加上敷料墊起，再用繃帶包紮", "value": "C" },
+            { "label": "D. 使用厚敷料直接覆蓋傷口並用手壓住敷料", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "以下哪一項不是處理內耳受傷（有血液從內耳流出）的方式?",
+        "options": [
+            { "label": "A. 讓受傷者坐下，頭部側向受傷的一側，讓液體排出", "value": "A" },
+            { "label": "B. 用消毒/清潔的敷料覆蓋耳朵，然後加以固定", "value": "B" },
+            { "label": "C. 用繃帶緊繃，以減少液體流出", "value": "C" },
+            { "label": "D. 盡快送醫", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "以下哪一項不是處理口部受傷出血的方式？",
+        "options": [
+            { "label": "A. 讓受傷者坐下，頭部微微向前並偏向受傷的一側", "value": "A" },
+            { "label": "B. 用紗布墊向受傷的地方直接施壓", "value": "B" },
+            { "label": "C. 封閉受傷者的口部，防止唾液從口中流出", "value": “C” },
+            { "label": “D. 如果有牙齒脫落，應將牙齒放在牛奶中，並一起送醫", "value": “D” }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "如何配置傷者以處理鼻血流出情況？",
+        "options": [
+            { "label": "A. 平躺，頭部稍微側向一側", "value": "A" },
+            { "label": "B. 坐著，微微向下傾頭，身體微微側傾", "value": "B" },
+            { "label": "C. 坐著，頭部向後仰", "value": "C" },
+            { "label": "D. 復原臥姿", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "如果急救員已經捏了傷者的鼻子約10分鐘，但鼻血還未止住，該如何處理？",
+        "options": [
+            { "label": "A. 讓傷者平躺下，頭部微微側向一側，再捏鼻子10分鐘。如果血仍然未止，立即送往醫院", "value": "A" },
+            { "label": "B. 用冰塊在傷者的鼻部和頭部冷敷", "value": "B" },
+            { "label": "C. 讓傷者平躺，然後再捏鼻子10分鐘", "value": "C" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "如果傷者的胸部被刺穿，出現氣胸的症狀，急救員該如何處理胸部傷口？",
+        "options": [
+            { "label": "A. 用膠帶固定敷料或不透氣物，密封三邊，留出一邊空氣通道", "value": "A" },
+            { "label": "B. 用膠帶固定敷料或不透氣物，四邊全部密封", "value": "B" },
+            { "label": "C. 用敷料覆蓋，然後用繃帶纏繞", "value": "C" },
+            { "label": "D. 不要覆蓋傷口，讓胸部的空氣盡可能流出", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "如果傷者的胸部被刺穿，急救員處理好胸部傷口後，該如何擺放傷者？",
+        "options": [
+            { "label": "A. 仰臥，雙腿墊高", "value": "A" },
+            { "label": "B. 坐著，頭部微微低，身體微微前傾", "value": "B" },
+            { "label": "C. 復原臥姿", "value": "C" },
+            { "label": "D. 半臥，側身朝向傷口一側，用物件支撐頭部和肩部", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "如果傷者的腹部受傷，急救員應該如何擺放傷者，以減少牽扯腹部傷口？",
+        "options": [
+            { "label": "A. 讓傷者仰臥，墊高雙腿", "value": "A" },
+            { "label": "B. 讓傷者側臥，用物件支撐頭部和肩部", "value": “B” },
+            { "label": "C. 讓傷者平躺，彎曲膝蓋，並用物體支撐膝部", "value": "C" },
+            { "label": "D. 復原臥姿", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+{
+    "question": "如果傷病者的腹部受到傷害，腸子外露，急救員該如何處理這種傷口？",
+    "options": [
+        { "label": "A. 儘可能將突出的腸子放回體內", "value": "A" },
+        { "label": "B. 用膠帶將敷料或不透氣物固定，密封三邊，留出一邊空氣通道", "value": "B" },
+        { "label": "C. 用紗布墊子直接對受傷部位施壓", "value": "C" },
+        { "label": "D. 使用保鮮膜或濕敷料覆蓋傷口", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "傷病者需要接受多少次破傷風疫苗注射，才能獲得10年的免疫？",
+    "options": [
+        { "label": "A. 7次", "value": "A" },
+        { "label": "B. 5次", "value": "B" },
+        { "label": "C. 3次", "value": "C" },
+        { "label": "D. 1次", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "急救員應如何儲存和處理傷病者受傷截斷的肢體？",
+    "options": [
+        { "label": "A. 用水浸泡或清洗斷肢，然後將斷肢放入清潔的塑膠袋中", "value": "A" },
+        { "label": "B. 將斷肢放入清潔的塑膠袋中，再用裝有冰塊和水的塑膠袋，然後將裝有斷肢的塑膠袋放入冰水中", "value": "B" },
+        { "label": "C. 用裝有冰塊和水的塑膠袋，然後直接將斷肢放入裝有冰水的塑膠袋中", "value": "C" },
+        { "label": "D. 用毛毯包裹，保持暖和", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "\"生命中樞\"位於大腦的哪個部位？",
+    "options": [
+        { "label": "A. 延腦", "value": "A" },
+        { "label": "B. 橘腦", "value": "B" },
+        { "label": "C. 中腦", "value": "C" },
+        { "label": "D. 大腦", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "人類的神經系統可以分為哪兩部分？",
+    "options": [
+        { "label": "A. 中樞神經系統和周邊神經系統", "value": "A" },
+        { "label": "B. 腦神經系統和周邊神經系統", "value": "B" },
+        { "label": "C. 腦神經系統和前體神經系統", "value": "C" },
+        { "label": "D. 中樞神經系統和自主神經系統", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "人類共有多少對脊髓神經？",
+    "options": [
+        { "label": "A. 13對", "value": "A" },
+        { "label": "B. 21對", "value": "B" },
+        { "label": "C. 12對", "value": "C" },
+        { "label": "D. 31對", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "下列哪項有關脊髓神經的描述是正確的？",
+    "options": [
+        { "label": "A. 共有12對脊髓神經", "value": "A" },
+        { "label": "B. 負責頸部以上的知覺和運動", "value": "B" },
+        { "label": "C. 由椎間孔分佈到身體各部分，負責接收訊息及傳遞指令", "value": "C" },
+        { "label": "D. 成錐體形，上寬下狹，位於枕骨大孔之上", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "如果傷病者能夠回答急救員的問題，對人、地、時間都非常清楚，傷病者的清醒程度可以被列為？",
+    "options": [
+        { "label": "A. 清醒 — A", "value": "A" },
+        { "label": "B. 對聲音有反應 — V", "value": "B" },
+        { "label": "C. 對痛有反應 — P", "value": "C" },
+        { "label": "D. 全無反應 — U", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "如果傷病者只在急救員捏其耳朵或其他部位時，才會推開急救員或作出其他應對行為，傷病者的清醒程度可以被列為？",
+    "options": [
+        { "label": "A. 清醒 - A", "value": "A" },
+        { "label": "B. 對聲音有反應 - V", "value": "B" },
+        { "label": "C. 對痛有反應 - P", "value": "C" },
+        { "label": "D. 全無反應 - U", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "如果傷病者在急救員跟其說話時，會張開眼睛或嘗試回答急救員的問題，傷病者的清醒程度可以被列為？",
+    "options": [
+        { "label": "A. 清醒 - A", "value": "A" },
+        { "label": "B. 對聲音有反應 - V", "value": "B" },
+        { "label": "C. 對痛有反應 - P", "value": "C" },
+        { "label": "D. 全無反應 - U", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下列哪種情況下，急救員不應將人事不省的傷病者置於復原臥式？",
+    "options": [
+        { "label": "A. 嘔吐", "value": "A" },
+        { "label": "B. 懷疑有頭頸部創傷", "value": "B" },
+        { "label": "C. 有割傷", "value": "C" },
+        { "label": "D. 瞳孔收縮", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下列哪項不是人體正常散發身體熱力的方式？",
+    "options": [
+        { "label": "A. 輻射", "value": "A" },
+        { "label": "B. 蒸發", "value": "B" },
+        { "label": "C. 對流", "value": "C" },
+        { "label": "D. 反射", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "若體溫降至攝氏(C)多少度以下，即為體溫過低？",
+    "options": [
+        { "label": "A. 33度", "value": "A" },
+        { "label": "B. 34度", "value": "B" },
+        { "label": "C. 35度", "value": "C" },
+        { "label": "D. 36度", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "下列哪項不是成人體溫過低時出現的徵狀？",
+    "options": [
+        { "label": "A. 皮膚會呈現明顯的粉紅色", "value": "A" },
+        { "label": "B. 脈搏慢而弱，難以觸知", "value": "B" },
+        { "label": "C. 呼吸慢而淺", "value": "C" },
+        { "label": "D. 身體發抖", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "下列哪項不是處理體溫過低傷病者的正確方法？",
+    "options": [
+        { "label": "A. 脫去濕衣物，用毛毯將傷病者包裹保暖", "value": "A" },
+        { "label": "B. 漸次提高傷病者體溫", "value": "B" },
+        { "label": "C. 盡快把傷病者移到有遮蔽及溫暖的地方", "value": "C" },
+        { "label": "D. 讓傷病者飲酒及吸煙，增加血液循環", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "一般情況下，中暑的傷病者體溫會升至攝氏(C)多少度以上？",
+    "options": [
+        { "label": "A. 38度", "value": "A" },
+        { "label": "B. 39度", "value": "B" },
+        { "label": "C. 40度", "value": "C" },
+        { "label": "D. 42度", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "一名工人在高熱潮濕的環境下工作，感到頭痛、口渴及心慌，而且皮膚乾熱而潮紅和小便量少。根據徵狀評估，他可能是？",
+    "options": [
+        { "label": "A. 熱衰竭", "value": "A" },
+        { "label": "B. 休克", "value": "B" },
+        { "label": "C. 血糖過低", "value": "C" },
+        { "label": "D. 中暑", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "一名工人在炎熱潮濕的環境下工作，大量出汗後，感到身體疲倦、軟弱，而且頭痛、暈眩及皮膚濕冷。根據徵狀評估，他可能是？",
+    "options": [
+        { "label": "A. 熱衰竭", "value": "A" },
+        { "label": "B. 中暑", "value": "B" },
+        { "label": "C. 血糖過低", "value": "C" },
+        { "label": "D. 血糖過高", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "下列哪項處理中暑的方法是錯誤的？",
+    "options": [
+        { "label": "A. 讓傷病者涼快下來", "value": "A" },
+        { "label": "B. 將傷病者移到清涼的地方", "value": "B" },
+        { "label": "C. 用濕毛巾塗抹傷病者全身", "value": "C" },
+        { "label": "D. 給予具刺激性的飲料給清醒的傷病者", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "處理中暑，急救員應盡量將傷病者的體溫降至攝氏(C)多少度？",
+    "options": [
+        { "label": "A. 36.5度", "value": "A" },
+        { "label": "B. 37度", "value": "B" },
+        { "label": "C. 38度", "value": "C" },
+        { "label": "D. 40度", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "處理熱衰竭，如傷病者神志清醒，急救員可給予傷病者適量的鹽水飲用，飲用的份量為？",
+    "options": [
+        { "label": "A. 每20分鐘飲水半杯，約共飲水2杯", "value": "A" },
+        { "label": "B. 每15分鐘飲水半杯，約共飲水2杯", "value": "B" },
+        { "label": "C. 每10分鐘飲水半杯，約共飲水1杯", "value": "C" },
+        { "label": "D. 每5分鐘飲水半杯，約共飲水1杯", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "處理熱衰竭，如傷病者神志清醒，急救員可給予傷病者適量的鹽水飲用。有關鹽水，鹽與水的比例是？",
+    "options": [
+        { "label": "A. 2茶匙鹽 : 1公升水", "value": "A" },
+        { "label": "B. 1茶匙鹽 : 1公升水", "value": "B" },
+        { "label": "C. 2茶匙鹽 : 半公升水", "value": "C" },
+        { "label": "D. 1茶匙鹽 : 半公升水", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下列哪項有關處理腦癇發作的傷病者的方法是錯誤的？",
+    "options": [
+        { "label": "A. 注重及記錄傷病者腦癇發作開始的時間和情況", "value": "A" },
+        { "label": "B. 維持傷病者呼吸道的通暢，協助其側臥", "value": "B" },
+        { "label": "C. 拿掉傷病者身上會造成束縛的東西，並解開衣領", "value": "C" },
+        { "label": "D. 緊捉傷病者的手腳，以抑制肢體抽搐", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "小兒高熱驚厥一般指多少歲的兒童，因發燒時出現肢體抽搐的情況？",
+    "options": [
+        { "label": "A. 由0至12歲", "value": "A" },
+        { "label": "B. 由0至6歲", "value": "B" },
+        { "label": "C. 由4至8歲", "value": "C" },
+        { "label": "D. 不超過2歲", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "小兒高熱驚厥的傷病者，一般情況下發燒抽筋都不會超過多少分鐘？",
+    "options": [
+        { "label": "A. 5分鐘", "value": "A" },
+        { "label": "B. 10分鐘", "value": "B" },
+        { "label": "C. 15分鐘", "value": "C" },
+        { "label": "D. 20分鐘", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "下列哪項有關小兒高熱驚厥傷病者，抽筋發作的處理方法是錯誤的？",
+    "options": [
+        { "label": "A. 把傷病者側臥，讓口水及嘔吐物流出", "value": "A" },
+        { "label": "B. 貼身照顧傷病者，觀察及記錄發生的情況", "value": "B" },
+        { "label": "C. 制止傷病者的抽搐動作，以免受傷", "value": "C" },
+        { "label": "D. 絕對不把任何物件塞入傷病者的口內，以免引起窒息的危險", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "腦部動脈中有血塊凝結或血管被一塊移動的凝結血塊所塞，出現中風情況。這種中風的成因可稱為？",
+    "options": [
+        { "label": "A. 缺血性中風", "value": "A" },
+        { "label": "B. 失血性中風", "value": "B" },
+        { "label": "C. 凝結性中風", "value": "C" },
+        { "label": "D. 出血性中風", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "腦內血管爆裂或撕破，令腦組織缺血，而血液集中在其他組織中而使腦部受壓。這種中風的成因可稱為？",
+    "options": [
+        { "label": "A. 缺血性中風", "value": "A" },
+        { "label": "B. 爆裂性中風", "value": "B" },
+        { "label": "C. 凝結性中風", "value": "C" },
+        { "label": "D. 出血性中風", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "下列哪項不是中風的徵狀？",
+    "options": [
+        { "label": "A. 突然出現不明原因的耳鳴、頸部疼痛", "value": "A" },
+        { "label": "B. 突然講話語無倫次或聽不懂他人所說的話", "value": "B" },
+        { "label": "C. 臉部或一側肢體突然感到無力或麻木", "value": "C" },
+        { "label": "D. 突然視力模糊、出現多重影像", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "中風的傷病者如出現昏迷情況，急救員首先應如何處理？",
+    "options": [
+        { "label": "A. 測試肢體活動能力", "value": "A" },
+        { "label": "B. 測試視力是否出現模糊影像", "value": "B" },
+        { "label": "C. 量度血壓度數", "value": "C" },
+        { "label": "D. 保持氣道暢通", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "對於保持清醒的中風患者，急救員應選擇哪種方式安置他們，以最大程度地降低腦部壓力？",
+    "options": [
+        { "label": "A. 側臥", "value": "A" },
+        { "label": "B. 復原臥式", "value": "B" },
+        { "label": "C. 仰臥，墊高雙腿", "value": "C" },
+        { "label": "D. 仰臥，墊高頭及肩部", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "下列哪一項並非引起中風的潛在原因？",
+    "options": [
+        { "label": "A. 吸煙", "value": "A" },
+        { "label": "B. 動脈硬化", "value": "B" },
+        { "label": "C. 高血壓", "value": "C" },
+        { "label": "D. 消化不良", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "糖尿病一型主要是因為病患身體出現了哪種狀況？",
+    "options": [
+        { "label": "A. 不能製造或製造不足胰島素", "value": "A" },
+        { "label": "B. 製造過量胰島素", "value": "B" },
+        { "label": "C. 對胰島素產生抗體", "value": "C" },
+        { "label": "D. 對胰島素產生過敏反應", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "糖尿病二型主要是因為病患身體出現了哪種狀況？",
+    "options": [
+        { "label": "A. 不能製造或製造不足胰島素", "value": "A" },
+        { "label": "B. 製造過量胰島素", "value": "B" },
+        { "label": "C. 對胰島素產生抗體", "value": "C" },
+        { "label": "D. 對胰島素產生過敏反應", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "下列哪一項並非會引糖尿病患者出現低血糖的因素？",
+    "options": [
+        { "label": "A. 服用過量胰島素", "value": "A" },
+        { "label": "B. 服用胰島素不足", "value": "B" },
+        { "label": "C. 嘔吐", "value": "C" },
+        { "label": "D. 進行過量運動", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下列哪一項並不是導致糖尿病患者血糖過高，進而引發高血糖昏迷的因素？",
+    "options": [
+        { "label": "A. 服用過量胰島素", "value": "A" },
+        { "label": "B. 服用胰島素不足", "value": "B" },
+        { "label": "C. 飲食過量", "value": "C" },
+        { "label": "D. 嚴重感染及脫水", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "糖尿病患者在血糖過高導致昏迷的情況下，他們的呼吸可能帶有哪種氣味？",
+    "options": [
+        { "label": "A. 脂肪味", "value": "A" },
+        { "label": "B. 酒精味", "value": "B" },
+        { "label": "C. 醋酮味", "value": "C" },
+        { "label": "D. 氯氣味", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "下列哪一項並非低血糖的主要症狀？",
+    "options": [
+        { "label": "A. 皮膚蒼白、濕冷", "value": "A" },
+        { "label": "B. 脈搏快而弱", "value": "B" },
+        { "label": "C. 視力模糊", "value": "C" },
+        { "label": "D. 頻尿", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "下列哪一項並非高血糖的主要症狀？",
+    "options": [
+        { "label": "A. 皮膚蒼白、濕冷", "value": "A" },
+        { "label": "B. 口渴", "value": "B" },
+        { "label": "C. 呼吸深沉且有醋酮味", "value": "C" },
+        { "label": "D. 頻尿", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "若是清醒的低血糖病患者，急救員應該如何處置？",
+    "options": [
+        { "label": "A. 禁止飲食，減少昏迷機會", "value": "A" },
+        { "label": "B. 可給其進食一些含糖飲料或食物", "value": "B" },
+        { "label": "C. 協助服用胰島素藥物", "value": "C" },
+        { "label": "D. 可給其飲用水，共飲兩杯", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "若是因血糖過高而陷入昏迷的病患，急救員應該如何擺放他們？",
+    "options": [
+        { "label": "A. 側臥位", "value": "A" },
+        { "label": "B. 復原臥式", "value": "B" },
+        { "label": "C. 仰臥，墊高雙腿", "value": "C" },
+        { "label": "D. 仰臥，墊高頭及肩部", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "當處理血糖過低或過高的病患時，急救員應該盡可能取得病人的病歷。下列哪一項資訊並不需要包含在內？",
+    "options": [
+        { "label": "A. 近期所得疾病或感染", "value": "A" },
+        { "label": "B. 最後進食時間", "value": "B" },
+        { "label": "C. 活動的改變", "value": "C" },
+        { "label": "D. 家族疾病史", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "根據'九分法'評估，若傷者的整個背部及腰部受到燒傷，其燒傷面積應該是？",
+    "options": [
+        { "label": "A. 9%", "value": "A" },
+        { "label": "B. 18%", "value": "B" },
+        { "label": "C. 21%", "value": "C" },
+        { "label": "D. 27%", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "在評估燒傷面積時，我們可以用傷者的手掌面積(不包含手指)來計算。那麼，一個手掌面積約相當於多少百分比的受傷面積？",
+    "options": [
+        { "label": "A. 0.5%", "value": "A" },
+        { "label": "B. 1%", "value": "B" },
+        { "label": "C. 2%", "value": "C" },
+        { "label": "D. 9%", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "若傷者的整個胸部及腹部大約兩個手掌位的面積受到燒傷，那麼燒傷面積應該是？",
+    "options": [
+        { "label": "A. 7%", "value": "A" },
+        { "label": "B. 9%", "value": "B" },
+        { "label": "C. 11%", "value": "C" },
+        { "label": "D. 18%", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "一名不滿一歲的男嬰，右下肢遭熱水燙傷，其受傷面積應為？",
+    "options": [
+        { "label": "A. 9%", "value": "A" },
+        { "label": "B. 13.5%", "value": "B" },
+        { "label": "C. 18%", "value": "C" },
+        { "label": "D. 21.5%", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "在燒傷或燙傷後，若傷者體液流失太多，可能導致下列哪一種休克狀況？",
+    "options": [
+        { "label": "A. 神經性休克", "value": "A" },
+        { "label": "B. 心源性休克", "value": "B" },
+        { "label": "C. 敗血性休克", "value": "C" },
+        { "label": "D. 低血容量休克", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "如果傷者的燒傷部位為焦黑或發白，且無觸覺，該燒傷應評估為哪一級？",
+    "options": [
+        { "label": "A. 一級燒傷", "value": "A" },
+        { "label": "B. 二級燒傷", "value": "B" },
+        { "label": "C. 三級燒傷", "value": "C" },
+        { "label": "D. 四級燒傷", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "若傷者的燒傷部位呈現紅腫、疼痛和輕度腫脹的現象，該燒傷評估為哪一級別？",
+    "options": [
+        { "label": "A. 一級燒傷", "value": "A" },
+        { "label": "B. 二級燒傷", "value": "B" },
+        { "label": "C. 三級燒傷", "value": "C" },
+        { "label": "D. 四級燒傷", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "二級燒傷是指？",
+    "options": [
+        { "label": "A. 深層皮下血管、神經末梢、脂肪及肌肉全被破壞", "value": "A" },
+        { "label": "B. 中層表皮及真皮受損", "value": "B" },
+        { "label": "C. 只有表皮受損", "value": "C" },
+        { "label": "D. 血管受損", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下列關於燒傷和燙傷處理方法中，哪一項是正確的？",
+    "options": [
+        { "label": "A. 以絨布或粘性敷料包紮傷口", "value": "A" },
+        { "label": "B. 擠破水泡", "value": "B" },
+        { "label": "C. 硬撕附在傷口上的焦衣碎片", "value": "C" },
+        { "label": "D. 用水沖洗傷口以降溫", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "下列關於燒傷和燙傷處理方法中，哪一項是錯誤的？",
+    "options": [
+        { "label": "A. 將傷者遠離熱源", "value": "A" },
+        { "label": "B. 用清水持續沖洗傷口，降低傷口溫度", "value": "B" },
+        { "label": "C. 用冰塊冷敷傷口，加速降溫", "value": "C" },
+        { "label": "D. 降溫後，用消毒敷料覆蓋傷口", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "一般來說，兒童的燒燙傷情況比成人嚴重。下列哪一種情況需要立即送醫？",
+    "options": [
+        { "label": "A. 2-3% 的二級燒傷", "value": "A" },
+        { "label": "B. 2-3% 的一級燒傷", "value": "B" },
+        { "label": "C. 0-1% 的二級燒傷", "value": "C" },
+        { "label": "D. 0-1% 的一級燒傷", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "成年人在遭受下列哪種燒傷情況時，需要立即送醫？",
+    "options": [
+        { "label": "A. 2-3% 的二級燒傷", "value": "A" },
+        { "label": "B. 2-3% 的一級燒傷", "value": "B" },
+        { "label": "C. 5% 的二級燒傷", "value": "C" },
+        { "label": "D. 5% 的一級燒傷", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "在處理電擊燒傷事故時，急救員首先應該做什麼？",
+    "options": [
+        { "label": "A. 處理燒傷傷口", "value": "A" },
+        { "label": "B. 安撫傷者", "value": "B" },
+        { "label": "C. 將觸電者從電源處拉開", "value": "C" },
+        { "label": "D. 確保自身安全後，立即切斷電源", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "在處理化學劑燒傷的情況下，急救員首要的處理步驟是？",
+    "options": [
+        { "label": "A. 移除附著在傷者身上的化學劑", "value": "A" },
+        { "label": "B. 立刻安撫受傷者，防止心理創傷", "value": "B" },
+        { "label": "C. 使用化學劑來中和化學物質，防止傷勢加重", "value": "C" },
+        { "label": "D. 使用冰塊冷敷傷口，減少熱量傳遞", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "如果傷者的眼睛被化學物質灼傷，在達到醫院之前，應採取哪種處理方式？",
+    "options": [
+        { "label": "A. 用紗布覆蓋受傷的眼睛，避免水分濕透紗布", "value": "A" },
+        { "label": "B. 持續用清水清洗受傷的眼睛", "value": "B" },
+        { "label": "C. 使用繃帶緊緊包住雙眼，防止眼球受損", "value": "C" },
+        { "label": "D. 使用任何可用的物質來中和化學物質，防止傷勢惡化", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下列哪種關節只能進行單方向的運動，如屈曲和伸展？",
+    "options": [
+        { "label": "A. 球窩關節", "value": "A" },
+        { "label": "B. 滑動關節", "value": "B" },
+        { "label": "C. 槓桿關節", "value": "C" },
+        { "label": "D. 鉸鏈關節", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "髖關節屬於下列哪一種類型的關節？",
+    "options": [
+        { "label": "A. 球窩關節", "value": "A" },
+        { "label": "B. 滑動關節", "value": "B" },
+        { "label": "C. 槓桿關節", "value": "C" },
+        { "label": "D. 鉸鏈關節", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "連接胸骨和鎖骨的關節是下列哪一類型的關節？",
+    "options": [
+        { "label": "A. 球窩關節", "value": "A" },
+        { "label": "B. 滑動關節", "value": "B" },
+        { "label": "C. 槓桿關節", "value": "C" },
+        { "label": "D. 鉸鏈關節", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下列哪種肌肉的特徵是由意志控制，每組肌肉纖維都附著在骨頭的肌腱上，如果失去神經控制，會導致癱瘓？",
+    "options": [
+        { "label": "A. 心肌", "value": "A" },
+        { "label": "B. 不隨意肌", "value": "B" },
+        { "label": "C. 隨意肌", "value": "C" },
+        { "label": "D. 內臟肌", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "下列哪種肌肉的特性是不受意志控制，存在於血管壁、淋巴管、消化管等位置？",
+    "options": [
+        { "label": "A. 心肌", "value": "A" },
+        { "label": "B. 不隨意肌", "value": "B" },
+        { "label": "C. 隨意肌", "value": "C" },
+        { "label": "D. 橫紋肌", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "一名運動員在與其他運動員碰撞後，關節韌帶受到強烈拉扯，導致骨頭移位。這名運動員的傷勢應該是？",
+    "options": [
+        { "label": "A. 扭傷", "value": "A" },
+        { "label": "B. 肌肉拉傷", "value": "B" },
+        { "label": "C. 骨折", "value": "C" },
+        { "label": "D. 關節脫位", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "下列哪個不是適合處理扭傷的方法？",
+    "options": [
+        { "label": "A. 讓傷者休息", "value": "A" },
+        { "label": "B. 牽引關節以恢復原位", "value": "B" },
+        { "label": "C. 加壓包紮", "value": "C" },
+        { "label": "D. 將傷肢抬高", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "當骨頭受力後，由於骨質具有一定的彈性，傷後只出現骨頭彎曲的現象，而並未完全斷裂。這種骨折應該叫做什麼名稱？",
+    "options": [
+        { "label": "A. 凹陷骨折", "value": "A" },
+        { "label": "B. 粉碎骨折", "value": "B" },
+        { "label": "C. 相插骨折", "value": "C" },
+        { "label": "D. 青枝骨折", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "如果除了骨折之外，還包含內部器官、神經、血管的損傷或壓迫，則這種骨折稱為什麼？",
+    "options": [
+        { "label": "A. 凹陷骨折", "value": "A" },
+        { "label": "B. 粉碎骨折", "value": "B" },
+        { "label": "C. 相插骨折", "value": "C" },
+        { "label": "D. 複雜骨折", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "以下哪個關於審查可能骨折的病患時的注意事項是錯誤的？",
+    "options": [
+        { "label": "A. 首先評估是否存在其他嚴重傷害", "value": "A" },
+        { "label": "B. 檢查傷口上方的脈搏", "value": "B" },
+        { "label": "C. 向患者詢問是否有麻痺、刺痛等異常感覺", "value": "C" },
+        { "label": "D. 檢查傷病的肢體是否呈現蒼白和冰冷的狀態", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下列有關骨折管理方法中，哪一項是錯誤的？",
+    "options": [
+        { "label": "A. 除非現場存在危險，否則應盡可能避免移動受傷的病患", "value": "A" },
+        { "label": "B. 首先固定骨折，然後再處理出血、休克等症狀", "value": "B" },
+        { "label": "C. 在處理穿透性骨折時，應在傷口上覆蓋敷料後，再進行包紮", "value": "C" },
+        { "label": "D. 可以利用夾板或未受傷的肩膀/肢體來協助固定骨折", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "在處理骨折的病患時，急救人員在固定受傷的肢體之前和之後，必須檢查和記錄哪些情況？",
+    "options": [
+        { "label": "A. 檢查並記錄傷肢以下的血液循環和關節活動", "value": "A" },
+        { "label": "B. 檢查並記錄傷肢以上的血液循環和關節活動", "value": "B" },
+        { "label": "C. 檢查並記錄傷肢以上的彎曲和伸展程度", "value": "C" },
+        { "label": "D. 檢查並記錄傷肢以下的彎曲和伸展程度", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "下列哪一項不是使用夾板處理骨折的正確方式和要點？",
+    "options": [
+        { "label": "A. 使用適當長度的夾板", "value": "A" },
+        { "label": "B. 夾板可以固定傷處上下的關節", "value": "B" },
+        { "label": "C. 在夾板和肢體的間隙之間使用軟墊", "value": "C" },
+        { "label": "D. 除了木製夾板，不應使用其他材料或工具作為夾板", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "當傷病者的骨折肢體呈現嚴重彎曲，且在急救員嘗試牽引伸直時遭遇阻力，應採取何種方式處理？",
+    "options": [
+        { "label": "A. 於等待10分鐘後，再試圖將其伸直", "value": "A" },
+        { "label": "B. 提升牽引力度使其伸直，直到成功固定", "value": "B" },
+        { "label": "C. 絕對不試圖強行矯正骨折處，可以利用夾板固定彎曲的位置", "value": "C" },
+        { "label": "D. 不進行任何肢體固定，僅用冰敷止痛傷口", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "如果傷病者出現頭顱凹陷骨折，急救員在包紮傷口的過程中應如何防止折骨壓向腦部？",
+    "options": [
+        { "label": "A. 先移除碎骨，然後進行包紮", "value": "A" },
+        { "label": "B. 先用厚敷料填充凹陷部，止血後再進行包紮", "value": "B" },
+        { "label": "C. 先將敷料提高，然後進行包紮", "value": "C" },
+        { "label": "D. 先清洗傷口，然後進行包紮", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "如果傷病者頭部受創，並且耳朵、鼻子和口部出血，他可能遭遇到以下哪種情況？",
+    "options": [
+        { "label": "A. 顱底骨折", "value": "A" },
+        { "label": "B. 高熱驚厥", "value": "B" },
+        { "label": "C. 腦血管事故", "value": "C" },
+        { "label": "D. 腦震盪", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "假設傷病者頭部受傷，且耳朵、鼻子或口部有血液或液體流出，應如何處理？",
+    "options": [
+        { "label": "A. 利用手和敷料壓下，減少血液或液體的流失", "value": "A" },
+        { "label": "B. 讓傷病者的頭部側向受傷的一側，使血液或液體流出", "value": "B" },
+        { "label": "C. 用紗布堵住耳朵或鼻子的孔道，防止血液或液體流出", "value": "C" },
+        { "label": "D. 首先清洗傷口，然後進行包紮，以減少傷口感染的可能", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "如果傷病者的下顎骨折，並且已經由急救員包紮，但他突然想嘔吐，應如何處理？",
+    "options": [
+        { "label": "A. 讓傷病者的頭部側向受傷的一側，使嘔吐物流出", "value": "A" },
+        { "label": "B. 告知傷病者不要嘔吐，以防止傷口感染", "value": "B" },
+        { "label": "C. 立刻讓傷病者平躺，以減少嘔吐的情況", "value": "C" },
+        { "label": "D. 立刻取下繃帶，等到嘔吐結束後再重新包紮", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "一名工人不幸從高處跌落，結果腰部以下的肢體變得麻木、無力或甚至失去活動能力。這情況最有可能是以下哪一種？",
+    "options": [
+        { "label": "A. 顱底骨折", "value": "A" },
+        { "label": "B. 盆骨骨折", "value": "B" },
+        { "label": "C. 脊椎骨折", "value": "C" },
+        { "label": "D. 肋骨骨折", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "下列哪種方式並非毒物進入人體的途經？",
+    "options": [
+        { "label": "A. 經由口服進入", "value": "A" },
+        { "label": "B. 經由呼吸道進入", "value": "B" },
+        { "label": "C. 經由皮膚吸收進入", "value": "C" },
+        { "label": "D. 經由飛沫滲透進入", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "如果一名人士吞下了毒物，他應該立即送醫，因為大多數的毒素會在多長時間內被人體吸收完畢？",
+    "options": [
+        { "label": "A. 半小時至1小時", "value": "A" },
+        { "label": "B. 1小時至2小時", "value": "B" },
+        { "label": "C. 2小時至4小時", "value": "C" },
+        { "label": "D. 3小時至6小時", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "下列哪種方式並非適合處理吞下毒物的狀況？",
+    "options": [
+        { "label": "A. 確保中毒者的呼吸道暢通無阻", "value": "A" },
+        { "label": "B. 在現場讓消化清醇類毒物的人催吐，然後送醫", "value": "B" },
+        { "label": "C. 將昏迷狀態的中毒者放入復原臥姿", "value": "C" },
+        { "label": "D. 若有嘔吐物、毒物或可能含有毒物的容器，應一同帶到醫院", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "一名工人在密封的船艙內進行維修工作，期間疑似氣體中毒而昏倒。救護人員到達現場後應該怎麼辦？",
+    "options": [
+        { "label": "A. 立刻進入船艙，對中毒者進行檢查", "value": "A" },
+        { "label": "B. 立刻進入船艙，將中毒者拖到安全地方後再進行急救", "value": "B" },
+        { "label": "C. 在確保自身安全並評估現場環境後，再進入船艙進行急救", "value": "C" },
+        { "label": "D. 在確保自身安全並評估現場環境後，再進入船艙將中毒者搬到室外進行急救", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "一名工人在接觸水銀之後，手部出現紅腫、痕癢和發熱的情況。在這種情況下，急救員應該如何進行處置？",
+    "options": [
+        { "label": "A. 流水清洗並對受影響部位進行冷敷", "value": "A" },
+        { "label": "B. 使用化學潔淨劑進行清洗", "value": "B" },
+        { "label": "C. 使用厚壓縮繃帶對受影響部位進行包紮", "value": "C" },
+        { "label": "D. 用牛奶清洗並對受影響部位進行熱敷", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "一名男子在野外旅遊時，手部被蜂蟌刺傷，傷口處腫脹、痕癢並有灼熱感。以下哪種方式並非適當的處理方式？",
+    "options": [
+        { "label": "A. 首先吸啜傷口，然後用紗布覆蓋", "value": "A" },
+        { "label": "B. 讓受傷的肢體保持下垂", "value": "B" },
+        { "label": "C. 使用彈性繃帶對整個受傷的肢體進行包紮和固定", "value": "C" },
+        { "label": "D. 盡量避免讓傷者移動", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "一名學生在上課時感到腹痛。以下哪種方式並非適當的處理方式？",
+    "options": [
+        { "label": "A. 讓學生以最舒適的姿態待在安靜的地方休息", "value": "A" },
+        { "label": "B. 如果有嘔吐的現象，讓學生側臥，以利嘔吐物排出", "value": "B" },
+        { "label": "C. 如果需要，安排送學生去醫院", "value": "C" },
+        { "label": "D. 在等待送醫的過程中，讓學生服用止痛藥物", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "當有異物進入眼瞼內部，但異物並未嵌入眼球時，急救員應該如何處理？",
+    "options": [
+        { "label": "A. 不試圖移除異物，立即送醫", "value": "A" },
+        { "label": "B. 讓受傷者閉眼，以便讓異物自然排出", "value": "B" },
+        { "label": "C. 讓受傷者將頭側向受傷的一邊，然後用清潔的水慢慢沖洗眼睛", "value": "C" },
+        { "label": "D. 讓受傷者將頭側向受傷的一邊，然後使用乾布擦去異物", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "一名學童將大豆塞入耳朵內，急救員應該如何處理？",
+    "options": [
+        { "label": "A. 可以輕輕地向學童的外耳道注入油類，讓異物流出", "value": "A" },
+        { "label": "B. 嘗試用手挖出異物", "value": "B" },
+        { "label": "C. 讓學童頭側向一邊跳躍，以便讓異物流出", "value": "C" },
+        { "label": "D. 不應該嘗試去取出異物，應立即送醫", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "當一名兒童的外耳道被昆蟲飛入，急救員應採取哪種處理方式？",
+    "options": [
+        { "label": "A. 將油類輕輕注入兒童的外耳道，使異物流出", "value": "A" },
+        { "label": "B. 嘗試以手指取出異物", "value": "B" },
+        { "label": "C. 讓兒童向一邊側頭跳躍，以協助異物排出", "value": "C" },
+        { "label": "D. 用紗布保護耳道，並儘快送往醫院", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "如果一個人不慎吞下魚骨，使其卡在喉嚨，該如何應對？",
+    "options": [
+        { "label": "A. 讓病患飲用含有醋的飲料，以解散魚骨", "value": "A" },
+        { "label": "B. 讓病患吞下飯團，以嘗試將魚骨一併吞下", "value": "B" },
+        { "label": "C. 進行環抱壓腹法", "value": "C" },
+        { "label": "D. 不要讓病患飲食任何東西，應立即送醫", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "如果一名兒童將異物塞入鼻孔且無法取出，急救員應該如何處理？",
+    "options": [
+        { "label": "A. 可以輕壓兒童的一邊鼻孔，再讓兒童大力呼氣", "value": "A" },
+        { "label": "B. 嘗試用手指取出異物", "value": "B" },
+        { "label": "C. 讓兒童向一邊側頭跳躍，以協助異物排出", "value": "C" },
+        { "label": "D. 應避免嘗試取出異物，應立即送醫", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "一名男子被黃蜂在身體多處螫傷，除了傷口疼痛和腫脹外，他還出現了呼吸困難。該男子可能出現的情況是？",
+    "options": [
+        { "label": "A. 出血性休克", "value": "A" },
+        { "label": "B. 過敏性休克", "value": "B" },
+        { "label": "C. 神經性休克", "value": "C" },
+        { "label": "D. 敗血性休克", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下列關於處理蜜蜂螫傷的方法中，哪一項是錯誤的？",
+    "options": [
+        { "label": "A. 用硬物輕輕在傷口上磨擦，朝針尖的方向刮去毒針", "value": "A" },
+        { "label": "B. 用冷敷以減輕疼痛並緩解腫脹", "value": "B" },
+        { "label": "C. 盡快送醫", "value": "C" },
+        { "label": "D. 用手拔出蜜蜂的螫針以取出毒液", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "如果被蜜蜂螫傷到舌頭或喉嚨，出現腫脹應該怎麼辦？",
+    "options": [
+        { "label": "A. 不應給受傷者飲食任何東西，以降低腫脹風險", "value": "A" },
+        { "label": "B. 可以讓受傷者吸食冰塊或飲用冷水，以減少腫脹風險", "value": "B" },
+        { "label": "C. 用手指把蜜蜂的螫針取出，以去除毒素", "value": "C" },
+        { "label": "D. 可以讓受傷者食用蜂蜜，以解毒", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下列關於處理毒蛇咬傷的作法，哪一項是錯誤的？",
+    "options": [
+        { "label": "A. 應使用肥皂和清水徹底清洗傷口", "value": "A" },
+        { "label": "B. 應讓受傷的肢體下垂（低於心臟位置）", "value": "B" },
+        { "label": "C. 應在傷口處敷上繃帶，並用彈性繃帶包紮受傷的肢體", "value": "C" },
+        { "label": "D. 如果受傷者只是手部受傷或能自行行走，則無需使用擔架", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "下列哪項有關處理水母刺傷的方法是錯的？",
+    "options": [
+        { "label": "A. 應用稀糖水徹底清洗傷口", "value": "A" },
+        { "label": "B. 應在傷口上倒醋以中和毒素", "value": "B" },
+        { "label": "C. 應在傷口上撒上香粉，使細胞外層吸附粉末並黏在一起，以便清理", "value": "C" },
+        { "label": "D. 應用如身份證等薄硬物輕輕刮傷口，以移除毒刺", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "下列哪項有關處理石頭魚刺傷的方法是正確的？",
+    "options": [
+        { "label": "A. 應用熱水沖洗傷口", "value": "A" },
+        { "label": "B. 應在傷口上倒醋以中和毒素", "value": "B" },
+        { "label": "C. 應在傷口上撒上香粉，使細胞外層吸附粉末並黏在一起，以便清理", "value": "C" },
+        { "label": "D. 應用如身份證等薄硬物輕輕刮傷口，以移除毒刺", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "下列哪項有關處理凍傷的方法是錯誤的？",
+    "options": [
+        { "label": "A. 應盡快將受傷者送到溫暖的地方", "value": "A" },
+        { "label": "B. 應立即幫受傷者脫掉手套、戒指或靴子等可能造成束縛的物品", "value": "B" },
+        { "label": "C. 應用溫水潤濕傷口，並定期加熱保溫", "value": "C" },
+        { "label": "D. 當受傷部分開始解凍時，應用水保持傷口濕潤", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "請問下列哪一種方式是正確的凍瘡處理方法？",
+    "options": [
+        { "label": "A. 用手摩擦傷口", "value": "A" },
+        { "label": "B. 儘可能避免刺破水泡", "value": "B" },
+        { "label": "C. 將熱水袋直接放在傷口上", "value": "C" },
+        { "label": "D. 用溫水浸泡傷口，並定時加熱以保持溫度", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "如果持續過度呼吸，可能會出現什麼狀況？",
+    "options": [
+        { "label": "A. 腹痛和呼吸性鹼中毒", "value": "A" },
+        { "label": "B. 胸痛和呼吸性鹼中毒", "value": "B" },
+        { "label": "C. 腹痛和呼吸性酸中毒", "value": "C" },
+        { "label": "D. 胸痛和呼吸性酸中毒", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下列哪一種不是適當的處理焦慮導致的呼吸急促的方法？",
+    "options": [
+        { "label": "A. 建議傷病者降低呼吸速度", "value": "A" },
+        { "label": "B. 用塑膠袋覆蓋傷病者的口鼻，讓他們呼吸自己的呼出氣", "value": "B" },
+        { "label": "C. 如果沒有塑膠袋，可以讓傷病者用雙手遮住口鼻進行呼吸", "value": "C" },
+        { "label": "D. 幫助傷病者使用支氣管擴張藥物和提供高流量氧氣", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "下列哪一種不是適當的處理噁心反胃的方法？",
+    "options": [
+        { "label": "A. 請求傷病者盡可能長時間保持一口氣不吐出", "value": "A" },
+        { "label": "B. 為傷病者提供一大杯冰水讓他們慢慢飲用", "value": "B" },
+        { "label": "C. 用手按摩傷病者的腹部以放鬆肌肉", "value": "C" },
+        { "label": "D. 用一個塑膠袋覆蓋傷病者的口鼻，讓他們呼吸自己的呼出氣", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "如果傷病者出現呼吸困難、呼氣時間顯著增長並伴有喘息聲；舌頭和指甲呈現發紺狀態。根據這些症狀評估，傷病者可能的病況是？",
+    "options": [
+        { "label": "A. 心悸", "value": "A" },
+        { "label": "B. 急性焦慮導致的呼吸急促", "value": "B" },
+        { "label": "C. 哮喘", "value": "C" },
+        { "label": "D. 哽塞", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "請問下列哪一種不是適當的處理哮喘發作的方式？",
+    "options": [
+        { "label": "A. 安撫傷病者", "value": "A" },
+        { "label": "B. 要求傷病者儘可能長時間忍著一口氣不吐", "value": "B" },
+        { "label": "C. 消除導致疾病的因素", "value": "C" },
+        { "label": "D. 讓傷病者坐起來，身體向前傾，靠在桌子上休息", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下列哪一項是導致慢性阻塞性肺病症狀急性發作或惡化的主要原因？",
+    "options": [
+        { "label": "A. 氣候變化或變冷", "value": "A" },
+        { "label": "B. 急性焦慮", "value": "B" },
+        { "label": "C. 消化不良", "value": "C" },
+        { "label": "D. 酗酒", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "為慢性阻塞性肺病病人治療時，通常使用的氧氣濃度為？",
+    "options": [
+        { "label": "A. 40-60%", "value": "A" },
+        { "label": "B. 28-42%", "value": "B" },
+        { "label": "C. 24-31%", "value": "C" },
+        { "label": "D. 12-20%", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "高流量氧氣是指每分鐘輸出多少公升的氧氣？",
+    "options": [
+        { "label": "A. 4﹣6 公升", "value": "A" },
+        { "label": "B. 8﹣10 公升", "value": "B" },
+        { "label": "C. 12﹣15 公升", "value": "C" },
+        { "label": "D. 30﹣40 公升", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "分娩過程是一個自然的程序，可分為三個階段。其中第一階段是指？",
+    "options": [
+        { "label": "A. 胎兒的生長和發育時間結束", "value": "A" },
+        { "label": "B. 從子宮頸口全開始到胎兒出生", "value": "B" },
+        { "label": "C. 從規律的子宮收縮開始到子宮頸口全開", "value": "C" },
+        { "label": "D. 從胎兒出生到胎盤全部排出", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "分娩過程是一個自然的過程，它可以被劃分為三個階段。那麼，第二階段是指什麼？",
+    "options": [
+        { "label": "A. 胎兒的生長與發育結束的時間", "value": "A" },
+        { "label": "B. 從子宮頸口全開到胎兒出生的過程", "value": "B" },
+        { "label": "C. 從規律性子宮收縮到子宮頸口全開的過程", "value": "C" },
+        { "label": "D. 從胎兒出生到胎盤全部排出的時間", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "分娩過程是一個自然的過程，它可以被劃分為三個階段。那麼，第三階段是指什麼？",
+    "options": [
+        { "label": "A. 胎兒的生長與發育結束的時間", "value": "A" },
+        { "label": "B. 從子宮頸口全開到胎兒出生的過程", "value": "B" },
+        { "label": "C. 從規律性子宮收縮到子宮頸口全開的過程", "value": "C" },
+        { "label": "D. 從胎兒出生到胎盤全部排出的時間", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "懷孕期通常持續多少個星期？",
+    "options": [
+        { "label": "A. 34-37", "value": "A" },
+        { "label": "B. 36-38", "value": "B" },
+        { "label": "C. 37-42", "value": "C" },
+        { "label": "D. 40-45", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "一般來說，對於初次懷孕的婦女（初產婦），第一產程大約需要多少小時？",
+    "options": [
+        { "label": "A. 12-18小時", "value": "A" },
+        { "label": "B. 10-12小時", "value": "B" },
+        { "label": "C. 8-10小時", "value": "C" },
+        { "label": "D. 4-6小時", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下面哪一項並非第一產程的徵兆？",
+    "options": [
+        { "label": "A. 見紅", "value": "A" },
+        { "label": "B. 陣痛", "value": "B" },
+        { "label": "C. 破水和胎膜破裂", "value": "C" },
+        { "label": "D. 寶寶的頭已經在外陰部出現", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "當以下哪種情況出現時，救護人員應該準備進行緊急接生，並且絕對不試圖延遲分娩過程？",
+    "options": [
+        { "label": "A. 嬰兒的頭已經在外陰部出現", "value": "A" },
+        { "label": "B. 陣痛變得更強烈", "value": "B" },
+        { "label": "C. 破水和胎膜破裂", "value": "C" },
+        { "label": "D. 產婦感覺有大便的壓迫感", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "當嬰兒出生後，救護人員應使用兩條繩子來緊緊地結紮臍帶，那麼，臍帶的結紮位置應該是？",
+    "options": [
+        { "label": "A. 距離肚臍約6和10厘米", "value": "A" },
+        { "label": "B. 距離肚臍約10和15厘米", "value": "B" },
+        { "label": "C. 距離肚臍約15和20厘米", "value": "C" },
+        { "label": "D. 距離肚臍約20和25厘米", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "如果新生兒出生後，在多長時間內仍然不哭泣或呼吸，救護人員應該將其翻轉，使口鼻和氣管中的黏液流出？",
+    "options": [
+        { "label": "A. 10秒", "value": "A" },
+        { "label": "B. 30秒", "value": "B" },
+        { "label": "C. 1分鐘", "value": "C" },
+        { "label": "D. 3分鐘", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "到達第三產程時（胎盤剝離和排出），救護員應該如何處理？",
+    "options": [
+        { "label": "A. 將產婦的雙腿墊高，幫助排出胎盤", "value": "A" },
+        { "label": "B. 力地拉扯臍帶，以排出胎盤", "value": "B" },
+        { "label": "C. 等待胎盤自然排出，絕不嘗試拉扯", "value": "C" },
+        { "label": "D. 對產婦的子宮部位施壓，幫助排出胎盤", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "流產是指哪個時間段內出生的嬰兒，由於嬰兒的生長和發育尚未完全，可能無法存活？",
+    "options": [
+        { "label": "A. 22星期", "value": "A" },
+        { "label": "B. 24星期", "value": "B" },
+        { "label": "C. 26星期", "value": "C" },
+        { "label": "D. 30星期", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下述哪一項並非復原臥式的利益？",
+    "options": [
+        { "label": "A. 提升血液循環", "value": "A" },
+        { "label": "B. 防止舌頭後滑", "value": "B" },
+        { "label": "C. 使唾液能從口中流出", "value": "C" },
+        { "label": "D. 防止嘔吐物堵塞氣道", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "通常的情況下，呼吸困難的傷患者，應該被放置於下列哪種坐臥方式？",
+    "options": [
+        { "label": "A. 坐立方式", "value": "A" },
+        { "label": "B. 平躺方式", "value": "B" },
+        { "label": "C. 屈膝半臥方式", "value": "C" },
+        { "label": "D. 復原臥式", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "一般情況下，心臟出現問題的傷病者，應該被置於下列哪一種坐臥方式？",
+    "options": [
+        { "label": "A. 坐立方式", "value": "A" },
+        { "label": "B. 平躺方式", "value": "B" },
+        { "label": "C. 屈膝半臥方式", "value": "C" },
+        { "label": "D. 左/右側臥方式", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "一般情況下，胸部受傷的傷病者，應該被置於下列哪一種坐臥方式？",
+    "options": [
+        { "label": "A. 坐立方式", "value": "A" },
+        { "label": "B. 平躺方式", "value": "B" },
+        { "label": "C. 屈膝半臥方式", "value": "C" },
+        { "label": "D. 左/右側臥方式", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "屈膝半臥方式最適合下列哪種類型的傷病者？",
+    "options": [
+        { "label": "A. 患有胸膜炎", "value": "A" },
+        { "label": "B. 呼吸困難", "value": "B" },
+        { "label": "C. 休克病患", "value": "C" },
+        { "label": "D. 腹部受傷者", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "下述哪一項並非在搬運傷病者之前主要必須考慮的事項？",
+    "options": [
+        { "label": "A. 現場能協助搬運的人力和設備", "value": "A" },
+        { "label": "B. 搬運路線的長度", "value": "B" },
+        { "label": "C. 隨行的傷病者家屬人數", "value": "C" },
+        { "label": "D. 救護人員的體力以及傷病者的人數和體重", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "徒手搬運傷病者的方式，適用於以下哪種情形？",
+    "options": [
+        { "label": "A. 緊急狀態或短距離的路程", "value": "A" },
+        { "label": "B. 長距離的路程", "value": "B" },
+        { "label": "C. 傷病者需要使用氧氣療法", "value": "C" },
+        { "label": "D. 救護人員的人數足夠", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "下列哪種搬運方式最適合用於兒童或體重較輕的傷病者？",
+    "options": [
+        { "label": "A. 支撐搬運法", "value": "A" },
+        { "label": "B. 手抱搬運法", "value": "B" },
+        { "label": "C. 背負搬運法", "value": "C" },
+        { "label": "D. 雙人支撐搬運法", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下列關於使用支撐搬運法的要點，哪一項是正確的？",
+    "options": [
+        { "label": "A. 傷病者不能使用手杖、棍子等物來協助移動", "value": "A" },
+        { "label": "B. 救護人員與傷病者的身高，應該不要相差太多", "value": "B" },
+        { "label": "C. 救護人員的身高必須高於傷病者", "value": "C" },
+        { "label": "D. 適用於較長距離的運送", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "下列哪種搬運方式最利於將傷患者運送過窄小的通道，或將傷病者從地面移至病床上？",
+    "options": [
+        { "label": "A. 雙手抬運法", "value": "A" },
+        { "label": "B. 四手抬運法", "value": "B" },
+        { "label": "C. 前抬後抱法", "value": "C" },
+        { "label": "D. 三人抬運法", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "下列哪種搬運方式適合用於運送無法自由活動雙手、清醒但虛弱的傷病者？",
+    "options": [
+        { "label": "A. 雙手抬運法", "value": "A" },
+        { "label": "B. 四手抬運法", "value": "B" },
+        { "label": "C. 前抬後抱法", "value": "C" },
+        { "label": "D. 三人抬運法", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "根據《職業安全及健康規則》，每個工作場所的負責人需為每多少僱員提供並維護獨立的急救設施？",
+    "options": [
+        { "label": "A. 50", "value": "A" },
+        { "label": "B. 100", "value": "B" },
+        { "label": "C. 150", "value": "C" },
+        { "label": "D. 200", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+
+{
+    "question": "根據《職業安全及健康規則》，由多少或以上在該工作場所工作的僱員組成的小組，負責管理急救設施？",
+    "options": [
+        { "label": "A. 2", "value": "A" },
+        { "label": "B. 4", "value": "B" },
+        { "label": "C. 6", "value": "C" },
+        { "label": "D. 8", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+
+{
+    "question": "根據《職業安全及健康規則》，每多少僱員的一般工作場所，其中至少有一名員工需要接受過急救訓練？",
+    "options": [
+        { "label": "A. 50", "value": "A" },
+        { "label": "B. 100", "value": "B" },
+        { "label": "C. 150", "value": "C" },
+        { "label": "D. 200", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "下列哪種成分的消毒液是適合用於清潔和消毒傷口的？",
+    "options": [
+        { "label": "A. 酒精", "value": "A" },
+        { "label": "B. 碘酒", "value": "B" },
+        { "label": "C. 水", "value": "C" },
+        { "label": "D. 水銀", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+
+{
+    "question": "下列哪一項關於三角巾使用方式的敘述是不正確的？",
+    "options": [
+        { "label": "A. 用作托起並固定上肢", "value": "A" },
+        { "label": "B. 摺成寬或窄帶狀，用於固定傷肢", "value": "B" },
+        { "label": "C. 在移動傷病者時，作為固定傷口的工具", "value": "C" },
+        { "label": "D. 用於塞住口部，防止嘔吐物排出", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "一般來說，在使用捲軸繃帶包紮受傷的軀幹時，應該選擇哪種寬度的繃帶為最佳？",
+    "options": [
+        { "label": "A. 5厘米", "value": "A" },
+        { "label": "B. 5或7.5厘米", "value": "B" },
+        { "label": "C. 7.5或10厘米", "value": "C" },
+        { "label": "D. 10或15厘米", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "當使用管狀紗布繃帶時，通常預留的繃帶長度大約是傷口的幾倍？",
+    "options": [
+        { "label": "A. 1.5 - 2 倍", "value": "A" },
+        { "label": "B. 2.5 - 3.5 倍", "value": "B" },
+        { "label": "C. 3.5 - 4.5 倍", "value": "C" },
+        { "label": "D. 5 倍以上", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下列關於捲軸繃帶包紮原則的敘述，哪一項是錯誤的？",
+    "options": [
+        { "label": "A. 向傷病者解釋包紮的過程和方法", "value": "A" },
+        { "label": "B. 選用適當寬度的捲軸繃帶", "value": "B" },
+        { "label": "C. 在包紮前，應先進行傷口的處理", "value": "C" },
+        { "label": "D. 下一圈的繃帶應覆蓋上一圈繃帶的三分之一寬度", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+
+{
+    "question": "下列哪種包紮技巧最適合用於包紮粗度逐漸增加的肢體部位？",
+    "options": [
+        { "label": "A. 簡單的螺旋包紮法", "value": "A" },
+        { "label": "B. 複雜的螺旋包紮法", "value": "B" },
+        { "label": "C. \"8\"字形包紮法", "value": "C" },
+        { "label": "D. 三角巾包紮法", "value": "D" }
+    ],
+    "correctAnswer": "C"
+}
+
+    
+  ];
+
+  function getAllQuestions() {
+  return allQuestions;
+}
+
+const questions = getAllQuestions();
+
+
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let userAnswered = false;
+
+
+function showQuestion() {
+  userAnswered = false; // Reset the userAnswered flag
+
+  // Check if there is a next question
+  if (currentQuestionIndex < questions.length) { 
+    const question = questions[currentQuestionIndex];
+
+    // Split the question string into parts
+    const questionParts = question.question.split('\n');
+
+    // Clear any existing content
+    questionText.innerHTML = '';
+
+    // Create text and break elements for each part
+    questionParts.forEach((part, index) => {
+      questionText.appendChild(document.createTextNode(part));
+
+      // Add a line break after every part except the last one
+      if (index < questionParts.length - 1) {
+        questionText.appendChild(document.createElement('br'));
+      }
+    });
+
+    optionsContainer.innerHTML = '';
+
+    question.options.forEach(option => {
+      const optionElement = document.createElement('div');
+      optionElement.classList.add('option');
+      optionElement.dataset.value = option.value;
+
+      const optionLabel = document.createElement('span');
+      optionLabel.classList.add('option-label');
+      optionLabel.textContent = option.label;
+
+      optionElement.appendChild(optionLabel);
+      optionsContainer.appendChild(optionElement);
+    });
+
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    if (correctOption) {
+      correctOption.classList.add('correct-option');
+    }
+
+    // Show the correct answer in the feedback container
+    feedbackContainer.textContent = `正確答案: ${question.correctAnswer}`;
+    nextButton.style.display = 'block'; // Show the next button
+
+    if (currentQuestionIndex > 0) {
+      prevButton.style.display = 'block'; // Show the prev button if not the first question
+    } else {
+      prevButton.style.display = 'none'; // Hide the prev button if it is the first question
+    }
+
+    // Update the value of the dropdown menu to reflect the current question
+    const questionSelect = document.getElementById('questionSelect');
+    questionSelect.value = currentQuestionIndex;
+
+  } else {
+    // When there are no more questions, hide the buttons and show the redoButton
+    prevButton.style.display = 'none';
+    nextButton.style.display = 'none';
+    redoButton.style.display = 'block';
+  }
+}
+    
+
+function handleOptionClick(event) {
+  if (userAnswered) {
+    return;
+  }
+
+  userAnswered = true;
+  const selectedOption = event.target.closest('.option');
+
+  // Log the selectedOption object to the console.
+  console.log('selectedOption', selectedOption);
+
+  // If no element was found with the class 'option', log an error and return.
+  if (!selectedOption) {
+    console.error('No option selected');
+    return;
+  }
+
+  const selectedValue = selectedOption.dataset.value;
+
+  // Log the selectedValue to the console.
+  console.log('selectedValue', selectedValue);
+
+  // Debugging logs
+console.log('questions', questions);
+console.log('currentQuestionIndex', currentQuestionIndex);
+console.log('questions.length', questions.length); // check the length of the array
+
+  const question = questions[currentQuestionIndex];
+
+  console.log('question', question);  // Add this line
+
+  // If question is undefined, log an error and return.
+  if (!question) {
+    console.error('No current question');
+    return;
+  }
+
+  question.userAnswer = selectedValue;
+
+  if (selectedValue === question.correctAnswer) {
+    selectedOption.classList.add('correct-option');
+    score++;
+  } else {
+    selectedOption.classList.add('wrong-option');
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    correctOption.classList.add('correct-option');
+  }
+
+  feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
+  nextButton.style.display = 'block';
+}
+
+    
+function showNextQuestion() {
+  currentQuestionIndex++;
+  showQuestion();
+}
+
+function saveQuizState() {
+  const quizState = {
+    currentQuestionIndex: currentQuestionIndex,
+    score: score,
+    userAnswers: questions.map(question => question.userAnswer)
+  };
+  localStorage.setItem('quizState', JSON.stringify(quizState));
+}
+
+
+function showResult() {
+  saveQuizState();
+  questionText.textContent = '測試完成';
+  optionsContainer.innerHTML = '';
+  feedbackContainer.textContent = `你的分數是 ${score} / ${questions.length}`;
+  nextButton.style.display = 'none';
+  redoButton.style.display = 'block';
+
+  clearInterval(timerInterval); // Stop the timer
+}
+
+function loadQuizState() {
+    try {
+        const storedState = localStorage.getItem('quizState');
+
+        if (storedState) {
+            const parsedState = JSON.parse(storedState);
+            currentQuestionIndex = parsedState.currentQuestionIndex;
+            score = parsedState.score;
+            showQuestion();
+        } else {
+            startQuiz();
+        }
+    } catch (error) {
+        console.error('Failed to load quiz state:', error);
+        startQuiz();
+    }
+}
+
+    function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+}
+
+function getQuestions(numQuestions) {
+  return allQuestions.slice(0, numQuestions);
+}
+
+
+function showPreviousQuestion() {
+  if (currentQuestionIndex > 0) { // Check if there is a previous question
+    currentQuestionIndex--;
+    userAnswered = false; // Allow the user to answer the previous question again
+    showQuestion();
+  }
+}
+    const prevButton = document.getElementById('prevButton');
+prevButton.addEventListener('click', showPreviousQuestion);
+    
+function redoQuiz() {
+  localStorage.removeItem('quizState');
+  clearInterval(timerInterval);
+  loadQuizState();
+  currentQuestionIndex = 0;
+  score = 0;
+  userAnswered = false;
+  showQuestion();
+  redoButton.style.display = 'none';
+  clearInterval(timerInterval); // Clear the previous timer interval
+  timeInSeconds = 30 * 60; // Reset the timer to 30 minutes
+  timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
+}    
+
+    nextButton.addEventListener('click', showNextQuestion);
+    redoButton.addEventListener('click', redoQuiz);
+
+    // Show the first question
+    showQuestion();
+
+function populateQuestionSelect() {
+  const questionSelect = document.getElementById('questionSelect');
+  
+  // Add an option for each question to the dropdown menu
+  questions.forEach((question, index) => {
+    const option = document.createElement('option');
+    option.value = index;
+    option.textContent = `問題 ${index + 1}`;
+    questionSelect.appendChild(option);
+  });
+}
+    populateQuestionSelect();
+   
+    document.getElementById('questionSelect').addEventListener('change', function() {
+  currentQuestionIndex = parseInt(this.value);
+  showQuestion();
+});
+
+    question.question = question.question.replace(/ \((\d)\)/g, '<br>($1)');
     
   </script>
 
