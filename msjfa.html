@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8814964085069203"
+     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
-  <title>拯溺筆試練習(水上急救) - 網上模擬試題練習</title>
+  <title>拯溺筆試温習(銅章) - 網上模擬試題練習</title>
   <meta name="description" content="網上免費模擬試題練習，提供各類模擬試題，包括拯搦考試、急救考試，等各類牌照測試，並設有温習模式及操練模式。">
-  <meta name="keywords" content="拯溺，拯溺考試，水上急救，銅章，泳池救生，沙灘救生，救生，急救，急救考試，重考, 急考, 補考, 考牌">
+  <meta name="keywords" content="拯溺,拯溺考試,水上急救,銅章,泳池救生,沙灘救生,救生,急救,急救考試,重考,急考,補考,考牌,筆試題目,考試">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="https://215508890.github.io/mepo/">
-  <meta property="og:title" content="拯溺筆試練習(水上急救) - 網上模擬試題練習">
+  <link rel="canonical" href="https://mepohk.com">
+  <meta property="og:title" content="拯溺筆試温習(銅章) - 網上模擬試題練習">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://215508890.github.io/omep/">
   <meta property="og:description" content="網上免費模擬試題練習，提供各類模擬試題，包括拯搦考試、急救考試，等各類牌照測試，並設有温習模式及操練模式。"> 
@@ -15,266 +17,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="og:image" content="Images/MEPO%20Logo.png">
   <meta name="google-site-verification" content="ahRwm3QFISYLwfVeoxJwCO1Cg8XfWXKLtBIVsZlsZas" />
+  <link rel="icon" href="Images/MEPO%20Logo.png" type="image/x-icon">
+  <link rel="apple-touch-icon" href="Images/MEPO%20Logo.png">
 
   <link rel="profile" href="http://gmpg.org/xfn/11">
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 10px;
-  }
-
-  .scoreboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-
-  .scoreboard-table th {
-    background-color: #006400; /* dark green */
-    font-size: 24px;
-    padding: 10px;
-    color: white;
-  }
-
-  .scoreboard-table td {
-    font-size: 24px;
-    padding: 10px;
-    text-align: right;
-    background-color: #f2f2f2;
-  }
-
-  .scoreboard-heading {
-    font-size: 32px;
-    margin-bottom: 10px;
-    background-color: #006400; /* dark green */
-    padding: 10px;
-    color: white;
-  }
-
-  .timer-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-  }
-
-  .timer-label {
-    font-size: 24px;
-    margin-right: 10px;
-    color: #000000; 
-  }
-
-  .timer {
-    font-size: 24px;
-    color: #000000; 
-  }
-
-  .score-separator {
-    font-size: 24px;
-    margin: 0 10px;
-    color: #000000; 
-  }
-
-  .score {
-    font-size: 24px;
-    color: #000000; 
-  }
-
-  .question {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-
-  .option {
-    padding: 12px 16px;
-    margin-bottom: 10px;
-    border: 1px solid black;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-
-  .option-label {
-    font-size: 16px;
-  }
-
-  .correct-option {
-    background-color: green;
-    color: white;
-  }
-
-  .wrong-option {
-    background-color: red;
-    color: white;
-  }
-
-  .next-button {
-    display: none;
-    margin-top: 20px;
-    width: 120px;
-    height: 40px;
-    font-size: 20px;
-  }
-
-  .redo-button {
-    display: none;
-    margin-top: 20px;
-    width: 120px;
-    height: 40px;
-    font-size: 20px;
-  }
-      .hamburger-menu {      
-      cursor: pointer;
-      margin-right: 20px;
-      position: absolute;
-      left: 10px;
-      top: 10px;
-    }
-
-    .hamburger-menu .line {
-      width: 25px;
-      height: 3px;
-      background-color: #000;
-      margin: 5px 0;
-    }
-
-    /* CSS for the vertical menu */
-    .vertical-menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 250px;
-      background-color: #fff;
-      z-index: -1; /* Initially hide the menu bar */
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      box-shadow: none; /* Hide the box shadow by default */
-    }
-
-    .vertical-menu.open {
-      transform: translateX(0);
-      z-index: 998; /* Show the menu bar when open */
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Show the box shadow when open */
-    }
-
-    .vertical-menu-header {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      border-bottom: none; /* Remove the bottom border */
-    }
-
-    .vertical-menu-header h1 {
-      font-size: 16px;
-      margin: 0;
-      font-family: Arial, sans-serif; /* Set the font to Arial */
-    }
-
-    .vertical-menu-items {
-      padding: 10px;
-      margin-top: 20px; /* Adjust the top margin to align with the burger button */
-    }
-
-    .menu-item {
-      opacity: 0;
-      transform: translateY(-20px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      padding: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      font-family: Arial, sans-serif; /* Set the font to Arial */
-    }
-
-    .menu-item-text {
-      margin: 0;
-      margin-left: 10px; /* Add some left margin */
-    }
-
-    .dropdown-menu {
-      opacity: 0;
-      transform: translateY(-20px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      margin-left: 20px; /* Indent the dropdown menu */
-      pointer-events: none;
-    }
-
-    .dropdown-menu.open {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .dropdown-item {
-      padding: 5px;
-      cursor: pointer;
-      font-family: Arial, sans-serif; /* Set the font to Arial */
-    }
-
-    .menu-item.active {
-      background-color: #f2f2f2;
-    }
-
-    a {
-    text-decoration: none; /* Removes the underline */
-    color: inherit; /* Inherits the color of its parent */
-    }
-  
-    a:hover {
-    color: inherit; /* Inherits the color of its parent on hover */
-    }
-
-  
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }    
-        
-    .header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      position: sticky;
-      top: 0;
-      background-color: #fff;
-      padding: 10px;
-      z-index: 1000;
-    }
-    
-      .banner {
-      height: 80px;
-      width: auto;
-      margin-top: -10px;
-    }
-
-    .title {
-      font-family: 'Arial', sans-serif;
-      font-size: 2em;
-      color: #333;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-align: center;
-      margin: 0;
-    }
-
-  .reminder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: grey;
-  }
-
-
-</style>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 
@@ -297,36 +44,114 @@
       <a href="index.html">
         <p class="menu-item-text">首頁</p></a>
       </div>
-      <div class="menu-item">
-        <p class="menu-item-text">拯溺系列</p>
-        <div class="dropdown-menu">
+<div class="menu-item">
+  <p class="menu-item-text" id="ls" >拯溺系列</p>
+  <div class="dropdown-menu">
+    <div class="dropdown-item" id="bm" >銅章
+      <div class="dropdown-menu-third">
+        <a href="rbm.html">
+          <div class="dropdown-item" id="third1">温習</div>
+        </a>
         <a href="mbm.html">
-          <div class="dropdown-item">銅章</div></a>
-        <a href="mwfa.html">
-          <div class="dropdown-item">水上急救</div></a>
-        <a href="mpl.html">
-          <div class="dropdown-item">泳池救生</div></a>
-        </div>
+          <div class="dropdown-item" id="third2">測試</div>
+        </a>
       </div>
-      <div class="menu-item">
-        <p class="menu-item-text">急救系列</p>
-        <div class="dropdown-menu">
-        <a href="mamsfa.html">
-          <div class="dropdown-item">AMS 急救</div></a>
-        <a href="msjfa.html">
-          <div class="dropdown-item">SJ 急救</div></a>
-        </div>
+    </div>
+    <div class="dropdown-item" id="wfa" >水上急救
+      <div class="dropdown-menu-third">
+        <a href="rwfa.html">
+          <div class="dropdown-item" id="third3">温習</div>
+        </a>
+        <a href="mwfa.html">
+          <div class="dropdown-item" id="third4">測試</div>
+        </a>
+      </div>
+    </div>
+    <div class="dropdown-item" id="pl" >泳池救生
+      <div class="dropdown-menu-third">
+        <a href="rpl.html">
+          <div class="dropdown-item" id="third5">温習</div>
+        </a>
+        <a href="mpl.html">
+          <div class="dropdown-item" id="third6">測試</div>
+        </a>
       </div>
     </div>
   </div>
-
-
-<div class="container">
-    <h1 class="scoreboard-heading">SJ 急救</h1>
-    <h4 class="reminder">(合格分數 18 | 時限 30分鐘)</h4>
-    <div class="timer-container">
-      <span class="timer" id="stopwatch">30:00</span>
+</div>
+      
+      <div class="menu-item">
+  <p class="menu-item-text" id="fa" >急救系列</p>
+  <div class="dropdown-menu">
+    <div class="dropdown-item" id="amsfa" >AMS 急救
+      <div class="dropdown-menu-third">
+        <a href="ramsfa.html">
+          <div class="dropdown-item" id="third7">温習</div>
+        </a>
+        <a href="mamsfa.html">
+          <div class="dropdown-item" id="third8">測試</div>
+        </a>
+      </div>
     </div>
+    <div class="dropdown-item" id="sjfa" >SJ 急救
+      <div class="dropdown-menu-third">
+        <a href="rsjfa.html">
+          <div class="dropdown-item" id="third9">温習</div>
+        </a>
+        <a href="msjfa.html">
+          <div class="dropdown-item" id="third10">測試</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    <div class="menu-item">
+  <p class="menu-item-text" id="pv" >遊樂船系列</p>
+  <div class="dropdown-menu">
+    <div class="dropdown-item" id="op2" >二級操作員
+      <div class="dropdown-menu-third">
+        <a href="rg2o.html">
+          <div class="dropdown-item" id="third11">温習</div>
+        </a>
+        <a href="mg20.html">
+          <div class="dropdown-item" id="third12">測試</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+      
+      <div class="menu-item">
+  <p class="menu-item-text" id="cre" >CRE系列</p>
+  <div class="dropdown-menu">
+    <div class="dropdown-item" id="cn" >中文運用
+      <div class="dropdown-menu-third">
+        <a href="rcn.html">
+          <div class="dropdown-item" id="third13">温習</div>
+        </a>
+        <a href="mcn.html">
+          <div class="dropdown-item" id="third14">測試</div>
+        </a>
+      </div>
+    </div>
+    <div class="dropdown-item" id="en" >英文運用
+      <div class="dropdown-menu-third">
+        <a href="ren.html">
+          <div class="dropdown-item" id="third15">温習</div>
+        </a>
+        <a href="men.html">
+          <div class="dropdown-item" id="third16">測試</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+<h2>Coming soon.....</h2>
   
 
 
@@ -334,19 +159,23 @@
     <h1 class="question" id="question-text"></h1>
     <div id="options-container"></div>
     <div id="feedback-container"></div>
-    <button id="next-button" class="next-button">下一題</button>
-    <button id="redo-button" class="redo-button">重設</button>
+  <button id="prevButton" class="prevButton">上一題</button>
+  <button id="next-button" class="next-button">下一題</button>
+<button id="redo-button" class="redo-button">重設</button>
   </div>
 
-  <script>
-    'use strict';
+
   
-    const hamburgerMenu = document.querySelector('.hamburger-menu');
+  <script>
+
+      'use strict';
+      const hamburgerMenu = document.querySelector('.hamburger-menu');
     const verticalMenu = document.querySelector('.vertical-menu');
     const menuItems = document.querySelectorAll('.menu-item');
     const dropdownMenus = document.querySelectorAll('.dropdown-menu');
     let activeMenuItem = null;
     let activeDropdownMenu = null;
+    let activeThirdLayerMenu = null;
 
     hamburgerMenu.addEventListener('click', () => {
       if (verticalMenu.classList.contains('open')) {
@@ -391,23 +220,30 @@
       });
     });
 
- dropdownMenus.forEach((dropdownMenu) => {
-      const parentMenuItem = dropdownMenu.parentElement;
+dropdownMenus.forEach((dropdownMenu) => {
+  const parentMenuItem = dropdownMenu.parentElement;
 
-      parentMenuItem.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the parent menu item from closing when clicking the dropdown menu
+  parentMenuItem.addEventListener('click', (event) => {
+    // Stop propagation if a third-layer menu is being clicked
+    if (event.target.closest('.dropdown-menu-third')) {
+      event.stopPropagation();
+      return;
+    }
 
-        if (dropdownMenu.classList.contains('open')) {
-          dropdownMenu.classList.remove('open');
-        } else {
-          if (activeDropdownMenu) {
-            activeDropdownMenu.classList.remove('open');
-          }
-          dropdownMenu.classList.add('open');
-          activeDropdownMenu = dropdownMenu;
-        }
-      });
-    });
+    // Prevent the parent menu item from closing when clicking the dropdown menu
+    event.stopPropagation(); 
+
+    if (dropdownMenu.classList.contains('open')) {
+      dropdownMenu.classList.remove('open');
+    } else {
+      if (activeDropdownMenu) {
+        activeDropdownMenu.classList.remove('open');
+      }
+      dropdownMenu.classList.add('open');
+      activeDropdownMenu = dropdownMenu;
+    }
+  });
+});
 
 document.addEventListener('click', (event) => {
   if (!event.target.closest('.vertical-menu') && !event.target.closest('.hamburger-menu')) {
@@ -435,25 +271,41 @@ function handleSwipe() {
       closeMenu();
     }
   }
-};
+}
+
+document.querySelectorAll('.dropdown-item').forEach(item => {
+  item.addEventListener('click', event => {
+    event.stopPropagation(); // Stop the event from bubbling up
+
+    const subMenu = event.currentTarget.querySelector('.dropdown-menu-third');
+    
+    // If the clicked submenu is already the active one, hide it and clear the reference
+    if (activeThirdLayerMenu === subMenu) {
+      subMenu.style.display = 'none';
+      subMenu.style.opacity = '0';
+      activeThirdLayerMenu = null;
+      return;
+    }
+
+    // If there's an active third layer menu, hide it
+    if (activeThirdLayerMenu) {
+      activeThirdLayerMenu.style.display = 'none';
+      activeThirdLayerMenu.style.opacity = '0';
+    }
+    
+    // Show the new menu and update the reference to the active menu
+    subMenu.style.display = 'flex';
+    setTimeout(() => subMenu.style.opacity = '1', 0); // Add a delay to apply opacity after display
+    activeThirdLayerMenu = subMenu;
+  });
+});
+
 
 // JavaScript to handle click events on about-options and service-options
 const aboutOptions = document.querySelectorAll('.about-options');
 const serviceOptions = document.querySelectorAll('.service-options');
 
-aboutOptions.forEach((option) => {
-  option.addEventListener('click', () => {
-    const optionText = option.querySelector('p').textContent;
-    console.log(`About Option Selected: ${optionText}`);
-  });
-});
 
-serviceOptions.forEach((option) => {
-  option.addEventListener('click', () => {
-    const optionText = option.querySelector('p').textContent;
-    console.log(`Service Option Selected: ${optionText}`);
-  });
-});
   
     const stopwatchElement = document.getElementById('stopwatch');
   let timeInSeconds = 30 * 60; // 30 minutes in seconds
@@ -475,12 +327,7 @@ serviceOptions.forEach((option) => {
       return value.toString().padStart(2, '0');
     }
 
-    function handleTimeUp() {
-      alert('Time is up!');
-    }
-
-    // Start the stopwatch
-    timerInterval = setInterval(updateStopwatch, 1000);
+ 
 
 
 
@@ -489,54 +336,86 @@ serviceOptions.forEach((option) => {
     const feedbackContainer = document.getElementById('feedback-container');
     const nextButton = document.getElementById('next-button');
     const redoButton = document.getElementById('redo-button');
+    
 
+  function getAllQuestions() {
+  return allQuestions;
+}
 
-  const allQuestions = [
-    {}
+const questions = getAllQuestions();
 
-  ];
-
-  const numRandomQuestions = 50;
-  const questions = getRandomQuestions(numRandomQuestions);
 
 
     let currentQuestionIndex = 0;
     let score = 0;
     let userAnswered = false;
 
-    function showQuestion() {
-      const question = questions[currentQuestionIndex];
-      questionText.textContent = question.question;
-      optionsContainer.innerHTML = '';
 
-      question.options.forEach(option => {
-        const optionElement = document.createElement('div');
-        optionElement.classList.add('option');
-        optionElement.dataset.value = option.value;
-        optionElement.addEventListener('click', handleOptionClick);
+function showQuestion() {
+  userAnswered = false; // Reset the userAnswered flag
 
-        const optionLabel = document.createElement('span');
-        optionLabel.classList.add('option-label');
-        optionLabel.textContent = option.label;
+  // Check if there is a next question
+  if (currentQuestionIndex < questions.length) { 
+    const question = questions[currentQuestionIndex];
 
-        optionElement.appendChild(optionLabel);
-        optionsContainer.appendChild(optionElement);
-      });
+    // Split the question string into parts
+    const questionParts = question.question.split('\n');
 
-      if (userAnswered) {
-        const selectedOption = optionsContainer.querySelector(`[data-value="${question.userAnswer}"]`);
-        if (selectedOption) {
-          selectedOption.classList.add('wrong-option');
-        }
-        const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
-        if (correctOption) {
-          correctOption.classList.add('correct-option');
-        }
+    // Clear any existing content
+    questionText.innerHTML = '';
+
+    // Create text and break elements for each part
+    questionParts.forEach((part, index) => {
+      questionText.appendChild(document.createTextNode(part));
+
+      // Add a line break after every part except the last one
+      if (index < questionParts.length - 1) {
+        questionText.appendChild(document.createElement('br'));
       }
+    });
 
-      feedbackContainer.textContent = '';
-      nextButton.style.display = 'none';
+    optionsContainer.innerHTML = '';
+
+    question.options.forEach(option => {
+      const optionElement = document.createElement('div');
+      optionElement.classList.add('option');
+      optionElement.dataset.value = option.value;
+
+      const optionLabel = document.createElement('span');
+      optionLabel.classList.add('option-label');
+      optionLabel.textContent = option.label;
+
+      optionElement.appendChild(optionLabel);
+      optionsContainer.appendChild(optionElement);
+    });
+
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    if (correctOption) {
+      correctOption.classList.add('correct-option');
     }
+
+    // Show the correct answer in the feedback container
+    feedbackContainer.textContent = `正確答案: ${question.correctAnswer}`;
+    nextButton.style.display = 'block'; // Show the next button
+
+    if (currentQuestionIndex > 0) {
+      prevButton.style.display = 'block'; // Show the prev button if not the first question
+    } else {
+      prevButton.style.display = 'none'; // Hide the prev button if it is the first question
+    }
+
+    // Update the value of the dropdown menu to reflect the current question
+    const questionSelect = document.getElementById('questionSelect');
+    questionSelect.value = currentQuestionIndex;
+
+  } else {
+    // When there are no more questions, hide the buttons and show the redoButton
+    prevButton.style.display = 'none';
+    nextButton.style.display = 'none';
+    redoButton.style.display = 'block';
+  }
+}
+    
 
 function handleOptionClick(event) {
   if (userAnswered) {
@@ -589,16 +468,12 @@ console.log('questions.length', questions.length); // check the length of the ar
   feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
   nextButton.style.display = 'block';
 }
-    function showNextQuestion() {
-      currentQuestionIndex++;
-      userAnswered = false;
 
-      if (currentQuestionIndex >= questions.length) {
-        showResult();
-      } else {
-        showQuestion();
-      }
-    }
+    
+function showNextQuestion() {
+  currentQuestionIndex++;
+  showQuestion();
+}
 
 function saveQuizState() {
   const quizState = {
@@ -645,11 +520,21 @@ function loadQuizState() {
     showQuestion();
 }
 
-  function getRandomQuestions(numQuestions) {
-    const shuffledQuestions = allQuestions.sort(() => Math.random() - 0.5);
-    return shuffledQuestions.slice(0, numQuestions);
-  }
+function getQuestions(numQuestions) {
+  return allQuestions.slice(0, numQuestions);
+}
 
+
+function showPreviousQuestion() {
+  if (currentQuestionIndex > 0) { // Check if there is a previous question
+    currentQuestionIndex--;
+    userAnswered = false; // Allow the user to answer the previous question again
+    showQuestion();
+  }
+}
+    const prevButton = document.getElementById('prevButton');
+prevButton.addEventListener('click', showPreviousQuestion);
+    
 function redoQuiz() {
   localStorage.removeItem('quizState');
   clearInterval(timerInterval);
@@ -670,28 +555,28 @@ function redoQuiz() {
     // Show the first question
     showQuestion();
 
-    </script>
-  <h2>Coming soon....</h2>
-<!--/ browser-warning -->
-<script>
-function detectBrowser() {
-  var userAgent = window.navigator.userAgent;
-  if(!(userAgent.indexOf("Chrome") > -1 || userAgent.indexOf("CriOS") > -1)) {
-    var overlay = document.getElementById('overlay');
-    overlay.style.display = "block";
-    var modal = document.getElementById('myModal');
-    modal.style.display = "block";
-  }
+function populateQuestionSelect() {
+  const questionSelect = document.getElementById('questionSelect');
+  
+  // Add an option for each question to the dropdown menu
+  questions.forEach((question, index) => {
+    const option = document.createElement('option');
+    option.value = index;
+    option.textContent = `問題 ${index + 1}`;
+    questionSelect.appendChild(option);
+  });
 }
+    populateQuestionSelect();
+   
+    document.getElementById('questionSelect').addEventListener('change', function() {
+  currentQuestionIndex = parseInt(this.value);
+  showQuestion();
+});
 
-function closeModal() {
-  var overlay = document.getElementById('overlay');
-  overlay.style.display = "none";
-  var modal = document.getElementById('myModal');
-  modal.style.display = "none";
-}
+    question.question = question.question.replace(/ \((\d)\)/g, '<br>($1)');
+    
+  </script>
 
-</script>
   
   
 </body>
