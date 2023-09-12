@@ -8,7 +8,7 @@
   <meta name="description" content="網上免費模擬試題練習，提供各類模擬試題，包括拯搦考試、急救考試，等各類牌照測試，並設有温習模式及操練模式。">
   <meta name="keywords" content="拯溺,拯溺考試,水上急救,銅章,泳池救生,沙灘救生,救生,急救,急救考試,重考,急考,補考,考牌,筆試題目,考試">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="https://215508890.github.io/mepo/">
+  <link rel="canonical" href="https://mepohk.com">
   <meta property="og:title" content="拯溺筆試温習(銅章) - 網上模擬試題練習">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://215508890.github.io/omep/">
@@ -22,6 +22,7 @@
 
   <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
 <body>
 
   <div class="header">
@@ -150,11 +151,20 @@
     </div>
   </div>
 
+<h2>Coming soon.....</h2>
+  
 
-<div class="container">
-    <h1 class="scoreboard-heading">泳池救生</h1>
-    <h4 class="reminder">(合格分數 18 | 時限 30分鐘)</h4>
-  <h2>Coming soon.....</h2>
+
+  
+    <h1 class="question" id="question-text"></h1>
+    <div id="options-container"></div>
+    <div id="feedback-container"></div>
+  <button id="prevButton" class="prevButton">上一題</button>
+  <button id="next-button" class="next-button">下一題</button>
+<button id="redo-button" class="redo-button">重設</button>
+  </div>
+
+
   
   <script>
 
@@ -289,6 +299,281 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
     activeThirdLayerMenu = subMenu;
   });
 });
+
+
+// JavaScript to handle click events on about-options and service-options
+const aboutOptions = document.querySelectorAll('.about-options');
+const serviceOptions = document.querySelectorAll('.service-options');
+
+
+  
+    const stopwatchElement = document.getElementById('stopwatch');
+  let timeInSeconds = 30 * 60; // 30 minutes in seconds
+  let timerInterval = null;
+  window.addEventListener('load', loadQuizState);
+
+    function updateStopwatch() {
+      const minutes = Math.floor(timeInSeconds / 60);
+      const seconds = timeInSeconds % 60;
+      stopwatchElement.textContent = `${padZero(minutes)}:${padZero(seconds)}`;
+      timeInSeconds--;
+      if (timeInSeconds < 0) {
+        clearInterval(timerInterval);
+        handleTimeUp();
+      }
+    }
+
+    function padZero(value) {
+      return value.toString().padStart(2, '0');
+    }
+
+ 
+
+
+
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const feedbackContainer = document.getElementById('feedback-container');
+    const nextButton = document.getElementById('next-button');
+    const redoButton = document.getElementById('redo-button');
+    
+
+  function getAllQuestions() {
+  return allQuestions;
+}
+
+const questions = getAllQuestions();
+
+
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let userAnswered = false;
+
+
+function showQuestion() {
+  userAnswered = false; // Reset the userAnswered flag
+
+  // Check if there is a next question
+  if (currentQuestionIndex < questions.length) { 
+    const question = questions[currentQuestionIndex];
+
+    // Split the question string into parts
+    const questionParts = question.question.split('\n');
+
+    // Clear any existing content
+    questionText.innerHTML = '';
+
+    // Create text and break elements for each part
+    questionParts.forEach((part, index) => {
+      questionText.appendChild(document.createTextNode(part));
+
+      // Add a line break after every part except the last one
+      if (index < questionParts.length - 1) {
+        questionText.appendChild(document.createElement('br'));
+      }
+    });
+
+    optionsContainer.innerHTML = '';
+
+    question.options.forEach(option => {
+      const optionElement = document.createElement('div');
+      optionElement.classList.add('option');
+      optionElement.dataset.value = option.value;
+
+      const optionLabel = document.createElement('span');
+      optionLabel.classList.add('option-label');
+      optionLabel.textContent = option.label;
+
+      optionElement.appendChild(optionLabel);
+      optionsContainer.appendChild(optionElement);
+    });
+
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    if (correctOption) {
+      correctOption.classList.add('correct-option');
+    }
+
+    // Show the correct answer in the feedback container
+    feedbackContainer.textContent = `正確答案: ${question.correctAnswer}`;
+    nextButton.style.display = 'block'; // Show the next button
+
+    if (currentQuestionIndex > 0) {
+      prevButton.style.display = 'block'; // Show the prev button if not the first question
+    } else {
+      prevButton.style.display = 'none'; // Hide the prev button if it is the first question
+    }
+
+    // Update the value of the dropdown menu to reflect the current question
+    const questionSelect = document.getElementById('questionSelect');
+    questionSelect.value = currentQuestionIndex;
+
+  } else {
+    // When there are no more questions, hide the buttons and show the redoButton
+    prevButton.style.display = 'none';
+    nextButton.style.display = 'none';
+    redoButton.style.display = 'block';
+  }
+}
+    
+
+function handleOptionClick(event) {
+  if (userAnswered) {
+    return;
+  }
+
+  userAnswered = true;
+  const selectedOption = event.target.closest('.option');
+
+  // Log the selectedOption object to the console.
+  console.log('selectedOption', selectedOption);
+
+  // If no element was found with the class 'option', log an error and return.
+  if (!selectedOption) {
+    console.error('No option selected');
+    return;
+  }
+
+  const selectedValue = selectedOption.dataset.value;
+
+  // Log the selectedValue to the console.
+  console.log('selectedValue', selectedValue);
+
+  // Debugging logs
+console.log('questions', questions);
+console.log('currentQuestionIndex', currentQuestionIndex);
+console.log('questions.length', questions.length); // check the length of the array
+
+  const question = questions[currentQuestionIndex];
+
+  console.log('question', question);  // Add this line
+
+  // If question is undefined, log an error and return.
+  if (!question) {
+    console.error('No current question');
+    return;
+  }
+
+  question.userAnswer = selectedValue;
+
+  if (selectedValue === question.correctAnswer) {
+    selectedOption.classList.add('correct-option');
+    score++;
+  } else {
+    selectedOption.classList.add('wrong-option');
+    const correctOption = optionsContainer.querySelector(`[data-value="${question.correctAnswer}"]`);
+    correctOption.classList.add('correct-option');
+  }
+
+  feedbackContainer.textContent = selectedValue === question.correctAnswer ? '正確答案' : '錯誤答案';
+  nextButton.style.display = 'block';
+}
+
+    
+function showNextQuestion() {
+  currentQuestionIndex++;
+  showQuestion();
+}
+
+function saveQuizState() {
+  const quizState = {
+    currentQuestionIndex: currentQuestionIndex,
+    score: score,
+    userAnswers: questions.map(question => question.userAnswer)
+  };
+  localStorage.setItem('quizState', JSON.stringify(quizState));
+}
+
+
+function showResult() {
+  saveQuizState();
+  questionText.textContent = '測試完成';
+  optionsContainer.innerHTML = '';
+  feedbackContainer.textContent = `你的分數是 ${score} / ${questions.length}`;
+  nextButton.style.display = 'none';
+  redoButton.style.display = 'block';
+
+  clearInterval(timerInterval); // Stop the timer
+}
+
+function loadQuizState() {
+    try {
+        const storedState = localStorage.getItem('quizState');
+
+        if (storedState) {
+            const parsedState = JSON.parse(storedState);
+            currentQuestionIndex = parsedState.currentQuestionIndex;
+            score = parsedState.score;
+            showQuestion();
+        } else {
+            startQuiz();
+        }
+    } catch (error) {
+        console.error('Failed to load quiz state:', error);
+        startQuiz();
+    }
+}
+
+    function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
+}
+
+function getQuestions(numQuestions) {
+  return allQuestions.slice(0, numQuestions);
+}
+
+
+function showPreviousQuestion() {
+  if (currentQuestionIndex > 0) { // Check if there is a previous question
+    currentQuestionIndex--;
+    userAnswered = false; // Allow the user to answer the previous question again
+    showQuestion();
+  }
+}
+    const prevButton = document.getElementById('prevButton');
+prevButton.addEventListener('click', showPreviousQuestion);
+    
+function redoQuiz() {
+  localStorage.removeItem('quizState');
+  clearInterval(timerInterval);
+  loadQuizState();
+  currentQuestionIndex = 0;
+  score = 0;
+  userAnswered = false;
+  showQuestion();
+  redoButton.style.display = 'none';
+  clearInterval(timerInterval); // Clear the previous timer interval
+  timeInSeconds = 30 * 60; // Reset the timer to 30 minutes
+  timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
+}    
+
+    nextButton.addEventListener('click', showNextQuestion);
+    redoButton.addEventListener('click', redoQuiz);
+
+    // Show the first question
+    showQuestion();
+
+function populateQuestionSelect() {
+  const questionSelect = document.getElementById('questionSelect');
+  
+  // Add an option for each question to the dropdown menu
+  questions.forEach((question, index) => {
+    const option = document.createElement('option');
+    option.value = index;
+    option.textContent = `問題 ${index + 1}`;
+    questionSelect.appendChild(option);
+  });
+}
+    populateQuestionSelect();
+   
+    document.getElementById('questionSelect').addEventListener('change', function() {
+  currentQuestionIndex = parseInt(this.value);
+  showQuestion();
+});
+
+    question.question = question.question.replace(/ \((\d)\)/g, '<br>($1)');
     
   </script>
 
