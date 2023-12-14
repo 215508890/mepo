@@ -110,7 +110,15 @@
     </div>
   </div>
 
-<h2>Coming soon.....</h2>
+
+<div class="container">
+    <h1 class="scoreboard-heading">泳池救生</h1>
+    <h4 class="reminder">(合格分數 15 | 時限 20分鐘)</h4>
+  <select id="questionSelect" class="questionSelect">
+  <option value="0">-- 選擇問題 --</option>
+</select>
+    <div class="timer-container">
+    </div>
   
 
 
@@ -267,7 +275,7 @@ const serviceOptions = document.querySelectorAll('.service-options');
 
   
     const stopwatchElement = document.getElementById('stopwatch');
-  let timeInSeconds = 30 * 60; // 30 minutes in seconds
+  let timeInSeconds = 20 * 60; // 20 minutes in seconds
   let timerInterval = null;
   window.addEventListener('load', loadQuizState);
 
@@ -504,7 +512,7 @@ function redoQuiz() {
   showQuestion();
   redoButton.style.display = 'none';
   clearInterval(timerInterval); // Clear the previous timer interval
-  timeInSeconds = 30 * 60; // Reset the timer to 30 minutes
+  timeInSeconds = 20 * 60; // Reset the timer to 20 minutes
   timerInterval = setInterval(updateStopwatch, 1000); // Start the timer again
 }    
 
