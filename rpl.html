@@ -304,7 +304,1060 @@ const serviceOptions = document.querySelectorAll('.service-options');
     const nextButton = document.getElementById('next-button');
     const redoButton = document.getElementById('redo-button');
     
+const allQuestions = [
 
+  {
+    "question": "對於泳池救生員，以下哪一條是他們必須具備的條件？",
+    "options": [
+        { "label": "A. 技術高超", "value": "A" },
+        { "label": "B. 強壯的體格", "value": "B" },
+        { "label": "C. 充滿自信", "value": "C" },
+        { "label": "D. A, B, C皆是", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "關於泳池救生員的角色和責任，以下哪一項是正確的？",
+    "options": [
+        { "label": "A. 獨立完成工作", "value": "A" },
+        { "label": "B. 負責日常清潔", "value": "B" },
+        { "label": "C. 透過與泳客的溝通，加強與外界的關係", "value": "C" },
+        { "label": "D. A, B, C皆非", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "泳池救生員主要的工作內容是？",
+    "options": [
+        { "label": "A. 快速識別並應對緊急情況", "value": "A" },
+        { "label": "B. 進行行政管理", "value": "B" },
+        { "label": "C. 維護專業形象", "value": "C" },
+        { "label": "D. 保持強健的體魄", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "施救員與救生員之間的差別在於，施救員的主要職責是？",
+    "options": [
+        { "label": "A. 監督泳池，確保泳客的安全", "value": "A" },
+        { "label": "B. 大部分的工作都是單獨完成", "value": "B" },
+        { "label": "C. 確保泳客遵守泳池的規則", "value": "C" },
+        { "label": "D. 能識別潛在的危險", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "與施救員相比，救生員的責任包括？",
+    "options": [
+        { "label": "A. 確保個人的安全責任", "value": "A" },
+        { "label": "B. 在拯救時，工具主要來源於現場", "value": "B" },
+        { "label": "C. 掌握基本的救援技能", "value": "C" },
+        { "label": "D. 提交專業且準確的事故報告", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+    {
+        "question": "以下哪一項不屬於泳池救生員所需具備的條件？",
+        "options": [
+            { "label": "A. 優秀的溝通能力", "value": "A" },
+            { "label": "B. 支援同事", "value": "B" },
+            { "label": "C. 獨立行動", "value": "C" },
+            { "label": "D. 靈活應變", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "當游泳池發生緊急事故時，救生員應該：",
+        "options": [
+            { "label": "A. 補上空缺的當值時間", "value": "A" },
+            { "label": "B. 維持現場的秩序", "value": "B" },
+            { "label": "C. 呼叫緊急服務", "value": "C" },
+            { "label": "D. A, B, C皆是", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "以下哪些物品屬於泳池救生員的個人裝備？\n(1)FOX 40哨子 \n(2)救生浮標 \n(3)太陽眼鏡 \n(4)復甦面罩",
+        "options": [
+            { "label": "A. (1), (2)”, "value": "A" },
+            { "label": "B. (1), (2), (3)”, "value": "B" },
+            { "label": "C. (1), (2), (4)”, "value": "C" },
+            { "label": "D. (1), (2), (3), (4)”, "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "以下哪項不屬於泳池救生員的個人防護裝備？",
+        "options": [
+            { "label": "A. 太陽帽", "value": "A" },
+            { "label": "B. 防紫外線的太陽眼鏡", "value": "B" },
+            { "label": "C. 坐墊", "value": "C" },
+            { "label": "D. 防護鞋", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "泳池操作程序手冊的英文縮寫是：",
+        "options": [
+            { "label": "A. W.O.P", "value": "A" },
+            { "label": "B. W.H.O", "value": "B" },
+            { "label": "C. N.O.P", "value": "C" },
+            { "label": "D. O.W.P", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+{
+    "question": "操作手冊內應包含'E.A.P'以及哪一項程序？",
+    "options": [
+        { "label": "A. W.O.P", "value": "A" },
+        { "label": "B. W.H.O", "value": "B" },
+        { "label": "C. N.O.P", "value": "C" },
+        { "label": "D. O.W.P", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "日常操作程序中，不包含以下哪一項？",
+    "options": [
+        { "label": "A. 日常清潔", "value": "A" },
+        { "label": "B. 員工監督", "value": "B" },
+        { "label": "C. 當值程序", "value": "C" },
+        { "label": "D. 工作時間限制", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "當泳池發生緊急事故時，救生員應該按照以下哪一個先後順序進行？ \n(1)通知上司 \n(2)指示事故地點 \n(3)發出救援信號 \n(4)維護現場秩序",
+    "options": [
+        { "label": “(1), (2), (3), (4), "value": "A" },
+        { "label": “(2), (1), (4), (3)”, "value": "B" },
+        { "label": “(3), (2), (1), (4)”, "value": "C" },
+        { "label": “(4), (3), (2), (1)”, "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "泳池救生員在監察泳池時，需要關注以下哪一項？",
+    "options": [
+        { "label": "A. 泳池使用者的人數", "value": "A" },
+        { "label": "B. 泳池使用者的職業", "value": "B" },
+        { "label": "C. 泳池使用者的性別", "value": "C" },
+        { "label": "D. 以上皆非", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "每個泳池使用者所佔的泳池水面面積不應少於多少平方米？",
+    "options": [
+        { "label": "A. 2平方米", "value": "A" },
+        { "label": "B. 4平方米", "value": "B" },
+        { "label": "C. 6平方米", "value": "C" },
+        { "label": "D. 8平方米", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "以下哪一項不是救生員的責任？",
+    "options": [
+        { "label": "A. 個人安全的責任", "value": "A" },
+        { "label": "B. 道義上的責任", "value": "B" },
+        { "label": "C. 專業和法律的責任", "value": "C" },
+        { "label": "D. 基本的拯救技術", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "以下哪一項不是泳池使用者直接產生的風險？",
+    "options": [
+        { "label": "A. 在泳池邊奔跑", "value": "A" },
+        { "label": "B. 入口處人群過度擁擠或互相推擠", "value": "B" },
+        { "label": "C. 無視他人安全", "value": "C" },
+        { "label": "D. 泳池深度突然變深", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "下列哪些人屬於高風險的泳池使用者？",
+    "options": [
+        { "label": "A. 明顯不擅長游泳的人", "value": "A" },
+        { "label": "B. 沒有成人陪同的兒童", "value": "B" },
+        { "label": "C. 依賴泳池邊緣或分隔線來支撐自己的人", "value": "C" },
+        { "label": "D. 以上皆是", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "救生員在當值時需要特別注意泳池的哪一部分？",
+    "options": [
+        { "label": "A. 泳池的底部", "value": "A" },
+        { "label": "B. 滑水梯、跳水板、人工波浪機和排水口範圍", "value": "B" },
+        { "label": "C. 浮在水面上的玩具和設施", "value": "C" },
+        { "label": "D. 以上皆是", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "以下哪一項是下水的方法？",
+    "options": [
+        { "label": "A. 跨入式", "value": "A" },
+        { "label": "B. 滑進式", "value": "B" },
+        { "label": "C. 淺跳", "value": "C" },
+        { "label": "D. 彈跳入水", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+    {
+        "question": "以下哪一種不是救生員的個人救生裝備？",
+        "options": [
+            { "label": "A. 手機", "value": "A" },
+            { "label": "B. 救生浮標", "value": "B" },
+            { "label": "C. 口罩", "value": "C" },
+            { "label": "D. 救生哨子", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "10:20系統是指：",
+        "options": [
+            { "label": "A. 每10秒內反復觀察自己負責的範圍，並在20秒內到達事故現場", "value": "A" },
+            { "label": "B. 每10秒內到達事故現場，並在20秒內反復觀察自己負責的範圍", "value": "B" },
+            { "label": "C. 每10秒內救起一個溺水者，並在20秒內通知其他救生員", "value": "C" },
+            { "label": "D. 每10秒內通知其他救生員，並在20秒內救起一個溺水者", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "泳池本身產生的風險包括：",
+        "options": [
+            { "label": "A. 濕滑的地面、水噴口和泳池瓷磚的接縫處", "value": "A" },
+            { "label": "B. 滑水梯、深水區和跳水板", "value": "B" },
+            { "label": "C. 水底的排水口和泳池邊的排水溝蓋", "value": "C" },
+            { "label": "D. 以上皆是", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "救生員的角色包括：",
+        "options": [
+            { "label": "A. 教育和防止意外", "value": "A" },
+            { "label": "B. 保持專業形象和執行拯救任務", "value": "B" },
+            { "label": "C. 與外界的溝通和行政管理", "value": "C" },
+            { "label": "D. 以上皆是", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "救生員的主要工作不包括：",
+        "options": [
+            { "label": "A. 處理泳池內發生的事故", "value": "A" },
+            { "label": "B. 提供及時的急救和善後護理", "value": "B" },
+            { "label": "C. 清潔更衣室和洗手間", "value": "C" },
+            { "label": "D. 與泳客和同事保持良好的溝通", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "救生員制服的鮮艷顏色設計，其主要的原因是：",
+        "options": [
+            { "label": "A. 防止太陽的紫外線", "value": "A" },
+            { "label": "B. 形塑救生員專業的形象", "value": "B" },
+            { "label": "C. 提供禦寒的功能", "value": "C" },
+            { "label": "D. 讓求助的泳客能快速識別", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "救生員的個人保護裝備包含：\n(1) 太陽眼鏡 \n(2) 太陽帽 \n(3) 適身的T恤 \n(4) 刻有個人血型的名牌鏈",
+        "options": [
+            { "label": “(1), (2), (3)”, "value": "A" },
+            { "label": "(2), (3), (4)”, "value": "B" },
+            { "label": “(1), (2), (4)”, "value": "C" },
+            { "label": "上述全部都包含", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "當遭遇緊急狀況，救生員應該：",
+        "options": [
+            { "label": "A. 儘速單獨採取行動", "value": "A" },
+            { "label": "B. 等待援助隊伍到達後進行救援", "value": "B" },
+            { "label": "C. 根據緊急行動計劃的程序進行救援", "value": "C" },
+            { "label": "D. 與其它泳客一起進行救援", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "想要了解泳池的使用人數上限、開放時間、結構特性等資訊，可以查閱：",
+        "options": [
+            { "label": "A. 緊急行動計劃(EAP)", "value": "A" },
+            { "label": "B. 日常操作程序(NOP)", "value": "B" },
+            { "label": "C. 泳池年報(Annual Report)", "value": "C" },
+            { "label": "D. 救生訓練手冊(Training Manual)", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "救生員進行泳池的監控，主要的目的是：",
+        "options": [
+            { "label": "A. 拯救正在溺水的泳客", "value": "A" },
+            { "label": "B. 預防意外的發生", "value": "B" },
+            { "label": "C. 與泳客進行溝通", "value": "C" },
+            { "label": "D. 對溺水的泳客進行急救", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "救生員需要對以下哪一類泳客特別警覺？ \n(1) 受酒精影響的泳客 \n(2) 幼小的泳客 \n(3) 年長的泳客 \n(4) 身體有殘障的泳客",
+        "options": [
+            { "label": “(1), (2), (3)”, "value": "A" },
+            { "label": “(1), (2), (4)”, "value": "B" },
+            { "label": “(1), (3), (4)”, "value": "C" },
+            { "label": "所有的都是", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "下列哪一類活動容易引發事故，需要立即阻止？ \n(1) 不當地使用泳池設施 \n(2) 在泳池邊跑步 \n(3) 在淺水區跳水 \n(4) 在跳水板下方游泳",
+        "options": [
+            { "label": “(1), (2), (3)”, "value": "A" },
+            { "label": "(1), (2), (4)”, "value": "B" },
+            { "label": “(2), (3), (4)”, "value": "C" },
+            { "label": "所有的都是", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "下列哪一類泳客的行為是溺水的徵兆？",
+        "options": [
+            { "label": "A. 面部表情輕鬆，以背泳方式游進", "value": "A" },
+            { "label": "B. 身體突然下沉，然後浮出水面繼續游泳", "value": "B" },
+            { "label": "C. 身體呈直立狀態，頭髮覆蓋眼睛", "value": "C" },
+            { "label": "D. 左右手高低交替，規律地搖擺", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "在進行「換班」時，被接班的救生員應該：",
+        "options": [
+            { "label": "A. 看到同事來接班後，才能離開", "value": "A" },
+            { "label": "B. 等待接班同事到達，才能離開", "value": "B" },
+            { "label": "C. 等待接班同事坐在工作位置後，才能離開", "value": "C" },
+            { "label": "D. 等待接班同事坐在工作位置並示意後，才能離開", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "救生員在發現泳客出現下列哪種狀況時，應立即進行救援？ \n(1) 意識模糊 \n(2) 呼吸困難 \n(3) 面色慘白 \n(4) 似乎在尋找出口",
+        "options": [
+            { "label": “(1), (2), (3)”, "value": "A" },
+            { "label": “(1), (2), (4)”, "value": "B" },
+            { "label": “(2), (3), (4)”, "value": "C" },
+            { "label": "全部皆是", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "面對不遵守規定的泳客，救生員應採取以下哪種態度？",
+        "options": [
+            { "label": "A. 以微笑和眼神接觸的方式", "value": "A" },
+            { "label": "B. 表現出憤怒並使用嚴厲的語言", "value": "B" },
+            { "label": "C. 禮貌但堅定地提出", "value": "C" },
+            { "label": "D. 發出警告並說明違規的後果", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "泳池救生員的主要職責包括：",
+        "options": [
+            { "label": "A. 執行救援工作", "value": "A" },
+            { "label": "B. 預防意外的發生", "value": "B" },
+            { "label": "C. 維護泳池水質", "value": "C" },
+            { "label": "D. 擔任水上活動的指導者", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "在進行泳池安全監控時，救生員需要：",
+        "options": [
+            { "label": "A. 在任何情況下，都要點計在水中的人數", "value": "A" },
+            { "label": "B. 在任何情況下，都需要有3名救生員值勤，其中兩名在台上，一名在巡邏", "value": "B" },
+            { "label": "C. 在任何深度的泳池，都需要全程監控", "value": "C" },
+            { "label": "D. 觀察泳池使用者的行為和反應", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "全面監察意味著：",
+        "options": [
+            { "label": "A. 泳池的每一個部分都在監控範圍內", "value": "A" },
+            { "label": "B. 反覆監控重疊的區域", "value": "B" },
+            { "label": "C. 必須以移動的方式進行巡邏", "value": "C" },
+            { "label": "D. 僅適用於嬉水池", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "根據香港法例第132章泳池規例，泳池救生員的最低人數要求是：",
+        "options": [
+            { "label": "A. 必須有3名救生員，其中2名在台上，1名在巡邏", "value": "A" },
+            { "label": "B. 沒有明確的救生員人數要求", "value": "B" },
+            { "label": "C. 至少需要有2名救生員值勤", "value": "C" },
+            { "label": "D. 非繁忙時段需要1名救生員值勤，繁忙時段需要2至3名救生員值勤", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "下列哪一項行為不屬於救生員推動水上安全的範疇？",
+        "options": [
+            { "label": "A. 管控並處理潛在的風險", "value": "A" },
+            { "label": "B. 現場應急，儘快救助溺水者", "value": "B" },
+            { "label": "C. 執行泳池的安全規定", "value": "C" },
+            { "label": "D. 提升泳客的水上安全意識", "value": "D" }
+        ],
+        "correctAnswer": "B"
+    },
+    {
+        "question": "為了防止意外發生，標誌必須：",
+        "options": [
+            { "label": "A. 以「不銹鋼面」刻字", "value": "A" },
+            { "label": "B. 貼在泳池入口處", "value": "B" },
+            { "label": "C. 詳細說明相關內容", "value": "C" },
+            { "label": "D. 清晰明瞭且易於識別", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "評估泳池內潛在風險的因素應包括：",
+        "options": [
+            { "label": "A. 泳客的行為", "value": "A" },
+            { "label": "B. 救生員及其同事間的行為", "value": "B" },
+            { "label": "C. 泳池的設計和結構", "value": "C" },
+            { "label": "D. 上述全部", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "操作程序手冊應包括：",
+        "options": [
+            { "label": "A. 救生員的人事記錄", "value": "A" },
+            { "label": "B. 日常的操作程序", "value": "B" },
+            { "label": "C. 緊急情況的行動計劃", "value": "C" },
+            { "label": "D. B和C兩項", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "處理緊急事故時，泳池救生的前三個基本步驟是：",
+        "options": [
+            { "label": "A. 尋找救生裝備、下水、接近溺者", "value": "A" },
+            { "label": "B. 拿取救生浮標、跨步入水、接近溺者", "value": "B" },
+            { "label": "C. 發出警號、下水、接近溺者", "value": "C" },
+            { "label": "D. 確保現場安全、通知他人求援、確定溺者位置", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "國際標準的救生浮標應該是：",
+        "options": [
+            { "label": "A. 紅底配上白色的\"LIFEGUARD\"字樣", "value": "A" },
+            { "label": "B. 通常長度在2至3米之間", "value": "B" },
+            { "label": "C. 能支撐救生員及其他兩名溺者", "value": "C" },
+            { "label": "D. 配備尼龍拖繩和肩帶，一般長度為4至5米", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "根據國際生命救援協會(ILS)的建議，救生員應使用：",
+        "options": [
+            { "label": "A. 紅色哨子，並配有掛繩，可以掛在頸上，隨時使用", "value": "A" },
+            { "label": "B. 哨子必須配有\"走珠\"，以確保可以隨時發出響亮的聲音", "value": "B" },
+            { "label": "C. 哨子型號為\"LIFEGUARD 60\"", "value": "C" },
+            { "label": "D. 哨子型號為\"FOX-40\"", "value": "D" }
+        ],
+        "correctAnswer": "D"
+    },
+    {
+        "question": "為了確保救生繩袋的有效保養，使用後應：",
+        "options": [
+            { "label": "A. 先將繩子卷好，然後放入繩袋", "value": "A" },
+            { "label": "B. 每使用約100次後，必須更換新的繩袋", "value": "B" },
+            { "label": "C. 用清水清洗繩索，然後風乾", "value": "C" },
+            { "label": "D. 盡快曬乾，待乾後，再將繩子卷好放入繩袋，以便下次使用", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+    {
+        "question": "為了提升專業形象，當救生員在瞭望台值班時，應將救生浮標：",
+        "options": [
+            { "label": "A. 肩帶穿過頭部和腰部，並把浮標橫放在大腿上", "value": "A" },
+            { "label": "B. 將肩帶和尼龍拖繩卷好，放在瞭望台座椅的背板前", "value": "B" },
+            { "label": "C. 可以掛在瞭望台的任何位置", "value": "C" },
+            { "label": "D. 放在泳池邊緣的附近，方便隨時使用", "value": "D" }
+        ],
+        "correctAnswer": "A"
+    },
+    {
+        "question": "當泳池在晚間突然發生電力中斷時，救生員首先應該：",
+        "options": [
+            { "label": "A. 立刻報警", "value": "A" },
+            { "label": "B.利用緊急逃生路線立即離開現場，防止危險發生", "value": "B" },
+            { "label": "C. 啟動緊急照明裝置，並有秩序地引導泳客離開水面", "value": "C" },
+            { "label": "D. 用手持擴音器宣布電力中斷的消息，並點算所有泳客的人數", "value": "D" }
+        ],
+        "correctAnswer": "C"
+    },
+{
+    "question": "日常操作程序 (NOP) 不包括：",
+    "options": [
+        { "label": "A. 泳池設施及通道的相關資訊", "value": "A" },
+        { "label": "B. 面對意外發生時的處理步驟", "value": "B" },
+        { "label": "C. 救生員的職責", "value": "C" },
+        { "label": "D. 泳池的運作系統", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "以下哪一項不是泳池救生技術？",
+    "options": [
+        { "label": "A. 陸上救援", "value": "A" },
+        { "label": "B. 間接拖救", "value": "B" },
+        { "label": "C. 衣物拖救", "value": "C" },
+        { "label": "D. 多人糾纏拯救", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "關於緊急行動計劃 (E.A.P)，以下哪一句話是正確的？",
+    "options": [
+        { "label": "A. 應在泳池辦公室和簽到處的顯眼地方展示", "value": "A" },
+        { "label": "B. 每天應進行一次演練", "value": "B" },
+        { "label": "C. 個別的救生員可以按照自己選擇的時間進行演練", "value": "C" },
+        { "label": "D. 所有模擬案例的所有內容都應該提前詳細通知參加演練的救生員", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "泳池救生員在參與嚴重溺水事件後，首要的工作是：",
+    "options": [
+        { "label": "A. 主動報警，並要求錄取口供", "value": "A" },
+        { "label": "B. 約見律師，尋求法律建議", "value": "B" },
+        { "label": "C. 尋求心理醫生的幫助，以減輕心理創傷", "value": "C" },
+        { "label": "D. 盡快向泳池管理者提交事故報告", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "在進行「旁人協助登陸法」時，施救員與救生員的分別是：",
+    "options": [
+        { "label": "A. 施救員進行徒手救援，而救生員則使用救生浮標", "value": "A" },
+        { "label": "B. 施救員未接受過訓練，因此不能使用此法", "value": "B" },
+        { "label": "C. 施救員將溺者抽離水面至腰部位置，救生員則將溺者抽離至髖部水面位置", "value": "C" },
+        { "label": "D. 施救員一手握溺者的上臂內側，救生員一手握溺者的上臂外側", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "遇溺者在遇溺多少時間可以令其呼吸心跳停頓？",
+    "options": [
+        { "label": "A. 2分鐘", "value": "A" },
+        { "label": "B. 3分鐘", "value": "B" },
+        { "label": "C. 4分鐘", "value": "C" },
+        { "label": "D. 5分鐘", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "救生員的訓練主要針對泳池的：",
+    "options": [
+        { "label": "A. 使用者數量", "value": "A" },
+        { "label": "B. 總體水深", "value": "B" },
+        { "label": "C. 特殊需求", "value": "C" },
+        { "label": "D. 開放時間", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "在緊急事情處理程序中，如何描述一名溺者？ \n(1) 溺者的類別 \n(2) 溺者的身形 \n(3) 溺者的狀況 \n(4) 溺者的外貌",
+    "options": [
+        { "label": “(1), (2), (3)”, "value": "A" },
+        { "label": “(2), (3), (4)”, "value": "B" },
+        { "label": “(1), (3), (4)”, "value": "C" },
+        { "label": "所有的都對", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "處理一名疑似脊椎受傷的溺者，需要多少名救生員提供支援？",
+    "options": [
+        { "label": "A. 1-2 名", "value": "A" },
+        { "label": "B. 2-3 名", "value": "B" },
+        { "label": "C. 3-4 名", "value": "C" },
+        { "label": "D. 4-5 名", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "在什麼情況下可以將溺者運到泳池的急救站進行進一步的治療？",
+    "options": [
+        { "label": "A. 溺者恢復了呼吸", "value": "A" },
+        { "label": "B. 溺者的呼吸停止了", "value": "B" },
+        { "label": "C. 遇溺的位置離急救站很近", "value": "C" },
+        { "label": "D. 溺者的心跳停止了", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "合併監察系統是指：",
+    "options": [
+        { "label": "A. 指定泳區監察、全面監察、整體監察", "value": "A" },
+        { "label": "B. 全面監察、整體監察、固定監察", "value": "B" },
+        { "label": "C. 指定泳區監察、整體監察、固定監察", "value": "C" },
+        { "label": "D. 所有選項都對", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "救生員專業形象須包括：",
+    "options": [
+        { "label": "A. 救生員當值時的姿勢、公事上對話時的態度、救生員的制服", "value": "A" },
+        { "label": "B. 公事上對話時的態度、救生員的制服、救生員的性別", "value": "B" },
+        { "label": "C. 救生員當值時的姿勢、救生員的制服、救生員的性別", "value": "C" },
+        { "label": "D. 所有選項都對", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "違反謹慎責任可能構成：",
+    "options": [
+        { "label": "A. 違約", "value": "A" },
+        { "label": "B. 疏忽", "value": "B" },
+        { "label": "C. 因果關係", "value": "C" },
+        { "label": "D. 鄰舍原則", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "因果關係是指被告由於下列哪一項原因而導致的？",
+    "options": [
+        { "label": "A. 疏忽", "value": "A" },
+        { "label": "B. 違約", "value": "B" },
+        { "label": "C. 失責", "value": "C" },
+        { "label": "D. 故意", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "根據香港法例132章規定，露天泳池的濾水系統，池水循環一週所需時間不應超過多少小時？",
+    "options": [
+        { "label": "A. 2小時", "value": "A" },
+        { "label": "B. 4小時", "value": "B" },
+        { "label": "C. 6小時", "value": "C" },
+        { "label": "D. 8小時", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "根據香港法例132章規定，室內泳池的濾水系統，池水循環一週所需時間不應超過多少小時？",
+    "options": [
+        { "label": "A. 2小時", "value": "A" },
+        { "label": "B. 4小時", "value": "B" },
+        { "label": "C. 6小時", "value": "C" },
+        { "label": "D. 8小時", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "下列哪一種化學物質的氯含量達到65-70%？",
+    "options": [
+        { "label": "A. 氯氣", "value": "A" },
+        { "label": "B. 鈉次氯酸鹽", "value": "B" },
+        { "label": "C. 鈣次氯酸鹽", "value": "C" },
+        { "label": "D. 氯化氫鹽酸", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "當抽取泳池水樣本時，應將測試瓶放在水深多少位置？",
+    "options": [
+        { "label": "A. 5-11吋", "value": "A" },
+        { "label": "B. 12-18吋", "value": "B" },
+        { "label": "C. 19-25吋", "value": "C" },
+        { "label": "D. 26-32吋", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "遇溺者在遇溺多少時間後會引致腦神經開始受損到不可恢復的情況？",
+    "options": [
+        { "label": "A. 1-3分鐘", "value": "A" },
+        { "label": "B. 3-5分鐘", "value": "B" },
+        { "label": "C. 5-8分鐘", "value": "C" },
+        { "label": "D. 8-10分鐘", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "大型綜合泳館的救生員通常採用下列哪一種方式進行監察？",
+    "options": [
+        { "label": "A. 指定監察", "value": "A" },
+        { "label": "B. 合併監察", "value": "B" },
+        { "label": "C. 整體監察", "value": "C" },
+        { "label": "D. 全面監察", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "意外事件的分類包括有： \n(1) 水上 \n(2) 陸上 \n(3) 輕微 \n(4) 嚴重",
+    "options": [
+        { "label": “(1), (2), (3)”, "value": "A" },
+        { "label": “(2), (3), (4)”, "value": "B" },
+        { "label": “(1), (3), (4)”, "value": "C" },
+        { "label": “(1), (2), (3), (4)”, "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "裁定違反謹慎責任的成立是根據下列哪一項因素？",
+    "options": [
+        { "label": "A. 鄰舍原則", "value": "A" },
+        { "label": "B. 民事侵權", "value": "B" },
+        { "label": "C. 因果關係", "value": "C" },
+        { "label": "D. 謹慎標準", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "泳池水質標準的酸鹼度(pH)是：",
+    "options": [
+        { "label": "A. 6.3-6.8", "value": "A" },
+        { "label": "B. 6.8-7.2", "value": "B" },
+        { "label": "C. 7.2-7.6", "value": "C" },
+        { "label": "D. 7.6-8.0", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "眼睛在固定位置尋找物體的視角限制是：",
+    "options": [
+        { "label": "A. 10-15度", "value": "A" },
+        { "label": "B. 15-20度", "value": "B" },
+        { "label": "C. 25-30度", "value": "C" },
+        { "label": "D. 35-40度", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "緊急行動計劃的英文縮寫是：",
+    "options": [
+        { "label": "A. N.O.P", "value": "A" },
+        { "label": "B. W.O.P", "value": "B" },
+        { "label": "C. E.A.P", "value": "C" },
+        { "label": "D. E.O.P", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "根據哪些因素決定哪個崗位的救生員應該下水進行救援？",
+    "options": [
+        { "label": "A. 10-20 掃描系統", "value": "A" },
+        { "label": "B. 溺者的位置", "value": "B" },
+        { "label": "C. 溺者的類型", "value": "C" },
+        { "label": "D. 救生員的經驗", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "避免使用單人上岸法來協助溺者上岸的主要理由是：",
+    "options": [
+        { "label": "A. 強調團隊精神", "value": "A" },
+        { "label": "B. 展現專業形象", "value": "B" },
+        { "label": "C. 降低脊椎受傷的風險", "value": "C" },
+        { "label": "D. 遵守救援流程", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "泳池水質標準的自由氯應該是：",
+    "options": [
+        { "label": "A. 1-3 ppm", "value": "A" },
+        { "label": "B. 3-5 ppm", "value": "B" },
+        { "label": "C. 5-7 ppm", "value": "C" },
+        { "label": "D. 7-9 ppm", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "水質檢測應該包括：\n(1) 自由氯 \n(2) 酸鹼度 \n(3) 細菌含量 \n(4) 溶氧量",
+    "options": [
+        { "label": “(1), (2), (3)”, "value": "A" },
+        { "label": “(2), (3), (4)”, "value": "B" },
+        { "label": “(1), (3), (4)”, "value": "C" },
+        { "label": “(1), (2), (3), (4)”, "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "泳池救生員的主要職責包括：",
+    "options": [
+        { "label": "A. 執行救援任務", "value": "A" },
+        { "label": "B. 防止意外的發生", "value": "B" },
+        { "label": "C. 維護泳池水質標準", "value": "C" },
+        { "label": "D. 擔任水上活動的指導者", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "當泳池救生員監控安全時，他們必須：",
+    "options": [
+        { "label": "A. 在任何情況下，都必須點算在水中的人數", "value": "A" },
+        { "label": "B. 在任何情況下，都必須有三名救生員在值班", "value": "B" },
+        { "label": "C. 在任何水深的泳池，都必須全程進行監控", "value": "C" },
+        { "label": "D. 監察泳池使用者的行為和反應", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "全面監察的意思是：",
+    "options": [
+        { "label": "A. 整個泳池都在監察範圍內", "value": "A" },
+        { "label": "B. 重複監察重疊的區域", "value": "B" },
+        { "label": "C. 進行高位監察和移動巡邏", "value": "C" },
+        { "label": "D. 僅適用於嬉水池", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "如果泳池的濾水機房發現氯氣洩漏，當班的機房員工應該：",
+    "options": [
+        { "label": "A. 立即開啟所有的門窗和通風口", "value": "A" },
+        { "label": "B. 啟動抽風系統，以快速排出氯氣", "value": "B" },
+        { "label": "C. 應立即戴上認證的呼吸器", "value": "C" },
+        { "label": "D. 繼續運作濾水系統，讓泳池的水帶走氯氣", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "根據標準，使用氯氣消毒的泳池，池水必須保持的氯氣含量是：",
+    "options": [
+        { "label": "A. ppm 值為0.8", "value": "A" },
+        { "label": "B. ppm 值為1.2", "value": "B" },
+        { "label": "C. ppm 值在0.8至1.2之間", "value": "C" },
+        { "label": "D. ppm 值為1.0", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "當抽取泳池水進行化驗時，應該在泳池的哪個位置收集樣本？",
+    "options": [
+        { "label": "A. 在泳池的出水口，深度0.3米的地方收集", "value": "A" },
+        { "label": "B. 在泳池的對角線，深度0.5米的地方收集", "value": "B" },
+        { "label": "C. 在泳池兩個出水口之間的對開位置，深度0.3至0.5米處收集", "value": "C" },
+        { "label": "D. 在泳池的中央，深度0.3米的地方收集", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "在池水加入硫酸鋁的作用是：",
+    "options": [
+        { "label": "A. 保持池水的理想酸鹼度", "value": "A" },
+        { "label": "B. 提高水中的鋁含量", "value": "B" },
+        { "label": "C. 凝固池水中的微生物使其沉澱", "value": "C" },
+        { "label": "D. 減少微生物的生長", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "泳池的健康和安全管理是以下哪一類人的責任：",
+    "options": [
+        { "label": "A. 救生員", "value": "A" },
+        { "label": "B. 泳池的建築和設計人員", "value": "B" },
+        { "label": "C. 救生員和泳池管理人員", "value": "C" },
+        { "label": "D. 所有以上的人員", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "對於泳池的警告標誌，以下哪一種顏色組合最理想？",
+    "options": [
+        { "label": "A. 紅色的底色，黃色的字", "value": "A" },
+        { "label": "B. 黃色的底色，黑色的字", "value": "B" },
+        { "label": "C. 白色的底色，紅色的字", "value": "C" },
+        { "label": "D. 綠色的底色，黑色的字", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "以下哪一個是泳池底部的理想斜坡比例？",
+    "options": [
+        { "label": "A. 1比10", "value": "A" },
+        { "label": "B. 1 比15", "value": "B" },
+        { "label": "C. 1 比20", "value": "C" },
+        { "label": "D. 1 比25", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "如何概括定義泳池的風險管理？",
+    "options": [
+        { "label": "A. 需要有一名合格的急救員在每150名員工的工作週中", "value": "A" },
+        { "label": "B. 評估風險的高低，並記錄在案，然後購買相應的保險", "value": "B" },
+        { "label": "C. 進行風險評估，並採取必要的行動以防止和減少意外", "value": "C" },
+        { "label": "D. 始終謹慎行事以防止意外", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "以下哪種方法最有效地避免意外？",
+    "options": [
+        { "label": "A. 透過教育", "value": "A" },
+        { "label": "B. 對潛在危險的設施進行圍欄設置", "value": "B" },
+        { "label": "C. 拆除具有潛在危險的設施", "value": "C" },
+        { "label": "D. 持續監察", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "在哪種情況下需要進行持續監察？",
+    "options": [
+        { "label": "A. 泳池的水深超過1.2米", "value": "A" },
+        { "label": "B. 泳池的面積超過150平方米", "value": "B" },
+        { "label": "C. 泳池沒有限制入場人數", "value": "C" },
+        { "label": "D. 上述所有情況都需要", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "在使用救生浮標進行跨步式下水的情況下，哪種情況是適合的？",
+    "options": [
+        { "label": "A. 當水深少於1.5米，且水面高度超過1米時", "value": "A" },
+        { "label": "B. 當水深少於1.5米，且水面高度低於1米時", "value": "B" },
+        { "label": "C. 當水深超過1.5米，且水面高度低於1米時", "value": "C" },
+        { "label": "D. 沒有對水深和水面高度的限制", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "香港現在使用的救生浮標的標準長度是多少？",
+    "options": [
+        { "label": "A. 35-45吋", "value": "A" },
+        { "label": "B. 45-54吋", "value": "B" },
+        { "label": "C. 50-55吋", "value": "C" },
+        { "label": "D. 55-60吋", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "在泳池救生中使用的哨子信號，一個短響聲代表：",
+    "options": [
+        { "label": "A. 吸引泳池使用者的注意", "value": "A" },
+        { "label": "B. 告知所有泳池使用者需要離開泳池", "value": "B" },
+        { "label": "C. 吸引救生員同事的注意", "value": "C" },
+        { "label": "D. 救生員換班的時間", "value": "D" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "在泳池救生中使用的哨子信號，兩個短響聲代表：",
+    "options": [
+        { "label": "A. 吸引泳池使用者的注意", "value": "A" },
+        { "label": "B. 告知所有泳池使用者需要離開泳池", "value": "B" },
+        { "label": "C. 吸引救生員同事的注意", "value": "C" },
+        { "label": "D. 救生員換班的時間", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "在泳池救生中使用的哨子信號，三個短響聲代表：",
+    "options": [
+        { "label": "A. 提醒游泳者停止危險行為", "value": "A" },
+        { "label": "B. 緊急事件發生，需要進行緊急處理", "value": "B" },
+        { "label": "C. 吸引救生員同事的注意", "value": "C" },
+        { "label": "D. 泳池開放時間結束，要求游泳者上岸更衣", "value": "D" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "香港的社區中心泳池受哪一條規定的監管？",
+    "options": [
+        { "label": "A. 公共泳池規定", "value": "A" },
+        { "label": "B. 社區中心（公共泳池）規定", "value": "B" },
+        { "label": "C. 泳池規定", "value": "C" },
+        { "label": "D. 公共衛生和泳池規定", "value": "D" }
+    ],
+    "correctAnswer": "C"
+},
+{
+    "question": "在泳池管理中，謹慎責任（Duty of Care）應該包括：",
+    "options": [
+        { "label": "A. 對其他使用者的責任", "value": "A" },
+        { "label": "B. 提供合理的護理以預防意外", "value": "B" },
+        { "label": "C. 對可能發生的事件採取預防措施", "value": "C" },
+        { "label": "D. 包括以上所有項目", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "遇溺者的類別可以分為：",
+    "options": [
+        { "label": "A. 水性遇溺、乾性遇溺", "value": "A" },
+        { "label": "B. 水性遇溺、乾性遇溺、二次遇溺", "value": "B" },
+        { "label": "C. 水性遇溺、乾性遇溺、突然遇溺", "value": "C" },
+        { "label": "D. 水性遇溺、乾性遇溺、二次遇溺、突然遇溺", "value": "D" }
+    ],
+    "correctAnswer": "D"
+},
+{
+    "question": "泳池拯救行動的7個基本步驟，依次是發出警號，下水後的步驟是？",
+    "options": [
+        { "label": "A", "value": "拖救、接近溺者、移至安全地點、善後處理、登岸" },
+        { "label": "B", "value": "接近溺者、拖救、移至安全地點、登岸、善後處理" },
+        { "label": "C", "value": "移至安全地點、拖救、接近溺者、登岸、善後處理" },
+        { "label": "D", "value": "接近溺者、拖救、移至安全地點、善後處理、登岸" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "在救助纏繞的溺者時，救生員可以將救生浮標放在腋下的正確方法是？",
+    "options": [
+        { "label": "A", "value": "從溺者背後將雙手穿過腋下並向上拉起他們的肩膀" },
+        { "label": "B", "value": "從溺者胸部將雙手穿過腋下並向上拉起他們的肩膀" },
+        { "label": "C", "value": "從溺者背後將雙手穿過腋下並用力壓低他們，以便他們能鬆開" },
+        { "label": "D", "value": "從溺者胸部將雙手穿過腋下並用力壓低他們，以便他們能鬆開" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "使用救生浮標來救助昏迷且俯臥的溺者，救生員應該怎麼做？",
+    "options": [
+        { "label": "A", "value": "從溺者胸部將浮標穿過腋下並緊扣，保持浮標的軸線旋轉，使臉部露出水面" },
+        { "label": "B", "value": "從溺者背部將浮標穿過腋下並緊扣，保持浮標的軸線旋轉，使臉部露出水面" },
+        { "label": "C", "value": "從溺者背部將浮標穿過腋下並緊扣，旋轉溺者，使臉部露出水面" },
+        { "label": "D", "value": "所有上述方法都適用" }
+    ],
+    "correctAnswer": "B"
+},
+{
+    "question": "有效的救生掃描包括哪些類型？",
+    "options": [
+        { "label": "A", "value": "直線視覺與橫向視覺" },
+        { "label": "B", "value": "固定視覺與橫向視覺" },
+        { "label": "C", "value": "向上看與向下看" },
+        { "label": "D", "value": "快速視覺與慢速視覺" }
+    ],
+    "correctAnswer": "A"
+},
+{
+    "question": "以下哪一項不是掃描觀察的策略方法？",
+    "options": [
+        { "label": "A", "value": "計分" },
+        { "label": "B", "value": "報告進場人數" },
+        { "label": "C", "value": "追蹤" },
+        { "label": "D", "value": "組合分類" }
+    ],
+    "correctAnswer": "B"
+}
+    
+];
   function getAllQuestions() {
   return allQuestions;
 }
